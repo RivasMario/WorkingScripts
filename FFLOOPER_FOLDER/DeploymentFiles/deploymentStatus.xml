@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Items>
+  <UACDisabled complete="$true" retrys="0" MaxRetrys="2" />
+  <DomainJoined complete="$true" retrys="0" MaxRetrys="2" />
+  <AdminAccountsAdded complete="$true" retrys="0" MaxRetrys="2" />
+  <AutoLogin complete="$true" retrys="0" MaxRetrys="10" />
+  <FileSharing complete="$true" retrys="0" MaxRetrys="2" />
+  <RDPEnabled complete="$true" retrys="0" MaxRetrys="2" />
+  <FontSize complete="$true" retrys="0" MaxRetrys="2" />
+  <PowerConfig complete="$true" retrys="0" MaxRetrys="2" />
+  <AutoHide complete="$false" retrys="2" MaxRetrys="2" />
+  <WDPopup complete="$true" retrys="0" MaxRetrys="2" />
+  <PFX complete="$true" retrys="0" MaxRetrys="5" />
+  <StartUp complete="$true" retrys="0" MaxRetrys="5" />
+  <HudStart complete="$true" retrys="0" MaxRetrys="5" />
+</Items>
