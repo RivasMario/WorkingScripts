@@ -119,3 +119,93 @@ apt-get remove [name] = removes install not config file
 
 apt-get purge [name] = not only removes program but config files and their dependencies
 
+apt-get update = gets updates for programs on system
+
+apt-get upgrade / full-upgrade = must be root, and upgrades every package apt knows about on the system, takes time and space
+
+repositories servers that hold distributions of linux, have different softares that are not inherent to work with other distros,
+always stored in sources.list, add ubuntu repository to software package list so if not found in kali, it will look in ubuntu. Ubunut being more popular.
+
+/etc/apt/sources.list
+
+sudo nano /etc/apt/sources.list
+
+distros fivide repositories into separate categories, ubuntu breaks them out as below
+
+[main] contains supported open source software
+
+[universe] contains community-maintained open source software
+
+[multiverse] contains software restricted by copyright or other legal issues
+
+[restricted] contains proprietary device drivers
+
+[backports] contains packages from later releases
+
+[testing,experimental,unstable] not reccomended in list
+
+kali and ubuntu are built on debian and likely compatible
+to add java find a repository with it upload to the list
+
+GUI based software install tools no longer standard on Kali, can be added by commandline Synaptic and Gdebi
+
+apt-get install synaptic, use the gui to find packages
+
+using git to find community sourced projects and pulling them to your system, like bluediving a bluettoth hacking and pentesting suite
+
+git clone https://www.github.com/balle/bluediving.git
+
+git clone = clones repo to your system
+
+//Chapter 5 Controlling File and Directory Permissions
+
+Linux allows you to set limits read write and execute for particular or all users
+
+root = controls all,
+every new member is part of a logivcally designed group with appropriate permissions to complete task,  root is in root group
+
+Permissions levels,
+
+r to read file
+w to view and edit a file
+x permission to execute not specifically view or edit
+
+chown = change owner, 
+chown [user] /tmp/usersfile
+provide user you want to change owner of, then the file ownership path
+
+chgrp = changes ownership on groups
+chgrp [group] newIDS
+
+ls -l /usr/share/hashcat = checks who has the perms to folder
+
+1 - file type
+2 - permissions on the file for owner, groups , and users
+3 - number of links (more advanced)
+4 the owner of the file
+5 - size of files in bytes
+6 - when the file was created or modified last
+7 - name of the file
+
+1 - first character tells you file type [d] is directoy[-] is a file
+    all 3 characters represent permisions of owner, group and all users in order
+    if now letter but a dash that auth hasn't been given
+    all three verions are in the same 3 letter cluster
+
+chmod = changes permissions, only root or part of root group have this capability
+
+linux uses binary to represent on or off 1 or 0
+all creds on shows as 111, binary octal
+
+000 0 ---
+001 1 --x
+010 2 -w-
+011 3 -wx
+100 4 r--
+101 5 r-x
+110 6 rw-
+111 7 rwx
+
+all owner,group and user permissions are 777 one for each
+
+chmod 774 hashcat.hcstat
