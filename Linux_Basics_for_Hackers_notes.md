@@ -45,7 +45,20 @@ rm = removes file, exact name
 
 rmdir = only if empty add -r to remove it and all the contents insife
 
+rm -r [directory] removes directory in one go, very dangerous
+
 //Chapter 2 Text manipulation
+
+cat = poops out text, not like vim
+
+head = gets the top lines of file 
+add -20 for 20 lines
+
+tail= similar to head where last lines are popped out. helpful for manuals or specific info 
+
+nl= pops out file with line numbers to the left
+
+
 
 //Chapter 3
 
