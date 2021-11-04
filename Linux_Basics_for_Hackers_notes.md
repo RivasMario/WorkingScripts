@@ -47,7 +47,7 @@ rmdir = only if empty add -r to remove it and all the contents insife
 
 rm -r [directory] removes directory in one go, very dangerous
 
-//Chapter 2 Text manipulation
+//Chapter 2 Text manipulation]
 
 cat = poops out text, not like vim
 
@@ -58,8 +58,64 @@ tail= similar to head where last lines are popped out. helpful for manuals or sp
 
 nl= pops out file with line numbers to the left
 
+cat [file] | grep [syntax] = finds the files out put lines with the grep specific argument
 
+nl [file] | grep [argument] = gets lines with argument and numbered
 
-//Chapter 3
+tail -n+507 [file] | head -n + 6 | got to line 507, get the head of the new file, 6 lines
 
-//Chapter 4 Adding or removing software
+cat [file] | grep mysql
+sed s/mysql/MySQL/g [file] > file2.conf = s performs search /term to find / MySQL replacement value / g is for term globally / > then piped to a new file
+
+sed = stream editor
+
+sed s/mysql/MySQL/ [file] > [file].conf = replaces first occurence
+
+sed s/mysql/MYSQL/2 [file] > [file2] replaces second instance of occurence
+
+more [file] = displays file a page at a time
+
+less [file] = lets you scroll through file  and filter for terms, ,ore powerful than more
+"Less is more"
+add forward slash to start search then put argument
+
+//Chapter 3 Analyzing and Managing Networks
+
+ifconfig = examining active network interfaces
+
+iwconfig = for wireless network 
+
+ifconfig eth0 [ipaddress] = changes static ip address
+
+ifconfig eth0 [ipaddress] netmask 255.255.0.0 broadcast 192.168.1.255 = changes netmask and broadcast address in one action
+
+ifconfig eth0 down
+ifconfig eth0 hw ether  00:11:22:33:44:55
+ifconfig eth0 up = all has to be done as once as mac address is spoofed
+
+dhclient0 = requests a new ipaddress, because it's debian based
+
+dig hackers-arise.com ns = gathers dns server information and ns is short for nameserver
+
+dig [target] mx = mx switch is for targets mail servers 
+BIND = Berkeley Internet Name Domain, Linux based domain name server
+
+nano /etc/resolv.conf = set to local dns server by default
+
+echo "nameserver 8.8.8.8" > /etc/resolv.conf = echoes string nameserver and replaces it in the file, connects to googles dns
+
+best to local and follow it up with a public dns because the file queries them in succession
+
+sudo nano /etc/hosts = default only contains localhost
+addind 192.168.181.131[TAB]banfofamerica.com maps BOA.com to your local website. useful later for dnsspoof and ettercap
+
+//Chapter 4 Adding and removing software
+
+apt-cache search [argument] = checks if software package is already in repository
+
+apt-get install [name] = fetches and installs package
+
+apt-get remove [name] = removes install not config file
+
+apt-get purge [name] = not only removes program but config files and their dependencies
+
