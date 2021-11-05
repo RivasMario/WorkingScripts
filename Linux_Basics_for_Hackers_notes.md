@@ -209,3 +209,18 @@ all creds on shows as 111, binary octal
 all owner,group and user permissions are 777 one for each
 
 chmod 774 hashcat.hcstat
+
+UGO = user, group, and others for permission syntax
+
+chmod u,g,o -,+,= adding or removing perms
+
+chmod u-w hashcat.hcstat removes write feature from users account
+
+chmod u+x, o+x hashcat.hcstat
+
+linux whenever anything is downloaded gives it automatic perms of 666 or 777, you need to change before you execute
+
+chmod 766 [newtool] or chmod +x [newtool] assumes ypu mean yourself
+
+linux automatically assigns base permissions [666] for files and [777] for directories
+
