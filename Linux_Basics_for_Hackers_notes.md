@@ -224,3 +224,20 @@ chmod 766 [newtool] or chmod +x [newtool] assumes ypu mean yourself
 
 linux automatically assigns base permissions [666] for files and [777] for directories
 
+umask = unmask method, represents permissions on a file or dir
+
+umask method is subtracted from permissions automaically created when creation of file or directory occurs
+
+new files | new directories
+666          777                  linux base permissions
+-022         -022                 umask
+644          755                  resulting permissions
+
+umask 022 makes 666 to 644, Owner has read and write, group and other users only have read
+
+in Debian based systems like kali umask is preconfigured to 022 meaning default for files is 644 and 755 for dir
+
+each user can configure their umask value in <.profile> file
+sudo nano /home/kaliadmin/.profile
+
+Special permissions are for set user id (SUID) , set group id (SGID), sticky bit
