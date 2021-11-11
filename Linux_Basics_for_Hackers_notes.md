@@ -241,3 +241,14 @@ each user can configure their umask value in <.profile> file
 sudo nano /home/kaliadmin/.profile
 
 Special permissions are for set user id (SUID) , set group id (SGID), sticky bit
+
+users ususally need execute authority to run programs in linux but exceptions exist, like those to change your password which is stored in /etc/shadow file that houses all passwords. in such case you can grant temp auth privileges by setting [SUID] bit on the program
+
+SUID allows any user to execute that file with owner permissions and doesn't extend past the file
+
+SUID isn't a common task for a user but uf desited can be done by  [chmod 4644 [filename]]
+
+SGID grants temp access to elevetated permissions for owners group, SGID bit allows someone to execute file if they belong to the same group as owner
+
+SGID is started by 2, [chmod 2644 [filename]]
+
