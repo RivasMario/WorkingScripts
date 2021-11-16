@@ -3,3 +3,7 @@
 lsusb 
 
 free -m
+
+$PSScriptRoot
+
+PacketTracer software
