@@ -272,3 +272,9 @@ cd /usr/bin
 ls -l
 
 //Chapter  6 Process Management
+
+Linux has tons of processes running at any time managing anything on the server, apps, databases. You should know what to manage and find process and stop some (antivirus, firewall) and set a script to run to find processes running on the host. 
+
+Managing processes, running in background, prioritizing and killing them. And scheduling of processes to run on date/times.
+
+ps = command is the basic for finding processes 
