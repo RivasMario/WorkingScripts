@@ -254,4 +254,21 @@ SGID is started by 2, [chmod 2644 [filename]]
 
 Sticky Bit = a legacy permission bit originally used in legacy UNIX systems, allows a user to delete or rename files in a directory. modern linux systems ignore it
 
+# Special Permissions,Privilege Escalation, and the Hacker
 
+Privilege Escalation where a regular user gains root or sysadmin privileges and associated perms, root you hyave power
+
+SUID Bit is one avenue. sysadmin or developer might give a program access to files with root, can be used to get access top pwds at /etc/shadow
+
+find is more powerfull than locate or which but is more complicated in syntax
+
+find / -user root -perm -4000
+
+in find syntax looks at the top of file system /. -user switch looks through root user, suid permission bit set -per -4000
+
+outputs files that have suid bit set, navigate to /usr/bin
+
+cd /usr/bin
+ls -l
+
+//Chapter  6 Process Management
