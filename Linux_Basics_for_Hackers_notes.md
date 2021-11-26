@@ -278,3 +278,4 @@ Linux has tons of processes running at any time managing anything on the server,
 Managing processes, running in background, prioritizing and killing them. And scheduling of processes to run on date/times.
 
 ps = command is the basic for finding processes 
+
