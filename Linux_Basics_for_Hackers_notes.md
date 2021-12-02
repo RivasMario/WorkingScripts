@@ -254,4 +254,5 @@ SGID is started by 2, [chmod 2644 [filename]]
 
 Sticky Bit = a legacy permission bit originally used in legacy UNIX systems, allows a user to delete or rename files in a directory. modern linux systems ignore it
 
+//Chapter 6 Process Management
 
