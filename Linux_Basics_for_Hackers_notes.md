@@ -256,3 +256,23 @@ Sticky Bit = a legacy permission bit originally used in legacy UNIX systems, all
 
 //Chapter 6 Process Management
 
+ps = command to get processes
+
+Unique Process ID (PID) for each process
+running ps started/invoked
+
+ps aux shows all processes running for all users.
+
+first process is init, last process is command we ran to display ps aux
+
+USER : The user who invoked the process
+PID: The Process ID
+%CPU: The percent of CPU this process is using
+%MEM: The percent of memory this process is using
+COMMAND: Name of command that started process
+
+Filtering by process name: you dont want literally every process but a select few, to find the correct one we will use metasplot exploitation framework.
+
+msfconsole
+
+ps aus | grep msfconsole
