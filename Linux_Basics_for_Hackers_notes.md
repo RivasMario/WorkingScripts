@@ -254,6 +254,7 @@ SGID is started by 2, [chmod 2644 [filename]]
 
 Sticky Bit = a legacy permission bit originally used in legacy UNIX systems, allows a user to delete or rename files in a directory. modern linux systems ignore it
 
+<<<<<<< HEAD
 # Special Permissions,Privilege Escalation, and the Hacker
 
 Privilege Escalation where a regular user gains root or sysadmin privileges and associated perms, root you hyave power
@@ -278,4 +279,27 @@ Linux has tons of processes running at any time managing anything on the server,
 Managing processes, running in background, prioritizing and killing them. And scheduling of processes to run on date/times.
 
 ps = command is the basic for finding processes 
+=======
+//Chapter 6 Process Management
+>>>>>>> 411e1ae2ebbd402019e4e6dd221959b4e36f09fd
 
+ps = command to get processes
+
+Unique Process ID (PID) for each process
+running ps started/invoked
+
+ps aux shows all processes running for all users.
+
+first process is init, last process is command we ran to display ps aux
+
+USER : The user who invoked the process
+PID: The Process ID
+%CPU: The percent of CPU this process is using
+%MEM: The percent of memory this process is using
+COMMAND: Name of command that started process
+
+Filtering by process name: you dont want literally every process but a select few, to find the correct one we will use metasplot exploitation framework.
+
+msfconsole
+
+ps aus | grep msfconsole
