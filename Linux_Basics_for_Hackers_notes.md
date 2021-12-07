@@ -303,3 +303,4 @@ Filtering by process name: you dont want literally every process but a select fe
 msfconsole
 
 ps aus | grep msfconsole
+
