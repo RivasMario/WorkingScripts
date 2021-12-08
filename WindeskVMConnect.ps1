@@ -20,7 +20,7 @@ if ($VmDisplayStatus -eq "VM running")
     Write-Host "VM is running `n" -foregroundcolor green   
 
 }
-elseif ($VmDisplayStatus -eq "VM deallocated")
+elseif ($VmDisplayStatus -ne "VM running")
 {
     Write-Host "Vm is being Started `n" -foregroundcolor green 
     Start-AzVM -ResourceGroupName WINDESKRG -Name windeskvm01
