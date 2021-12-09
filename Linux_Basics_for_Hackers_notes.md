@@ -299,3 +299,6 @@ ps aux | grep msfconsole
 
 top = command gets the greediest processes running
 while in top pressing H or ? key will bring up a list of interactive commands, pressing Q will quit top
+
+Managing Processes
+
