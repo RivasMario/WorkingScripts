@@ -279,11 +279,6 @@ Linux has tons of processes running at any time managing anything on the server,
 Managing processes, running in background, prioritizing and killing them. And scheduling of processes to run on date/times.
 
 ps = command is the basic for finding processes 
-=======
-//Chapter 6 Process Management
->>>>>>> 411e1ae2ebbd402019e4e6dd221959b4e36f09fd
-
-ps = command to get processes
 
 Unique Process ID (PID) for each process
 running ps started/invoked
