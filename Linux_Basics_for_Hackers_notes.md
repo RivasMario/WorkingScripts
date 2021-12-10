@@ -301,4 +301,30 @@ top = command gets the greediest processes running
 while in top pressing H or ? key will bring up a list of interactive commands, pressing Q will quit top
 
 Managing Processes
+Hackers run multiple jobs at the same time. Learning how to manage them is critcal
+
+Changing Process Priority with nice
+
+nice = uses nice to suggest to kernel priority of proceses running 
+"how nice you are to other users on the system, by using or not most of the resources" 
+
+the values range from -20 to +19, high nice value is good to other users, low nice value is not nice to others
+
+value of process is inherited by parent process, owner/user of process can lower priority but not increase. only root/superusers can set arbitrary nice value
+
+nice command increments value
+renice wants and absolute value for niceness
+
+nice -n -10 /bin/slowprocess
+nice -n 10 /bin/slowprocess
+
+renice = changes nice level to specific level, requires process PID
+
+renice 20 6996
+
+like nice any user can give a process a lower priority, only root can give it a higher priority
+
+you can use top to change priority as well by pressing R and providing nice value with PID
+
+Killing Processes
 
