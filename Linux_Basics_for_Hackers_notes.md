@@ -298,7 +298,3 @@ Filtering by process name: you dont want literally every process but a select fe
 msfconsole
 
 ps aus | grep msfconsole
-
-!!!!change from vscode on SAW
-
-1qazxsw2
