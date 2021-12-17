@@ -298,3 +298,7 @@ Filtering by process name: you dont want literally every process but a select fe
 msfconsole
 
 ps aus | grep msfconsole
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1b0e3c513df7b76453a9fe9886d2fb370b7fcaa
