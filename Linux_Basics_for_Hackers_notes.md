@@ -299,9 +299,3 @@ msfconsole
 
 ps aus | grep msfconsole
 
-<<<<<<< HEAD
-=======
-!!!!change from vscode on SAW
-
-1qazxsw2
->>>>>>> e509bfb6f0a36e7f285f0416a0689ac013991ccc
