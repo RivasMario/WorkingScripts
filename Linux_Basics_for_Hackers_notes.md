@@ -254,9 +254,31 @@ SGID is started by 2, [chmod 2644 [filename]]
 
 Sticky Bit = a legacy permission bit originally used in legacy UNIX systems, allows a user to delete or rename files in a directory. modern linux systems ignore it
 
-//Chapter 6 Process Management
+<<<<<<< HEAD
+# Special Permissions,Privilege Escalation, and the Hacker
 
-ps = command to get processes
+Privilege Escalation where a regular user gains root or sysadmin privileges and associated perms, root you hyave power
+
+SUID Bit is one avenue. sysadmin or developer might give a program access to files with root, can be used to get access top pwds at /etc/shadow
+
+find is more powerfull than locate or which but is more complicated in syntax
+
+find / -user root -perm -4000
+
+in find syntax looks at the top of file system /. -user switch looks through root user, suid permission bit set -per -4000
+
+outputs files that have suid bit set, navigate to /usr/bin
+
+cd /usr/bin
+ls -l
+
+//Chapter  6 Process Management
+
+Linux has tons of processes running at any time managing anything on the server, apps, databases. You should know what to manage and find process and stop some (antivirus, firewall) and set a script to run to find processes running on the host. 
+
+Managing processes, running in background, prioritizing and killing them. And scheduling of processes to run on date/times.
+
+ps = command is the basic for finding processes 
 
 Unique Process ID (PID) for each process
 running ps started/invoked
@@ -277,3 +299,9 @@ msfconsole
 
 ps aus | grep msfconsole
 
+<<<<<<< HEAD
+=======
+!!!!change from vscode on SAW
+
+1qazxsw2
+>>>>>>> e509bfb6f0a36e7f285f0416a0689ac013991ccc
