@@ -278,6 +278,11 @@ Linux has tons of processes running at any time managing anything on the server,
 
 Managing processes, running in background, prioritizing and killing them. And scheduling of processes to run on date/times.
 
+<<<<<<< HEAD
+=======
+ps = command is the basic for finding processes 
+
+>>>>>>> 84c9ee51b227a1141a8774bd84889cc1449db229
 Unique Process ID (PID) for each process
 running ps started/invoked
 
@@ -295,6 +300,7 @@ Filtering by process name: you dont want literally every process but a select fe
 
 msfconsole
 
+<<<<<<< HEAD
 ps aux | grep msfconsole
 
 top = command gets the greediest processes running
@@ -328,3 +334,6 @@ you can use top to change priority as well by pressing R and providing nice valu
 
 Killing Processes
 
+=======
+ps aus | grep msfconsole
+>>>>>>> 84c9ee51b227a1141a8774bd84889cc1449db229
