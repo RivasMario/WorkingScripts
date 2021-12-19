@@ -380,5 +380,5 @@ at now + 20 minutes
 
 when entered at comand it goes interactive and allows you to enter a path for a script
 
-//Chaptrer 7 Managing Uer Envrironment Variables
+//Chapter 7 Managing User Envrironment Variables
 
