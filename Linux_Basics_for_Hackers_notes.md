@@ -331,8 +331,54 @@ like nice any user can give a process a lower priority, only root can give it a 
 
 you can use top to change priority as well by pressing R and providing nice value with PID
 
-Killing Processes
-
 ps aus | grep msfconsole
 
+Killing Processes
+
+zombie process = frozen or taking to many resources
+
+kill = used to stop processes, 64 kill signals  each does something different
+
+kill-signal PID, signal switch optional, no switch defaults to SIGTERM
+
+SIGNAL NAME | NUMBER | DESCRIPTION
+
+SIGHUP        1         HANGUP (HUP) Signal stops process and restarts with same PID
+SIGINT        2         INTERRUPT (INT) weak kill signal, not guranteed, most cases
+SIGQUIT       3         CORE DUMP stops proces saves info in memory, incurrentdirectoryto core
+SIGTERM       15        TERMINATION (TERM) default kill signal
+SIGKILL       9         absolute kill signal, forces to stop by sending resources to a special device /dev/null
+
+kill -1 6996
+basic restart of process
+
+kill -9 6996
+absolute kill for zombie processes
+
+killall -9 zombieprocess
+
+you can terminate processes in top command, Press [K] then enter PID of process
+
+Running Processes in the Background
+
+leafpad newscript &
+and allows command to execute and a new prompt to appear
+
+fg 1234 = fg command moves a process to the foreground with the PID
+
+Sheduling Processes
+
+at and crond command are for scheduling
+ at command isa a daemin , background process useful for tasks in the future, diferent times
+
+crond command is useful for recurring commands, daily, weekly
+
+at 7:20PM
+at 7:20pm June 25
+at tomorrow
+at now + 20 minutes
+
+when entered at comand it goes interactive and allows you to enter a path for a script
+
+//Chaptrer 7 Managing Uer Envrironment Variables
 
