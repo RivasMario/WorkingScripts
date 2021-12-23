@@ -382,3 +382,8 @@ when entered at comand it goes interactive and allows you to enter a path for a 
 
 //Chapter 7 Managing User Envrironment Variables
 
+environment variables come in different types
+
+shell: lowercase, only valid in shell in currently,
+environment: system wide variables built into system that control way system looks acts and feels, inherited by shell or processes
+variables: key value pairs, key=value1:value2, if spaces need to be in quotes
