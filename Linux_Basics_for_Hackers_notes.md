@@ -388,3 +388,30 @@ shell: lowercase, only valid in shell in currently,
 environment: system wide variables built into system that control way system looks acts and feels, inherited by shell or processes
 variables: key value pairs, key=value1:value2, if spaces need to be in quotes
 
+env: gets environment variables on server, always uppercase, can be created
+
+set = gets all variables , shell local environment. will pump out an unreadable long line
+
+set | more = a more accessible format
+
+set | grep HITSIZE
+
+HISTSIZE keeps past commands up to whatever the numbers are
+
+export command vcariables
+
+HISTSIZE = 0
+
+echo $HISTSIZE> ~/valueofHISTSIZE.txt
+
+set> ~/valueofALLon122521.txt
+
+export HISTSIZE = HISTIZE set to 0 when leaving environment
+
+HISTSIZE=1000
+export HISTSIZE
+
+first sets variable to 1000, second sets to all environments
+
+\\CHANGING YOUR SHELL PROMPT\\
+
