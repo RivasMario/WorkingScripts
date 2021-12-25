@@ -2,7 +2,7 @@ cd "C:\Users\V-MARIORIVAS\Work Folders\Desktop\KaliLinux"
 
 Connect-AzAccount 
 
-Select-AzSubscription -Subscription 851a47f9-7201-4e7e-aecd-09ce41c0a124 -Name "ResumeChallenge" 
+Select-AzSubscription -Subscription 851a47f9-7201-4e7e-aecd-09ce41c0a124 -Name "ResumeChallenge" -Force
 
 $VmStatus = Get-AzVM -ResourceGroupName virtual_machine_rg -Name kalilinuxlearning -Status
 
