@@ -387,3 +387,4 @@ environment variables come in different types
 shell: lowercase, only valid in shell in currently,
 environment: system wide variables built into system that control way system looks acts and feels, inherited by shell or processes
 variables: key value pairs, key=value1:value2, if spaces need to be in quotes
+

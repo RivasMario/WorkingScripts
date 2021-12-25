@@ -1,8 +1,9 @@
-cd "C:\Users\V-MARIORIVAS\Work Folders\Desktop\PublicSecurity"
+#cd "C:\Users\V-MARIORIVAS\Work Folders\Desktop\PublicSecurity"
 
 Connect-AzAccount 
 
 Select-AzSubscription -Subscription 851a47f9-7201-4e7e-aecd-09ce41c0a124 -Name "ResumeChallenge" -Force
+
 $VmStatus = Get-AzVM -ResourceGroupName WINDESKRG -Name windeskvm01 -Status
 
 #$VmStatus
@@ -43,10 +44,9 @@ $CurrentConnectionStatus = netstat -ano | Where-Object { $_ -match $VMIPAddress}
 
 Write-Host "Getting NetStat information `n"
 
-$CurrentConnectionStatusBoolean = $null
-
-$CurrentConnectionStatusBoolean = if ($CurrentConnectionStatus) { 'True' } else { 'False' }
-
+#expression check if connection is established
+$CurrentConnectionStatusBoolean = if ($CurrentConnectionStatus.P5 -eq "ESTABLISHED") {"True"} else {"False"}
+ 
 Write-Host "Determing if connection is active `n"
 
 if ($CurrentConnectionStatusBoolean -eq "True")
@@ -63,8 +63,6 @@ elseif ($CurrentConnectionStatusBoolean -eq "False")
     cmdkey /delete:"$VMIPAddress"
 }
 
-
 #netstat -n | find "$VMIPAdress" | find "ESTABLISHED"
-
 #netstat -ano | findstr ":3389"
 
