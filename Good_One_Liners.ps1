@@ -1,5 +1,5 @@
 ﻿Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(]z-lib.org[])]", ""}
-﻿Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(z-lib.org)]", ""}
+Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(z-lib.org)]", ""}
 
 lsusb 
 
