@@ -1,4 +1,4 @@
-cd "C:\Users\V-MARIORIVAS\Work Folders\Desktop\KaliLinux"
+#cd "C:\Users\V-MARIORIVAS\Work Folders\Desktop\KaliLinux"
 
 Connect-AzAccount 
 
