@@ -449,3 +449,23 @@ These are the directories where your terminal will search for any command. When 
 
 \\Adding to the Path Variable\\
 
+if you downloaded a new tool, you have to be in the directory to use that tool, if outside and try to use the commands it wont work because it is now in $PATH
+
+PATH=$PATH:/root/newhackingtool
+
+echo $PATH
+/usr/local/sbin:usr/local/bin:/usr/sbin:/sbin/bin:/root/newhackingtool
+shows new tool at end of string
+
+good for directories you use often, but if you add to many it will take a while for the system to search through every one, and slow you down
+
+\\How Not to Add to the PATH Variable\\
+
+PATH=/root/newhackingtool
+echo $PATH
+/root/newhackingtool
+
+completely wipes it
+if you cd. it will say command not found, you need to append. save before apending if unsure
+
+\\CREATING A USER-DEFINED VARIABLE\\
