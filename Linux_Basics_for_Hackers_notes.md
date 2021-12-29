@@ -415,3 +415,37 @@ first sets variable to 1000, second sets to all environments
 
 \\CHANGING YOUR SHELL PROMPT\\
 
+default shell in kali 
+
+username@hostname:current_directory
+
+if root 
+
+root@kali:current_directory
+
+change name in default shell by setting valie for PS1 variable, has a placeholders for information you want to display in prompt
+
+\u name of current user
+\h hostname
+\w base name of current working directory
+useful if shell on multiple systems, can differentiate easily
+
+PS1 = "World's best Hacker: #"
+only holds for terminal session, you need to export to make permanent
+
+export PS1
+
+mke it look like a windows terminal
+export PS1='C:\w '
+
+\\Changing your Path\\
+
+PATH variable, most are located in sbin or bin, /usr/local/sbin or /usr/local/bin , if bash tries to pull a command not stored there it will bring back command not found, even if it is stored in another directory
+
+echo $PATH = say what the PATH variable is 
+/usr/local/sbin:usr/local/bin:/usr/sbin:/sbin/bin
+
+These are the directories where your terminal will search for any command. When you enter ls, for example, the system knows to look in each of these directories for the ls command, and when it finds ls, the system executes it. Each directory is separated by a colon (:), and don’t forget to add the $content symbol to PATH.
+
+\\Adding to the Path Variable\\
+
