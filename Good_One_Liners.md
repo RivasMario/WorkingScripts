@@ -1,16 +1,4 @@
-﻿#!
-sudo passwd 
-sudo passwd root
-sudo nano /etc/hostname
-sudo nano /etc/hosts
-sudo reboot 
-sudo nano /etc/dhcpcd.conf
-sudo usermod -l newUsername oldUsername
-sudo usermod -d /home/newHomeDir -m newUsername
-
-
-
-Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(]z-lib.org[])]", ""}
+﻿Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(]z-lib.org[])]", ""}
 Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(z-lib.org)]", ""}
 
 lsusb 
