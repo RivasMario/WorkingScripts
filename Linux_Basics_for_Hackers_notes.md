@@ -449,3 +449,14 @@ These are the directories where your terminal will search for any command. When 
 
 \\Adding to the Path Variable\\
 
+\\Creating a User-Defined Variable\\
+
+MYNEWVARIABLE="HACKING IS A GREAT SKILL"
+assisgns string variable to MYNEWVARIABLE
+echo $MYNEWVARIABLE
+>HACKING IS A GREAT SKILL
+
+think before unsetting environment variables
+unset $MYNEWVARIABLE
+echo $MYNEWVARIABLE
+> [no return]
