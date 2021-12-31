@@ -449,6 +449,7 @@ These are the directories where your terminal will search for any command. When 
 
 \\Adding to the Path Variable\\
 
+<<<<<<< HEAD
 if you downloaded a new tool, you have to be in the directory to use that tool, if outside and try to use the commands it wont work because it is now in $PATH
 
 PATH=$PATH:/root/newhackingtool
@@ -469,3 +470,16 @@ completely wipes it
 if you cd. it will say command not found, you need to append. save before apending if unsure
 
 \\CREATING A USER-DEFINED VARIABLE\\
+=======
+\\Creating a User-Defined Variable\\
+
+MYNEWVARIABLE="HACKING IS A GREAT SKILL"
+assisgns string variable to MYNEWVARIABLE
+echo $MYNEWVARIABLE
+>HACKING IS A GREAT SKILL
+
+think before unsetting environment variables
+unset $MYNEWVARIABLE
+echo $MYNEWVARIABLE
+> [no return]
+>>>>>>> 5fe00be93c140060b0fa516d962c865687a6b5f5
