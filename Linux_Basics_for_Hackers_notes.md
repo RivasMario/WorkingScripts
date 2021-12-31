@@ -470,8 +470,6 @@ completely wipes it
 if you cd. it will say command not found, you need to append. save before apending if unsure
 
 \\CREATING A USER-DEFINED VARIABLE\\
-=======
-\\Creating a User-Defined Variable\\
 
 MYNEWVARIABLE="HACKING IS A GREAT SKILL"
 assisgns string variable to MYNEWVARIABLE
@@ -482,4 +480,87 @@ think before unsetting environment variables
 unset $MYNEWVARIABLE
 echo $MYNEWVARIABLE
 > [no return]
->>>>>>> 5fe00be93c140060b0fa516d962c865687a6b5f5
+
+//Chapter 8 BASH SCRIPTING
+
+Scripts are necessary for hacking
+Ruby(metasploi exploits are wtitten in Ruby)
+Python (many hacking tools are in python)
+Perl (best text manipulation scripting language)
+
+\\Crash course in Bash\\
+
+ a shell is an interface between the user and the OS, enables you to manipulate files and run commands, utilities, programs and more.
+ Korn shell, Z shell and C Shell, And Bourne-again shell = BASH
+Bash is most used on all Linux distros
+
+cd, pwd, set, umask, echo, read
+
+vi, vim, emacs, gedit, kate, leafpad text editors
+
+\\First Script: "Hello, Hackers-Arise!"\\
+
+shebang is first line indicates which interpreter you want to use for script, bash is noted by bin bash, you can do the same with python or perl in its space
+
+#! /bin/bash
+
+#comment
+ echo "Hello, Hackers-Arise!"
+
+save HelloHackersArise with no extention and exit text editor
+
+ls -l
+
+-wr-r-r--- (644)
+
+chmod 755 HelloHackersArise (755) execute and read write permissions
+
+ls-l
+-rwx-r-x r-x
+ ./HelloHackersArise to execute shell script
+
+.\ make sit look in the current directory and not run any in another
+
+\\Adding Functionality with Variables and User Input\\
+
+#! /bin/bash
+
+echo "What is your name?"
+
+read name
+
+echo "What chapter are you on in Linux Basics for Hackers?"
+
+read chapter
+
+echo "Welcome" $name "to Chapter" $chapter" "of Linux Basics for Hackers!"
+
+save as WelcomeScript.sh, file will save as shell script by defaule
+
+dont forget chmod 755 [filename]
+
+\\Very First Hcker Script:Scan for open ports\\
+
+nmap = scan for open ports
+nmap <type of scan> <target ip> <optionally, target port>
+
+simplest is the TCP connect scan, designated with -sT witch in nmap. 
+
+nmap -ST 192.168.181.1
+
+nmap -sT 192.168.181.1 -p 3306
+ 
+ >>A simple scanner
+
+#! /bin/bash
+
+#This script is designed to find hosts with MySQL installed
+ 
+nmap -sT 192.168.181.0/24 -p 3306 >/dev/null -oG MySQLscan
+
+cat MySQLscan | grep opem > MySQLscan2
+
+cat MySQLscan2
+
+
+save change execution and run
