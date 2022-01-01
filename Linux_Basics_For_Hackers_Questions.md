@@ -74,15 +74,47 @@ text editor and then schedule it to run next Wednesday at 1 AM.
 7 MANAGING USER ENVIRONMENT VARIABLES
 
 1. View all of your environment variables with the morecommand.
+
+env | more
+
 2. Use the echocommand to view the HOSTNAMEvariable.
+
+echo $HOSTNAME
 3. Find a method to change the slash (/) to a backslash (\) in the fauxMicrosoft cmdPS1example (see Listing 7-2).
+
+home_mf="${home//\\//}"
+
+This breaks up as follows:
+    // replace every
+    \\ backslash
+    / with
+    / slash
+
+Demonstration:
+
+$ t='\a\b\c'; echo "${t//\\//}"
+/a/b/c
+
 4. Create a variable named MYNEWVARIABLEand put your name in it.
-5. Use echoto view the contents of MYNEWVARIABLE.
+ MYNEWVARIABLE = "MARIO"
+
+
+5. Use echo to view the contents of MYNEWVARIABLE.
+ echo $MYNEWVARIABLE
+
 6. Export MYNEWVARIABLEso that it’s available in all environments.
+export $MYNEWVARIABLE
+
 7. Use the echocommand to view the contents of the PATHvariable.
-8. Add your home directory to the PATHvariable so that any binaries in
-your home directory can be used in any directory.
+echo $PATH
+
+8. Add your home directory to the PATHvariable so that any binaries in your home directory can be used in any directory.
+PATH=$PATH:/usr/home
+
 9. Change your PS1variable to “World’sGreatestHacker:”.
+
+PS1="World's Greatest Hacker:"
+export $PS1
 
 8 BASH SCRIPTING
 
