@@ -497,7 +497,7 @@ Bash is most used on all Linux distros
 cd, pwd, set, umask, echo, read
 
 vi, vim, emacs, gedit, kate, leafpad text editors
-
+===========================================
 \\First Script: "Hello, Hackers-Arise!"\\
 
 shebang is first line indicates which interpreter you want to use for script, bash is noted by bin bash, you can do the same with python or perl in its space
@@ -520,6 +520,7 @@ ls-l
  ./HelloHackersArise to execute shell script
 
 .\ make sit look in the current directory and not run any in another
+=======================================================
 
 \\Adding Functionality with Variables and User Input\\
 
@@ -538,6 +539,7 @@ echo "Welcome" $name "to Chapter" $chapter" "of Linux Basics for Hackers!"
 save as WelcomeScript.sh, file will save as shell script by defaule
 
 dont forget chmod 755 [filename]
+========================================================
 
 \\Very First Hcker Script:Scan for open ports\\
 
@@ -562,5 +564,131 @@ cat MySQLscan | grep opem > MySQLscan2
 
 cat MySQLscan2
 
-
 save change execution and run
+
+=============================
+
+not just local but prompt users for ip ranges
+
+#!/bin/bash
+
+echo "Enter the starting Ip Address:"
+read FirstOcteIP
+
+echo "Enter the last octet of the last IP address : "
+read LastOctetIP
+
+echo "Enter the port number you want to can for : "
+read port
+
+nmap -sT $FirstIP-$LastOcteIP -p $port > /dev/null -oG MySQLscan
+
+cat MySQLScan | grep open > MySQLscan2
+
+cat MySQLscan2
+
+last octet is the last 3 numbers
+
+
+==============================
+Built in Bash commands
+CommandFunction
+
+:           Returns 0or true
+.           Executes a shell script
+bg          Puts a job in the background
+break       Exits the current loop
+cd          Changes directory
+continue    Resumes the current loop
+echo        Displays the command arguments
+eval        Evaluates the following expression
+exec        Executes the following command without creating a new process
+exit        Quits the shell
+export      Makes a variable or function available to other programs
+fg          Brings a job to the foreground
+getopts     Parses arguments to the shell script
+jobs        Lists background (bg) jobs
+pwd         Displays the current directory
+read        Reads a line from standard input
+readonly    Declares as variable as read-only
+set         Lists all variables
+shift       Moves the parameters to the left
+test        Evaluates arguments
+[           Performs a conditional test
+times       Prints the user and system times
+trap        Traps a signal
+type        Displays how each argument would be interpreted as a command
+umask       Changes the default permissions for a new file
+unset       Deletes values from a variable or function
+wait        Waits for a background process to complete
+
+\\Chapter 9 COMPRESSING AND ARCHIVING
+
+compression mnakes data smaller, les storage easier to transit
+
+lossy= less size of files but integrity lost, file after not exactly the same, good for graphics audio .mp3, .mp4, .png , jpg. not acceptable for files or software. 
+
+compressing files first thing to do is send them to an archive, 
+
+tar command, tape archive. single file from many, tarball, archive 
+
+tar -cvf HackersArise.tar hackersarise1 hackersarise2 hackersarise3
+
+-cvf = c means create, v verbose lists files tar is dealing with, f means write to following file.
+
+tar uses overhead to operate and will be sum of files +, less significant size bigger files selected to convert
+
+-t switch on tar is list content
+
+tar -tvf hackersArise.tar
+
+-x extract
+
+tar -xvf HackersArise.tar
+
+by default if extracted file already exists tar will replace it in the folder
+
+\\Compressing Files\\
+
+gzip, uses .tar.gz or .tgz
+bzip2 uses .tar.bz2
+compress uses .tar.z
+
+compress is usually fastest but files are bigger, bzip2 slowest but smaller files, gzip in between
+
+\\Compressing with gzip\\
+
+gzip = GNU zip
+gzip HackersArise.*
+
+any file beginning with hackersArize and any file type
+
+gunzip HackersArise.*
+gzip can extract .zip files as well
+
+\\Compressing with Bzip2\\
+
+bzip2 HackersArise.*
+
+bunzip2 HackersArise.*
+
+\\Compressing with Compress\\
+
+compress HackersArise.*
+HackersArise.tar.Z
+
+uncompress HackersArise.*
+
+\\Creating Bit-by-Bit or Physical copies of Storage Devices\\
+
+dd makes a but-by-bit copy of a file, fileystem or entire drive, even deleted files, deleted files are not copied with cp. very slow, copy without filesystem or logical structures
+
+dd if=inputfile of=outputfile
+
+dd if=/dev/sdb of=/root/flashcopy assumes flash is sdb
+noerror continues to copy even if errors occur
+bs block size =  default 512, bytes written pre block, sector size of device, most often 4kb 4096 bytes
+
+dd if=/dev/media of=/root/flashcopy bs=4096 cov:noerror
+
+\\Chapter 10 FILESYSTEM AND STORAGE DEVICE MANAGEMENT

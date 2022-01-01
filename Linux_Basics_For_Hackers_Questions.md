@@ -120,28 +120,78 @@ export $PS1
 
 1. Create your own greeting script similar to our HelloHackersArise
 script.
+#! /bin/bash
+
+greeting = "Hello Mario"
+echo $greeting
+
 2. Create a script similar to MySQLscanner.sh but design it to find
 systems with Microsoft’s SQL Server database at port 1433. Call it
 MSSQLscanner.
+
+#! /bin/bash
+
+#This script is designed to find hosts with MsSQL installed
+ 
+nmap -sT 192.168.181.0/24 -p 1433 >/dev/null -oG MsSQLscan
+
+cat MsSQLscan | grep open > MsSQLscan2
+
+cat MsSQLscan2
+
 3. Alter that MSSQLscanner script to prompt the user for a starting and
 ending IP address and the port to search for. Then filter out all the
 IP addresses where those ports are closed and display only those that
 are open.
 
+#! /bin/bash
+
+echo "Enter the starting Ip Address:"
+read FirstOcteIP
+
+echo "Enter the last octet of the last IP address : "
+read LastOctetIP
+
+echo "Enter the port number you want to can for : "
+read port
+
+nmap -sT $FirstIP-$LastOcteIP -p $port > /dev/null -oG MsSQLscan
+
+cat MsSQLscan | grep open > MsSQLscan2
+
+cat MsSQLscan2
+
 9 COMPRESSING AND ARCHIVING
 
 1. Create three scripts to combine, similar to what we did in Chapter
-8. Name them Linux4Hackers1, Linux4Hackers2, and
+8, Name them Linux4Hackers1, Linux4Hackers2, and
 Linux4Hackers3.
+touch Linux4Hackers{01..03}.sh
+
 2. Create a tarball from these three files. Name the tarball L4H. Note
 how the size of the sum of the three files changes when they are
 tarred together.
+tar -cvf L4H.tar Linux4Hackers1.sh Linux4Hackers2.sh Linux4Hackers3.sh
+
 3. Compress the L4H tarball with gzip. Note how the size of the file
 changes. Investigate how you can control overwriting existing files.
 Now uncompress the L4H file.
+
+gzip L4H.*
+gunzip L4H.*
+
 4. Repeat Exercise 3 using both bzip2and compress.
+
+bzip2 L4H.*
+bunzip L4H.*
+
+compress L4H.*
+uncompress L4H.*
+
 5. Make a physical, bit-by-bit copy of one of your flash drives using the
 ddcommand.
+
+dd if=/dev/media of/roor/flashcopy bs=4096 conv=noerror
 
 10 FILESYSTEM AND STORAGE DEVICE MANAGEMENT
 

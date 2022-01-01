@@ -1,8 +1,8 @@
-#!
+#! /bin/bash
 
 sdo apt-get update
 sudo apt-get upgrade
-sudo install full-upgrade -y
+sudo apt full-upgrade -y
 
 sudo passwd 
 sudo passwd root
