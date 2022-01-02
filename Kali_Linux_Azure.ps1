@@ -1,4 +1,4 @@
-#cd "C:\Users\V-MARIORIVAS\Work Folders\Desktop\KaliLinux"
+cd "C:\Users\V-MARIORIVAS\Work Folders\Desktop\PublicSecurity"
 
 Connect-AzAccount 
 
@@ -40,4 +40,4 @@ $SshInput
 
 #Test-Connection -ComputerName kalilinuxlearning
 
-plink.exe -i "C:\Users\V-MARIORIVAS\Work Folders\Desktop\KaliLinux\kalilinuxlearning.ppk" -ssh $SshInput
+plink.exe -i "C:\Users\V-MARIORIVAS\Work Folders\Desktop\PublicSecurity\kalilinuxlearning.ppk" -ssh $SshInput

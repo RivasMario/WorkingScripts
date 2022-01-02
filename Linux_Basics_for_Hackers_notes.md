@@ -415,3 +415,280 @@ first sets variable to 1000, second sets to all environments
 
 \\CHANGING YOUR SHELL PROMPT\\
 
+default shell in kali 
+
+username@hostname:current_directory
+
+if root 
+
+root@kali:current_directory
+
+change name in default shell by setting valie for PS1 variable, has a placeholders for information you want to display in prompt
+
+\u name of current user
+\h hostname
+\w base name of current working directory
+useful if shell on multiple systems, can differentiate easily
+
+PS1 = "World's best Hacker: #"
+only holds for terminal session, you need to export to make permanent
+
+export PS1
+
+mke it look like a windows terminal
+export PS1='C:\w '
+
+\\Changing your Path\\
+
+PATH variable, most are located in sbin or bin, /usr/local/sbin or /usr/local/bin , if bash tries to pull a command not stored there it will bring back command not found, even if it is stored in another directory
+
+echo $PATH = say what the PATH variable is 
+/usr/local/sbin:usr/local/bin:/usr/sbin:/sbin/bin
+
+These are the directories where your terminal will search for any command. When you enter ls, for example, the system knows to look in each of these directories for the ls command, and when it finds ls, the system executes it. Each directory is separated by a colon (:), and don’t forget to add the $content symbol to PATH.
+
+\\Adding to the Path Variable\\
+
+<<<<<<< HEAD
+if you downloaded a new tool, you have to be in the directory to use that tool, if outside and try to use the commands it wont work because it is now in $PATH
+
+PATH=$PATH:/root/newhackingtool
+
+echo $PATH
+/usr/local/sbin:usr/local/bin:/usr/sbin:/sbin/bin:/root/newhackingtool
+shows new tool at end of string
+
+good for directories you use often, but if you add to many it will take a while for the system to search through every one, and slow you down
+
+\\How Not to Add to the PATH Variable\\
+
+PATH=/root/newhackingtool
+echo $PATH
+/root/newhackingtool
+
+completely wipes it
+if you cd. it will say command not found, you need to append. save before apending if unsure
+
+\\CREATING A USER-DEFINED VARIABLE\\
+
+MYNEWVARIABLE="HACKING IS A GREAT SKILL"
+assisgns string variable to MYNEWVARIABLE
+echo $MYNEWVARIABLE
+>HACKING IS A GREAT SKILL
+
+think before unsetting environment variables
+unset $MYNEWVARIABLE
+echo $MYNEWVARIABLE
+> [no return]
+
+//Chapter 8 BASH SCRIPTING
+
+Scripts are necessary for hacking
+Ruby(metasploi exploits are wtitten in Ruby)
+Python (many hacking tools are in python)
+Perl (best text manipulation scripting language)
+
+\\Crash course in Bash\\
+
+ a shell is an interface between the user and the OS, enables you to manipulate files and run commands, utilities, programs and more.
+ Korn shell, Z shell and C Shell, And Bourne-again shell = BASH
+Bash is most used on all Linux distros
+
+cd, pwd, set, umask, echo, read
+
+vi, vim, emacs, gedit, kate, leafpad text editors
+===========================================
+\\First Script: "Hello, Hackers-Arise!"\\
+
+shebang is first line indicates which interpreter you want to use for script, bash is noted by bin bash, you can do the same with python or perl in its space
+
+#! /bin/bash
+
+#comment
+ echo "Hello, Hackers-Arise!"
+
+save HelloHackersArise with no extention and exit text editor
+
+ls -l
+
+-wr-r-r--- (644)
+
+chmod 755 HelloHackersArise (755) execute and read write permissions
+
+ls-l
+-rwx-r-x r-x
+ ./HelloHackersArise to execute shell script
+
+.\ make sit look in the current directory and not run any in another
+=======================================================
+
+\\Adding Functionality with Variables and User Input\\
+
+#! /bin/bash
+
+echo "What is your name?"
+
+read name
+
+echo "What chapter are you on in Linux Basics for Hackers?"
+
+read chapter
+
+echo "Welcome" $name "to Chapter" $chapter" "of Linux Basics for Hackers!"
+
+save as WelcomeScript.sh, file will save as shell script by defaule
+
+dont forget chmod 755 [filename]
+========================================================
+
+\\Very First Hcker Script:Scan for open ports\\
+
+nmap = scan for open ports
+nmap <type of scan> <target ip> <optionally, target port>
+
+simplest is the TCP connect scan, designated with -sT witch in nmap. 
+
+nmap -ST 192.168.181.1
+
+nmap -sT 192.168.181.1 -p 3306
+ 
+ >>A simple scanner
+
+#! /bin/bash
+
+#This script is designed to find hosts with MySQL installed
+ 
+nmap -sT 192.168.181.0/24 -p 3306 >/dev/null -oG MySQLscan
+
+cat MySQLscan | grep opem > MySQLscan2
+
+cat MySQLscan2
+
+save change execution and run
+
+=============================
+
+not just local but prompt users for ip ranges
+
+#!/bin/bash
+
+echo "Enter the starting Ip Address:"
+read FirstOcteIP
+
+echo "Enter the last octet of the last IP address : "
+read LastOctetIP
+
+echo "Enter the port number you want to can for : "
+read port
+
+nmap -sT $FirstIP-$LastOcteIP -p $port > /dev/null -oG MySQLscan
+
+cat MySQLScan | grep open > MySQLscan2
+
+cat MySQLscan2
+
+last octet is the last 3 numbers
+
+
+==============================
+Built in Bash commands
+CommandFunction
+
+:           Returns 0or true
+.           Executes a shell script
+bg          Puts a job in the background
+break       Exits the current loop
+cd          Changes directory
+continue    Resumes the current loop
+echo        Displays the command arguments
+eval        Evaluates the following expression
+exec        Executes the following command without creating a new process
+exit        Quits the shell
+export      Makes a variable or function available to other programs
+fg          Brings a job to the foreground
+getopts     Parses arguments to the shell script
+jobs        Lists background (bg) jobs
+pwd         Displays the current directory
+read        Reads a line from standard input
+readonly    Declares as variable as read-only
+set         Lists all variables
+shift       Moves the parameters to the left
+test        Evaluates arguments
+[           Performs a conditional test
+times       Prints the user and system times
+trap        Traps a signal
+type        Displays how each argument would be interpreted as a command
+umask       Changes the default permissions for a new file
+unset       Deletes values from a variable or function
+wait        Waits for a background process to complete
+
+\\Chapter 9 COMPRESSING AND ARCHIVING
+
+compression mnakes data smaller, les storage easier to transit
+
+lossy= less size of files but integrity lost, file after not exactly the same, good for graphics audio .mp3, .mp4, .png , jpg. not acceptable for files or software. 
+
+compressing files first thing to do is send them to an archive, 
+
+tar command, tape archive. single file from many, tarball, archive 
+
+tar -cvf HackersArise.tar hackersarise1 hackersarise2 hackersarise3
+
+-cvf = c means create, v verbose lists files tar is dealing with, f means write to following file.
+
+tar uses overhead to operate and will be sum of files +, less significant size bigger files selected to convert
+
+-t switch on tar is list content
+
+tar -tvf hackersArise.tar
+
+-x extract
+
+tar -xvf HackersArise.tar
+
+by default if extracted file already exists tar will replace it in the folder
+
+\\Compressing Files\\
+
+gzip, uses .tar.gz or .tgz
+bzip2 uses .tar.bz2
+compress uses .tar.z
+
+compress is usually fastest but files are bigger, bzip2 slowest but smaller files, gzip in between
+
+\\Compressing with gzip\\
+
+gzip = GNU zip
+gzip HackersArise.*
+
+any file beginning with hackersArize and any file type
+
+gunzip HackersArise.*
+gzip can extract .zip files as well
+
+\\Compressing with Bzip2\\
+
+bzip2 HackersArise.*
+
+bunzip2 HackersArise.*
+
+\\Compressing with Compress\\
+
+compress HackersArise.*
+HackersArise.tar.Z
+
+uncompress HackersArise.*
+
+\\Creating Bit-by-Bit or Physical copies of Storage Devices\\
+
+dd makes a but-by-bit copy of a file, fileystem or entire drive, even deleted files, deleted files are not copied with cp. very slow, copy without filesystem or logical structures
+
+dd if=inputfile of=outputfile
+
+dd if=/dev/sdb of=/root/flashcopy assumes flash is sdb
+noerror continues to copy even if errors occur
+bs block size =  default 512, bytes written pre block, sector size of device, most often 4kb 4096 bytes
+
+dd if=/dev/media of=/root/flashcopy bs=4096 cov:noerror
+
+\\Chapter 10 FILESYSTEM AND STORAGE DEVICE MANAGEMENT

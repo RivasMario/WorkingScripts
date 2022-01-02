@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 #!
 
 sdo apt-get update
 sudo apt-get upgrade
 sudo install full-upgrade -y
+=======
+#! /bin/bash
+
+sdo apt-get update
+sudo apt-get upgrade
+sudo apt full-upgrade -y
+>>>>>>> 8bc6eebf536fc33d84a263efbaef29c19434ee28
 
 sudo passwd 
 sudo passwd root
