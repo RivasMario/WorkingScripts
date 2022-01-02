@@ -692,3 +692,54 @@ bs block size =  default 512, bytes written pre block, sector size of device, mo
 dd if=/dev/media of=/root/flashcopy bs=4096 cov:noerror
 
 \\Chapter 10 FILESYSTEM AND STORAGE DEVICE MANAGEMENT
+
+no physical representation of the drive. file tree structure with / at the top.or root.
+
+Mounting attaching drives or disks to the filesystem to make accessible to OS. hackers use external media to load data, hacking tools, even os. once on target need ways to identify 
+
+/dev si short for device, every device on linux is represented by its own file
+
+cdrom and cpu are noticeable. sda 1-3 sdb, sdb1. Hard drive and its partitions and thumbdrive and its partitions
+
+\\How linux represents storage devices\\
+
+linux uses logical labels but name smight change depending on when or where it was mounted. fpo as floppy, hda as hardrive on legacy
+sda for SATA and SCSI drives number after sd is major number
+
+<><><><><><><><><><><><><><><><><><><><><>
+Device fileDescription
+sda First SATA hard drive
+sdb Second SATA hard drive
+sdc Third SATA hard drive
+sdd Fourth SATA hard drive
+
+\\Drive Partitions\\
+sda1 sda2
+
+PartitionDescription
+sda1 The first partition (1) on the first (a) SATA drive
+sda2 The second (2) partition on the first (a) drive
+sda3 The third (3) partition on the first (a) drive
+sda4 The fourth (4) partition on the first (a) drive
+
+fdisk -l, check partitions to see how much drive is left
+
+swap partition acts like virtual RAM. similar to page files in windows
+fdisk indicates filesystem type
+High Performance File System (HPFS)
+New Technology File System (NTFS)
+Extended File Allocation Table (exFAT) not native to linux. but macOS and Win systems, indicates system drive was formatted on
+
+newer system is NTFS, older is exFAT
+
+Linux uses ext2,+ ext3, ext4 all extended filesystem. ext4 is latest
+
+\\Character and Block Devices\\
+
+begining at /dev might start with b or c on -l switch
+two ways devices tansfers data
+b = block devices, sends blocks at a time
+
+\\List Block devices with lsblk\\
+
+lsblk = list block, similar to fsdiosk -l, show devices and their partitionsno privileges to run. also shows legacy that isnt present and where they are mounted
