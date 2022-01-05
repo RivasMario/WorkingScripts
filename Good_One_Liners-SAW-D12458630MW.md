@@ -7,6 +7,10 @@ sudo reboot
 sudo nano /etc/dhcpcd.conf
 
 
+set -euo pipefail
+shellcheck
+
+https://www.shellcheck.net/
 
 Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(]z-lib.org[])]", ""}
 Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(z-lib.org)]", ""}
