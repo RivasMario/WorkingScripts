@@ -198,7 +198,9 @@ dd if=/dev/media of/roor/flashcopy bs=4096 conv=noerror
 1. Use the mountand umountcommands to mount and unmount your
 flash drive.
 2. Check the amount of disk space free on your primary hard drive.
+fdisk -l
 3. Check for errors on your flash drive with fsck.
+
 4. Use the ddcommand to copy the entire contents of one flash drive
 to another, including deleted files.
 5. Use the lsblkcommand to determine basic characteristics of your

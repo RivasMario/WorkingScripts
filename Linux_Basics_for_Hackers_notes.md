@@ -738,8 +738,11 @@ Linux uses ext2,+ ext3, ext4 all extended filesystem. ext4 is latest
 
 begining at /dev might start with b or c on -l switch
 two ways devices tansfers data
-b = block devices, sends blocks at a time
+c = character devices interact with system by sending data like mice or keyboards.
+b = block devices, sends blocks at a time. Hardrives and dvds.
 
 \\List Block devices with lsblk\\
 
-lsblk = list block, similar to fsdiosk -l, show devices and their partitionsno privileges to run. also shows legacy that isnt present and where they are mounted
+lsblk = list block, similar to fsdiosk -l, show devices and their partitionsno privileges to run. also shows legacy that isnt present and where they are mounted. Will show drives but also the drives and partitions in a tree. where they are mounted, just / is root /media is the media drive.
+
+\\Mounting and Unmounting\\
