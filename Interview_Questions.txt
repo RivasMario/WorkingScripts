@@ -34,13 +34,21 @@ We are interested in learning about your experience with modern web applications
 
 3. Study the Git commit graph shown below. What sequence of Git commands could have resulted in this commit graph?
 
-4a. GitLab has hired you to write a Git tutorial for beginners on: Using Git to implement a new feature/change without affecting the main branch 
 
-4b. In your own words, write a tutorial/blog explaining things in a beginner-friendly way. Make sure to address both the "why" and "how" for each Git command you use. Assume the audience are readers of a well-known blog.
+            (Feature-Branch)
+                  int   
+           ↑           ↓
+[]     -> [] -> [] -> [] -> []
+int       int   int   int    HEAD
+                MAIN
+
+4. GitLab has hired you to write a Git tutorial for beginners on: Using Git to implement a new feature/change without affecting the main branch 
+
+In your own words, write a tutorial/blog explaining things in a beginner-friendly way. Make sure to address both the "why" and "how" for each Git command you use. Assume the audience are readers of a well-known blog.
 
 5. What is a technical book/blog you read recently that you enjoyed? Please include a brief review of what you especially liked or didn’t like about it.
 
-==================================================================================
+=========================================================================
 
 Mindtree Sql Support Engineer Interview Questions <BOMBED> 
     Notes: Thought it would be a SQL interview. Became a lot more about Azure at the beginning. Oversold my Azure abilities and he grilled me on them. 
