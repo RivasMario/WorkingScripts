@@ -82,3 +82,29 @@ Powershell:
 SQL: 
 
 1. Get the third highest salary of an employee in a company from a database .
+
+===============================================================
+Veeam Cloud Support Engineer via Apex Systems Recruiters
+    <Video recorded, I think I misinterpreted the questions>
+
+1. How do you get a host name via it's IP address using the command line?
+    nslookup %ipaddress%
+    nbtstat -A %ipaddress%
+    host <ipaddress>
+2. What does MBR mean and stand for?
+
+3. What is a BIOS and what does it do?
+
+4. What is or how would you describe a computers registry?
+
+5. What are the five different HIVES in Windows Registry?
+
+6. What are the differences between NTFS and FAT32?
+
+7. What does ARP stand for and what is it used for?
+
+8. What is a defualt gateway used for?
+
+9. What is a network mask?
+
+10. Tell me about a specific problem you have solved. Not a we solved this or that, but a specific situation. These are the steps I took, resolution and the outcome.

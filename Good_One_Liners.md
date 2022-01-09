@@ -11,7 +11,7 @@ set -euo pipefail
 shellcheck
 
 https://www.shellcheck.net/
-
+https://ninite.com
 Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(]z-lib.org[])]", ""}
 Get-ChildItem | Rename-Item -NewName {$_.Name -replace "[(z-lib.org)]", ""}
 
