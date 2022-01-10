@@ -200,11 +200,14 @@ flash drive.
 2. Check the amount of disk space free on your primary hard drive.
 fdisk -l
 3. Check for errors on your flash drive with fsck.
-
+fsck /dev/sdc1/media
+after unmounting it
 4. Use the ddcommand to copy the entire contents of one flash drive
 to another, including deleted files.
+ dd if=/dev/sdc1 of=/dev/sdc2 
 5. Use the lsblkcommand to determine basic characteristics of your
 block devices.
+lsblk
 
 11 THE LOGGING SYSTEM
 
