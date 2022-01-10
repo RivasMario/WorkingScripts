@@ -751,4 +751,90 @@ must be first physically attached then logically attached
 mount comes from days when storage tapes had to be physically mounted ot computers. mount point where tey are attached. two main are /mnt and /media. Hard drives are usually mnt and flash are in media but can be anywhere.
  
 \\Mounting Storage Devices Yourself\\
+some linux distros you need to mount manually. mount point hould be an empty directory
+
+mount /dev/sdb1 /mnt for second hard drive
+
+mount /dev/sdc1 /media for flash drive
+filesystems that are mounted are kept in a file at /etc/fstab
+fstab = filesystem table, read at every boot
+
+\\Unmounting with umount\\
+eject is another word for unmount
+
+umount /dev/sdb1
+you cannot umount a busy device
+
+\\Getting Information on Mounted Disks\\
+df = disk free 
+
+fsck = filesystem check, check filesystems for damage and repairs. or else puts bad area into bad blocks table to mark it as bad. to run fsck need to specify filesystem type.  dault is ext2. must be unmounted prior to check 
+
+fsck -p /dev/sdb1 automatically repairs with -p
+
+\\ Chapter 11 THE LOGGING SYSTEM
+
+Linux uses a daemon called syslogd to autolog events variations include rsyslog and syslog-ng. Debian comes aith rsyslog
+
+locate rsyslog
+
+Like nearly every application in Linux, rsyslogis managed and configured by a plaintext configuration file located, as is generally the case in Linux, in the /etc directory.  /etc/rsyslog.conf
+
+leafpad /etc/rsyslog.conf
+rsyslog rules determine what kind of information is logged. 
+logging rules are broken up as facility.priority action
+
+facility is the program, priority determines what kind of messages are logged, the action determines where logs are sent
+
+The following is a list of valid codes that can be used in place of the facilitykeyword in our configuration file rules:
+
+auth/authpriv:  Security/authorization messages
+cron:           Clock daemons
+daemon:         Other daemonskernKernel messages
+lpr:            Printing system
+mail:           Mail system
+user:           Generic user­level messages
+
+An asterisk wildcard (*) in place of a word refers to all facilities. You can select more than one facility by listing them separated by a comma.
+
+Here’s the full list of valid codes for priority:
+debug
+info
+notice
+warning
+warn
+error
+err
+crit
+alert
+emerg
+panic
+
+* is all of them 
+
+action is usually a filename
+
+mail.* /var/log/mail
+kern.crit /.var/log/kernel
+*.emerg *
+
+logs take up space and if not deleted will take up entire Hardrive, logrotat to determine balance
+
+Log rotation is archiving logs somewhere else and leaving new ones and auto deleting old ones after a while.
+
+you can set with a cronjob that employs logrotate. 
+
+weekly
+rotate 4
+create
+compress
+include /etc/logrotate.d
+/var/log/wtmp {
+    missingok
+    monthly
+    crete 0664 root utmp
+    rotate 1
+}
+
+
 

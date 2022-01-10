@@ -93,10 +93,13 @@ Veeam Cloud Support Engineer via Apex Systems Recruiters
     nslookup %ipaddress%
     nbtstat -A %ipaddress%
     host <ipaddress>
+
 2. What does MBR mean and stand for?
 MBR stands for Master Boot Record. To explain it more, it is simply a part of a hard disk where all the information about the disk can be found. We can find it in the boot sector and it contains details of types of partitions and also the code which is required at the time booting the operating system of the computer.
+
 3. What is a BIOS and what does it do?
 BIOS is short for Basic Input-Output system. Its low-level software that resides in a chip on your computers motherboard. The BIOS loads when your computer starts up, and the BIOS is responsible for waking up your computers hardware components, ensures theyre functioning properly, and then runs the bootloader that boots Windows or whatever other operating system you have installed.
+
 4. What is or how would you describe a computers registry?
 The registry or Windows registry is a database of information, settings, options, and other values for software and hardware installed on all versions of Microsoft Windows operating systems. When a program is installed, a new subkey is created in the registry. This subkey contains settings specific to that program, such as its location, version, and primary executable.
 
@@ -109,18 +112,17 @@ HKEY_CURRENT_CONFIG (HKCC) 	The details about the current configuration of hardw
 
 6. What are the differences between NTFS and FAT32?
 
-The FAT32 file system cannot store individual files larger than 4 GB, while the NTFS file system can.
-Compared to FAT32, the NTFS file system has higher disk utilization and can manage disk space more effectively.
-The read and write speeds of NTFS are also faster than that of FAT32.
-The FAT32 file system is suitable for smaller capacity flash memory devices (such as memory cards, USB drives, and other storage devices), while the NTFS file system is suitable for large capacity disks.
+The FAT32 file system cannot store individual files larger than 4 GB, while the NTFS file system can. Compared to FAT32, the NTFS file system has higher disk utilization and can manage disk space more effectively.  The read and write speeds of NTFS are also faster than that of FAT32. The FAT32 file system is suitable for smaller capacity flash memory devices (such as memory cards, USB drives, and other storage devices), while the NTFS file system is suitable for large capacity disks.
 
 7. What does ARP stand for and what is it used for?
 What is Address Resolution Protocol (ARP)?
 
 Address Resolution Protocol (ARP) is a procedure for mapping a dynamic IP address to a permanent physical machine address in a local area network (LAN). The physical machine address is also known as a media access control (MAC) address. The job of ARP is essentially to translate 32-bit addresses to 48-bit addresses and vice versa. This is necessary because IP addresses in IP version 4 (IPv4) are 32 bits, but MAC addresses are 48 bits. ARP works between Layers 2 and 3 of the Open Systems Interconnection model (OSI model). The MAC address exists on Layer 2 of the OSI model, the data link layer. The IP address exists on Layer 3, the network layer.
+
 8. What is a default gateway used for?
 A default gateway makes it possible for devices in one network to communicate with devices in another network. If a computer, for example, requests a web page, the request goes through the default gateway before exiting the local network (LAN) to reach the internet. Think of a default gateway as an intermediate device between the local network and the internet. The default gateway transfers internal data to the internet and back again. 
 
 9. What is a network mask?
 A subnetwork or subnet is a logical subdivision of an IP network. The practice of dividing a network into two or more networks is called subnetting. 
+
 10. Tell me about a specific problem you have solved. Not a we solved this or that, but a specific situation. These are the steps I took, resolution and the outcome.
