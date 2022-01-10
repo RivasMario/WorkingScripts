@@ -746,3 +746,9 @@ b = block devices, sends blocks at a time. Hardrives and dvds.
 lsblk = list block, similar to fsdiosk -l, show devices and their partitionsno privileges to run. also shows legacy that isnt present and where they are mounted. Will show drives but also the drives and partitions in a tree. where they are mounted, just / is root /media is the media drive.
 
 \\Mounting and Unmounting\\
+most new linux distros automaount storage devices.
+must be first physically attached then logically attached
+mount comes from days when storage tapes had to be physically mounted ot computers. mount point where tey are attached. two main are /mnt and /media. Hard drives are usually mnt and flash are in media but can be anywhere.
+ 
+\\Mounting Storage Devices Yourself\\
+
