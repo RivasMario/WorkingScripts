@@ -212,10 +212,14 @@ lsblk
 11 THE LOGGING SYSTEM
 
 1. Use the locatecommand to find all the rsyslogfiles.
+locate rsyslog
 2. Open the rsyslog.conf file and change your log rotation to one week.
+sudo cat /etc/rsyslog.conf
 3. Disable logging on your system. Investigate what is logged in the
 file /var/log/syslog when you disable logging.
+servicersyslogstop
 4. Use the shredcommand to shred and delete all your kernlog files
+shred -f -n 10 /var/log/kern.log.*
 
 12 USING AND ABUSING SERVICES
 

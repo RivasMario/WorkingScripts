@@ -823,6 +823,7 @@ logs take up space and if not deleted will take up entire Hardrive, logrotat to 
 Log rotation is archiving logs somewhere else and leaving new ones and auto deleting old ones after a while.
 
 you can set with a cronjob that employs logrotate. 
+leafpad /etc/logrotate.conf
 
 weekly
 rotate 4
@@ -836,5 +837,30 @@ include /etc/logrotate.d
     rotate 1
 }
 
+locate /var/log/auth.log.*
+man logrotate
 
+once a linux system has been infiltrated its useful to remove evidence of your actions by modifying logs
+
+\\Deleting log files\\
+
+shred --help
+shred deletes then overwrites 4 times
+-f option allow overwriting if a permission change is necessary
+-n option lets you choose how many times to overwrite
+
+shred -f -n10 /var/log/auth.log.*
+-f needed to get auth to shred auth files
+
+if you try to open they are filled with gibberish
+
+\\Disabling logging\\
+
+stop rsyslog daemon
+
+service servicename start|stop|restart
+
+service rsyslog stop
+
+\\Chapter 12 USING AND ABUSING SERVICES
 
