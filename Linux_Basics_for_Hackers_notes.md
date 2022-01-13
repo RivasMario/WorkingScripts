@@ -864,3 +864,73 @@ service rsyslog stop
 
 \\Chapter 12 USING AND ABUSING SERVICES
 
+a service is an application that runs in the background waiting for you to use it. 
+
+Apache Web Server
+OpenSSH 
+MySQL
+PostgreSQL
+
+some services can be stopped by GUI, sopme need command line 
+
+service servicename start|stop|restart
+
+service apache2 start
+service apache2 stop
+
+if you change a config file typically you need to restart for it to capture new config
+service apache2 restart
+
+cross site scriptinng (XSS)
+clone a website and redirect via DNS
+
+apt-get install apache2
+LAMP PHP or Perl
+
+services apache2 start
+https://localhost/
+
+/var/www/html/index.html is default index
+
+sudo cat /va/www/html/index.html
+
+phony site
+after overwriting default
+<html>
+<body>
+<h1>Hackers­Arise Is the Best! </h1>
+<p> If you want to learn hacking, Hackers­Arise.com </p>
+<p> is the best place to learn hacking!</p>
+</body>
+</html>
+
+SSH is secure shell, replaces telnet
+SSH enable sus to create an access list.authenticate users with encrypted passwords, encrypt communication. reduces chance of unwanted users usiong remote terminal. OpenSSH
+
+Raspberry Pi Spy
+
+service ssh start
+ifconfig
+
+ssh pi@192.168.1.101
+
+configuring the camera
+sudo raspi-config
+6 Enable Camera > press enter > finish > reboot
+
+raspistill > used to take pictures
+
+raspistill -v -o firstpicture.jpg
+
+-v verbose, -o filename output
+
+databases are the golden fleece for hackers
+
+content management systems (CMSs) Joomla, Drupal, and RubonRails us MySql
+
+service mysql start
+authenticate before logging in 
+mysql -u root -p
+
+Oracle owns MySql so a branch was created called Maria
+
