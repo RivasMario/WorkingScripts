@@ -126,3 +126,14 @@ A default gateway makes it possible for devices in one network to communicate wi
 A subnetwork or subnet is a logical subdivision of an IP network. The practice of dividing a network into two or more networks is called subnetting. 
 
 10. Tell me about a specific problem you have solved. Not a we solved this or that, but a specific situation. These are the steps I took, resolution and the outcome.
+
+==========================
+CHEWY Basic Screening Questions
+Notes
+    3 little questions at chewy screening interview
+
+1. What are the OSI Layers?
+
+2. What are the http codes?
+
+3. How does AWS work? (I answered how does Azure work because no AWS experience)

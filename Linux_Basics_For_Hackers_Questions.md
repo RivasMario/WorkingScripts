@@ -224,14 +224,43 @@ shred -f -n 10 /var/log/kern.log.*
 12 USING AND ABUSING SERVICES
 
 1. Start your apache2 service through the command line.
+
+service apache2 start
+
 2. Using the index.html file, create a simple website announcing your
 arrival into the exciting world of hacking.
+
+sudo cat  /var/www/html/index.html 
+<html>
+<body>
+<h1>Hackers­Arise Is the Best! </h1>
+<p> Not the game, this is practice</p>
+</body>
+</html>
+
 3. Start your SSH service via the command line. Now connect to your
 Kali system from another system on your LAN.
+
+service ssh start
+ssh user@192.168.1.101
+
 4. Start your MySQL database service and change the root user
 password to hackers-arise. Change to the mysqldatabase.
+
+service mysql start
+use mysql;
+update user set password = PASSWORD("Pa55W0rd")whereuser='root';
+
 5. Start your PostgreSQL database service. Set it up as described in
 this chapter to be used by Metasploit.
+
+apt-getpostgresinstall
+service postresql start
+msfdb init
+su postgres
+create user msf_user -P
+createdb --owner=msf_userhackers_arise_db
+exit
 
 13 BECOMING SECURE AND ANONYMOUS
 
