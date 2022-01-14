@@ -934,3 +934,26 @@ mysql -u root -p
 
 Oracle owns MySql so a branch was created called Maria
 
+# InteractingWithMYSQL
+
+select      Used to retrieve data
+union       Used to combine the results of two or more select operations
+insert      Used to add new data
+update      Used to modify existing data
+delete      Used to delete dat
+
+select user, password from customers where user='adminS';
+
+select user, host, password from mysql.user;
+
+show databases;
+
+MySQL comes with three databases by default, two of which (information_schema and
+performance_schema) are administrative databases that we won’t use here. mysql admin data will be used
+
+use mysql
+
+
+
+
+
