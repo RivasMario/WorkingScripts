@@ -951,9 +951,185 @@ show databases;
 MySQL comes with three databases by default, two of which (information_schema and
 performance_schema) are administrative databases that we won’t use here. mysql admin data will be used
 
-use mysql
+use mysql > to enter mysql database, use -A to turn off
 
+mysql >update user set password = PASSWORD("hackers-arise")where user = 'root';
 
+# Accessing a remote database
 
+mysql -u <username> -p ; is the command for localhost 
 
+to acess a remote database you need an ip
 
+mysql -u root -p 192.168.1.101
+
+commands must end in a semicolon or \g
+
+show databases;
+
+use creditcardnumbers;
+
+# Database Tables
+
+show tables;
+
+describe cardnumbers;
+get veriable type,
+
+SELECT columns FROM table
+
+SELECT * FROM table
+\\POSTGRESQL with Metasploit\\
+
+apt-get postgres install
+default database of metasploit, stores its modules and its results from scans and exploits
+
+service postgresql start
+
+msfconsole | to run metasploit
+
+msf > msfdb init > then asks you to enter password
+
+login to postgres as root
+msf > su postgres
+
+postgres@kali:/root$
+
+postgres@kali:/root$ createuser msf_user -P
+
+postgres@kali:/root$ createdb--owner=msf_userhackers_arise_db
+postgres@kali:/root$ exit
+
+msf >db_connectmsf_user:password@127.0.0.1/hackers_arise_db
+db status
+
+\\ Chapter 13 BECOMING SECURE AND ANONYMOUS
+Methods in this Chapter
+The Onion Network
+Proxy servers
+Virtual private networks
+Private encrypted email
+
+see what hops a packet might take between you and the destination you can use the traceroute command
+
+traceroute ip address|domain
+
+in 1990s US office of Naval Research (ONR) set out to develop a method for anonymously navigating the internet for espionage purposes.The Onion Router (Tor) Project 
+
+if someone intercepts they can only see the IP of the previous hops
+
+NSA has own Tor routers if they leave a router its even worse because thy know the destination, traffic correlation
+
+# Proxy Servers
+proxies, intermediates act as middlemen for traffic, traffic appears to come from the proxy
+
+proxy chain
+proxychains <command you want proxied> <arguments>
+
+proxy chains nmap -sT -Pn <Ip address>
+
+This would send the nmap–sSstealth scan command to the given IP address through a proxy. The tool then builds the chain of proxies itself, so you don’t have to worry about it.
+
+/etc/proxychains.conf
+sudo cat /etc/proxychains.conf
+
+we will use free proxies, googlin free proxies
+http://www.hidemy.name 
+not to be use for real hakcing
+
+[Proxylist]
+
+socks4 114.134
+
+proxy chains defaults to using TOR if no proxies are set, first through host at 127.0..0.1 on port 9050, default TOR configuration, Tor is good but slow
+
+proxychains firefox www.hackers-arise.com
+
+sudo cat /etc/proxychains.conf
+
+socks4 114.134.186.12 22020
+socks4 188.187.190.59 8888
+socks4 181.113.121.158 335551
+
+# Dynamic Chaining
+dynamic chaining runs traffic through every proxy if one is down it goes to next proxy. 
+
+uncomment dynaaic_chaain
+
+# Random Chaining 
+
+Same as Dynamic but random on list
+
+random_chain
+
+chain_len = 3
+chooses amount form list
+
+proxychains is only as good as the proxies you choose, hackers use paid for proxies, free proxies sell your data and history. If something is free you are not the customer, you are the product.
+
+owner of proxy knows your identity, might be pressured by authoriteies to give up identity
+
+\\Virtual Private Networks\\
+
+internet device you use logs yout ip address to send info to you
+
+\\Encrypted Email\\
+
+google has access to unencrypted contents of email even if using HTTPS
+
+\\ Chapter 14 UNDERSTANDING AND INSPECTING WIRELESS NETWORKS
+
+AP (access point):  This is the device wireless users connect to for internet access
+ESSID (Extendid Service Set Identifier) : multiple APs in a wireless LAN
+BSSID (Basis Service set identifier): unique for every AP, same as mac address of a device
+SSID (Service Set Identifier) : name of network
+Channels: Wifi can opperate in 14 channels (1-14) in US limited to 1-11
+Power: closer you are to AP more power
+Security: Thre primary Wired Equivalent Privacy (WEP) easy cracked, Wi-fi Protected Access (WPA) a bit more secure, WPA2-PSK uses a pre shared key all users share most used
+Modes: Wi-Fi can use 3 modes, managedm master or monitor
+Wireles Range: broadcast at 0.5 watts, about 300 feet = 100 metershigh gain antenaes can extend up to 20 miles
+Frequency: 2.4 and 5GHz
+
+wlanX, X for number of adapters
+
+iwconfig
+managed = ready to join or has joined an AP, master ready to act or is already an ap, monitor
+iwlist interface action
+
+iwlist wlan0 scan
+
+need MAC address of the target AP (BSSID), MAC address of a client (another Wireless network card), and the channel the AP is operating on.
+
+nmcli (network manager command line interface) linux daemon high level interface for network interfaces is network manager
+
+Wifi ap and their key data
+nmcli dev networktype;
+nmcli dev wifi
+nmcli dev wifi connect AP-SSID password AP password
+
+nmcli dev connect Hackers-Arise password 123456789
+iwconfig
+
+airmon-ng start|stop|restart interface
+
+airmon-ng start wlan0
+airodump-ng wlan0mon
+airodump­ng ­c 10 ­­bssid 01:01:AA:BB:CC:22 ­w Hackers­ArisePSK wlan0mon
+aireplay­ng ­­deauth 100 ­a 01:01:AA:BB:CC:22­c A0:A3:E2:44:7C:E5 wlan0mon
+aircrack­ng ­w wordlist.dic ­b 01:01:AA:BB:CC:22 Hacker­ArisePSK.cap
+
+# Bluetooth
+
+2.4 - 2.485GHz frequency hopping 1,600 hops per second
+100 meters
+pairing bluetooth
+
+Name
+Class
+List of services
+Technical information
+48­bit identifier (a MAC­like address)
+
+apt-get install bluez
+
+201
