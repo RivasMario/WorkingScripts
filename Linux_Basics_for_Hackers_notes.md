@@ -1132,4 +1132,56 @@ Technical information
 
 apt-get install bluez
 
-201
+hciconfig = ifconfig for bluetooh
+hcitool = inquiry tool provides name, device ID, device class, device clock info.
+hdcidump = enables sniffing bluetooth 
+
+hciconfig
+hciconfig hci0 up
+hcitool scan
+hcitool --help
+sdptool browse MACaddress
+sdptool browse 76:6E:46:63:72:66
+l2ping MACaddress
+l2ping 76:6E:46:63:72:66 -c 4
+
+\\Chapter 15 MANAGING THE LINUX KERNEL AND LOADABLE KERNEL MODULES
+
+kernel = center, controls what the system does, managing memory, controlling cpu, what user sees on screen,
+user land = everything else you see
+
+kernel is protected, root or privileged accounts, kernel access is unfetted access, changes how os works
+kernel module:  added ability to linux
+kiadable kernel modules LKMs no reboot,
+LKMs have access rootkits
+
+uname -a
+
+cat /proc/version
+sysctl tune kernel options
+
+sysctl -a | less
+
+sysctl -a | less | grep ipv4
+net.ipv4.ip_forward = 0
+sysctl -w net.ipv4.ip_forward=1
+e /etc/sysctl.conf 
+lsmod
+
+\\Chapter 16 AUTOMATING TASKS WITH JOB SCHEDULING
+
+apt-get install python3-pi
+
+pip3 install <package name>
+
+/usr/local//lib/<python­version>/dist­packages
+
+pip3 show pysnmp
+python setup.py install for packages downloaded
+
+https://xael.org
+wget http://xael.org/norman/python/python-nmap/python-nmap-0.3.4.tar.gz
+
+tar -xzf python-nmap-0.3.4.tar.gz
+d python-nmap-.03.4/
+~/python-nmap-0.3.4 >python setup.py install
