@@ -1,75 +1,108 @@
 1 Getting Started With the Basics
 
-1. Use the lscommand from the root (/) directory to explore the
-directory structure of Linux. Move to each of the directories with
-the cdcommand and run pwdto verify where you are in the directory
-structure.
+1. Use the lscommand from the root (/) directory to explore the directory structure of Linux. Move to each of the directories with the cdcommand and run pwd to verify where you are in the directory structure.
+ls
+pwd
 2. Use the whoamicommand to verify which user you are logged in as.
-3. Use the locatecommand to find wordlists that can be used for
-password cracking.
-4. Use the catcommand to create a new file and then append to that
-file. Keep in mind that >redirects input to a file and >>appends to a
-file.
-5. Create a new directory called hackerdirectory and create a new file in
-that directory named hackedfile. Now copy that file to your /root
-directory and rename it secretfile.
+whoami
+3. Use the locatecommand to find wordlists that can be used for password cracking.
+locate wordlists
+4. Use the catcommand to create a new file and then append to that file. Keep in mind that >redirects input to a file and >>appends to a file.
+cat >hackingtest
+cat >> hacking skills
+
+5. Create a new directory called hackerdirectory and create a new file in that directory named hackedfile. Now copy that file to your /root directory and rename it secretfile.
+mkdir hackerdirtectory
+cd hackerdirectory
+touch newfile
+cp newfile /root/newdirectory/supernewfile
 
 2 TEXT MANIPULATION
 
-1. Navigate to /usr/share/wordlists/metasploit. This is a directory of multiple
-wordlists that can be used to brute force passwords in various passwordprotected devices using Metasploit, the most popular pentesting and
-hacking framework.
+1. Navigate to /usr/share/wordlists/metasploit. This is a directory of multiple wordlists that can be used to brute force passwords in various passwordprotected devices using Metasploit, the most popular pentesting and hacking framework.
+cd 
+
 2. Use the catcommand to view the contents of the file passwords.lst.
+cat passwwords.lst
+
 3. Use the morecommand to display the file passwords.lst.
+more passwords.lst
+
 4. Use the lesscommand to view the file passwords.lst.
-5. Now use the nlcommand to place line numbers on the passwords in
-passwords.lst. There should be 88,396 passwords.
+less passwords.lst
+
+5. Now use the nlcommand to place line numbers on the passwords in passwords.lst. There should be 88,396 passwords.
+nl passwords.lst
+
 6. Use the tailcommand to see the last 20 passwords in passwords.lst.
-7. Use the catcommand to display passwords.lst and pipe it to find all the
-passwords that contain 123.
+tail passwords.lst
+
+7. Use the catcommand to display passwords.lst and pipe it to find all the passwords that contain 123.
+cat passwords.lst | grep *123*
 
 3 ANALYZING AND MANAGING NETWORKS
 
-1. Find information on your active network interfaces.
+1. Find information on your active network interfaces
+ifconfig
+
 2. Change the IP address on eth0to 192.168.1.1.
+ifconfig eth0 192.168.1.1
+
 3. Change your hardware address on eth0.
+ifconfig eth0 down
+ifconfig eth0 hw ether 00:11:22:33:44:55:
+ifconfig eth0 up
 4. Check whether you have any available wireless interfaces active.
-5. Reset your IP address to a DHCP-assigned address.6. Find the nameserver and email server of your favorite website.
-7. Add Google’s DNS server to your /etc/resolv.conf file so your system
-refers to that server when it can’t resolve a domain name query with
-your local DNS server.
+IWCONFIG
+5. Reset your IP address to a DHCP-assigned address.
+ifconfigeth0192.168.181.115netmask255.255.0.0broadcast 192.168.1.255
+
+6. Find the nameserver and email server of your favorite website.
+DIG GOOGLE.COM MX
+
+7. Add Google’s DNS server to your /etc/resolv.conf file so your system refers to that server when it can’t resolve a domain name query with your local DNS server.
+
+leafpad/etc/resolv.conf
 
 4 ADDING AND REMOVING SOFTWARE
 
 1. Install a new software package from the Kali repository.
+APT-GET INSTALL SNORT
 2. Remove that same software package.
+APT-GET REMOVE SNORT
 3. Update your repository.
+APT-GET UPDATE
 4. Upgrade your software packages.
-5. Select a new piece of software from github and clone it to your
-system.
+APT-GET UPGRADE
+5. Select a new piece of software from github and clone it to your system.
+gitclonehttps://www.github.com/balle/bluediving.git
+
 
 5 CONTROLLING FILE AND DIRECTORY PERMISSIONS
 
-1. Select a directory and run a long listing on it. Note the permissions
-on the files and directories.
-2. Select a file you don’t have permission to execute and give yourself
-execute permissions using the chmodcommand. Try using both the
-numeral method (777) and the UGO method.
+1. Select a directory and run a long listing on it. Note the permissions on the files and directories.
+ls -l
+2. Select a file you don’t have permission to execute and give yourself execute permissions using the chmodcommand. Try using both the numeral method (777) and the UGO method.
+chmod 777 whater.txt
 3. Choose another file and change its ownership using chown.
+chown user /whaterver.txt
 4. Use the findcommand to find all files with the SGIDbit set.
+find / -user root -perm 4000
 
 6 PROCESS MANAGEMENT
 
-1. Run the pscommand with the auxoptions on your system and note
-which process is first and which is last.
-2. Run the topcommand and note the two processes using the greatest
-amount of your resources.
-3. Use the killcommand to kill the process that uses the most
-resources.
-4. Use the renicecommand to reduce the priority of a running process
-to +19.
-5. Create a script called myscanning(the content is not important) with a
-text editor and then schedule it to run next Wednesday at 1 AM.
+1. Run the pscommand with the auxoptions on your system and note which process is first and which is last.
+ps 
+2. Run the topcommand and note the two processes using the greatest amount of your resources.
+top
+3. Use the killcommand to kill the process that uses the most resources.
+kill -1 6996
+4. Use the renicecommand to reduce the priority of a running process to +19.
+renice +19 6996
+
+5. Create a script called myscanning(the content is not important) with a text editor and then schedule it to run next Wednesday at 1 AM.
+at 1:00AM Wednesday
+>/root/script.sh
 
 7 MANAGING USER ENVIRONMENT VARIABLES
 
