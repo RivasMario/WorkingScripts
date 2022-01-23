@@ -40,4 +40,6 @@ $SshInput
 
 #Test-Connection -ComputerName kalilinuxlearning
 
+ Start-Sleep -seconds 15 <# sleep #>
+
 plink.exe -i "C:\Users\V-MARIORIVAS\Work Folders\Desktop\KaliLinux\kalilinuxlearning.ppk" -ssh $SshInput
