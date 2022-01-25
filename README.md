@@ -21,6 +21,9 @@ sudo apt full-upgrade -y
 ```Git
 
 Space for GIT
+git push
+git add .
+git commit
 
 ```
 
