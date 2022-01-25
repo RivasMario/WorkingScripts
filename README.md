@@ -27,7 +27,7 @@ git commit
 git pull
 git checkout <branch>
 git branch
-git branch -d <name of branch>
+git branch -d <name of branch> = deletes
 git branch -a = more info on branches
 git pull -r = git pull rebase
 git log
