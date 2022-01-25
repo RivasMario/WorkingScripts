@@ -24,6 +24,25 @@ Space for GIT
 git push
 git add .
 git commit
+git pull
+git checkout <branch>
+git branch
+git branch -d <name of branch>
+git branch -a = more info on branches
+git pull -r = git pull rebase
+git log
+git fetch
+git rebase
+git rm -r --cached testfolder
+git stash
+git stash pop
+git status
+git reset --hard HEAD~1
+git reset HEAD~1 =essentially removes commit but leaves files
+git commit amend = add to existing commit
+git push --force = used after a hard git reset <risky>
+git revert <commit hash>
+git merge master
 
 ```
 
