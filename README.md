@@ -46,6 +46,7 @@ git merge master
 git merge --squash <feature>
 git log --graph --oneline --decorate
 git bisect start | bad  | good
+git checkout -
 
 ```
 
