@@ -44,6 +44,9 @@ git push --force = used after a hard git reset <risky>
 git revert <commit hash>
 git merge master
 git merge --squash <feature>
+git log --graph --oneline --decorate
+git bisect start | bad  | good
+
 ```
 
 ## Contributing
