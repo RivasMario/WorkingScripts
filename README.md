@@ -43,7 +43,7 @@ git commit amend = add to existing commit
 git push --force = used after a hard git reset <risky>
 git revert <commit hash>
 git merge master
-
+git merge --squash <feature>
 ```
 
 ## Contributing
