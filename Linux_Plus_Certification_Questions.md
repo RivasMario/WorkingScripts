@@ -2,6 +2,7 @@
 
 1. What software package allows a Linux server to share folders and printers with Windows and Mac clients?
 
+C. Samba
 
 
 2. Which software package allows developers to deploy applications using the exact same environment in which they were developed?
