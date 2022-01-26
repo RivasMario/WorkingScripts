@@ -1,6 +1,6 @@
 #! /bin/bash
 
-sdo apt-get update
+sudo apt-get update
 sudo apt-get upgrade
 sudo apt full-upgrade -y
 
