@@ -3,81 +3,72 @@
 1. What software package allows a Linux server to share folders and printers with Windows and Mac clients?
 
 C. Samba
-
+Samba allows Linux users to communicate with MAC or WIN clients.
 
 2. Which software package allows developers to deploy applications using the exact same environment in which they were developed?
-A. Postfix
-B. Apache
-C. Samba
-D. Kerberos
+
 E. Docker
+Allows developers to capture entire development environment for an application and deploy it into a produyction environment as a container
+
 
 3. The cat -n File.txt command is entered at the command line. What will be the result?
-A. The text file File.txt will be displayed.
-B. The text file File.txt will be displayed along with any special hidden characters in 
-the file.
-C. The text file File.txt will be displayed along with any special symbols representing 
-end-of-line characters.
+
 D. The text file File.txt will be displayed along with line numbers.
-E. The text file File.txt will be displayed in reverse order.
+The -n will display txt file with line numbers
 
 4. Which of the following are stream editors? (Choose all that apply.)
-A. vim
+
 B. sed
 C. awk
 D. gawk
-E. nano
 
-5. Which command in GRUB2 defines the location of the /boot folder to the first partition on 
-the first hard drive on the system?
+all stream editors 
+
+5. Which command in GRUB2 defines the location of the /boot folder to the first partition on the first hard drive on the system?
+
 A. set root=hd(0,1)
-B. set root=hd(1,0)
-C. set root=hd(1,1)
-D. set root=hd(0,0)
-E. set root=firstAssessment Test xliii
+GRUB2 identifies the hard drives starting at 0, but partitions start at 1, so the first drive on the first partition is (0,1). 
 
-6. If you see read or write errors appear in the system log, what tool should you use to correct 
-any bad sections of the hard drive?
-A. mount
-B. unmount
+6. If you see read or write errors appear in the system log, what tool should you use to correct any bad sections of the hard drive?
+
 C. fsck
-D. dmesg
-E. mkinitrd
+fsck program can perform a filesystem check and repair multiplte types of filesystems on partitions. 
 
 7. The init program is started on a Linux system and has a process ID number. What typically is that process’s ID number?
-A. 0
+
 B. 1
-C. 2
-D. 10
-E. Unknown
+Init program is typically started immediatley after the linux system has traversed the boot procees ID (PID) number of 1. The linux kernel has the PID number of 0. 
 
 8. You need to determine the default target of a systemd system. Which of the following commands should you use?
-A. grep initdefault /etc/inittab
-B. runlevel
-C. systemctl is-enabled
-D. systemd get-target
+
 E. systemctl get-default
+systemctl get-default command will display a systemd's systems default target
 
 9. The Cinnamon desktop environment uses which windows manager?
-A. Mutter
+
 B. Muffin
-C. Nemo
-D. Dolphin
-E. LightDM
+The Cinnamon desktop environment uses the Muffin Windows Manager.
+
+Mutter is windows manager for GNOME shell
+Nemo is the file manager for Cinnamon
+Folphin is the file manager for KDE Plasma desktop environment
+LighDM is diplay manager for Cinnamon
 
 10. Your X11 session has become hung. What keystrokes do you use to restart the session?
-A. Ctrl+C
-B. Ctrl+Z
-C. Ctrl+Q
-D. Ctrl+Alt+Delete
-E. Ctrl+Alt+Backspacexliv Assessment Test
+
+E. Ctrl+Alt+Backspace
+CTRL+ALT+BACKSPACE will kill your X11 sessions and then restart it, putting you at the login screen (display manager).
+
+CTRL+C sends and interrupt signal but not restart X11
+CTRL+Z sends a stop signal
+CTRL+Q will release a terminal a terminal thathas been paused by CTRL+S
+CTRL+ALT+DELETE does different things on different desktop environment
 
 11. What folder contains the time zone template files in Linux?
-A. /etc/timezone
-B. /etc/localtime
+
 C. /usr/share/zoneinfo
-D. /usr/share/timezone
-E. /usr/share/localtime
+
+
 
 12. What systemd command allows you to view and change the time, date, and time zone?
 A. timedatectl
