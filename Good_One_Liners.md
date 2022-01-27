@@ -32,3 +32,5 @@ echo "cd ~/Desktop/Java\ Files" >> ~/.bashrc
 sudo add-apt-repository ppa:redislabs/redis
 sudo apt-get update
 sudo apt-get install redis
+
+sudo apt install openjdk-8-jre
