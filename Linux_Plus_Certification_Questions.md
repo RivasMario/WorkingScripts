@@ -69,10 +69,10 @@ CTRL+ALT+DELETE does different things on different desktop environment
 C. /usr/share/zoneinfo
 
 
-
 12. What systemd command allows you to view and change the time, date, and time zone?
 A. timedatectl
 B. localectl
+C. date
 C. date
 D. time
 E. locale
