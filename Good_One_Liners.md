@@ -34,3 +34,7 @@ sudo apt-get update
 sudo apt-get install redis
 
 sudo apt install openjdk-8-jre
+
+sudo update-alternatives --config x-session-manager
+
+sudo pt-get install python3-pip
