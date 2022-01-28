@@ -39,3 +39,8 @@ sudo update-alternatives --config x-session-manager
 
 sudo apt-get install python3-pip
 pip3 install pysnmp
+
+ip r | grep default
+sudo nano resolv.conf
+sudo nano /etc/dhcpcd.conf
+hostname -I
