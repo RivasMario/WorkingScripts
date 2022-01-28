@@ -67,29 +67,36 @@ CTRL+ALT+DELETE does different things on different desktop environment
 11. What folder contains the time zone template files in Linux?
 
 C. /usr/share/zoneinfo
+Both Debian and Red hat based systems keep time zone info in /usr/share/zoneinfo folder.
+
+/etc/timexone and /etc/localtime contain current timezone not the template files.
 
 
 12. What systemd command allows you to view and change the time, date, and time zone?
+
 A. timedatectl
-B. localectl
-C. date
-C. date
-D. time
-E. locale
+timedatectl is part of systemd package and allows you to view and change current time date and timexone for linux
+
+localectl handles localization info not time date.
+date lets you see the date.
+time lets you see elapsed cpu time used by app
+locale allows you to view localization settings for linux.
 
 13. Which of the following files contain user account creation directives used by the useradd command? (Choose all that apply.)
+
 A. The /etc/default/useradd file
-B. The /etc/useradd file
-C. The /etc/adduser.conf file
 D. The /etc/login.defs file
-E. The /etc/login.def file
+Both A and D, are files that contain user account creation directives used by useradd command.
+
 
 14. You need to display the various quotas on all your filesystems employing quota limits. Which of the following commands should you use?
-A. edquota -t
-B. quotaon -a
-C. quotacheck -cu
-D. quotacheck -cg
+
 E. repquota -a
+will display various quotas on all your fiesystems employing quota limits
+
+edquota -t will edit quota grace periods for a system.
+quotaon -a will automatically turn on quotas for all mopunted non-NFS filesystems in /etc/fstab file.
+The quotacheck utility creates either the aquota.group file, if the -cg options are used, or the aquota.user file, if the -cu switches are used, or both files if -cug is employed.
 
 15. What drive and partition does the raw device file /dev/sdb1 reference?
 A. The first partition on the second SCSI storage device
