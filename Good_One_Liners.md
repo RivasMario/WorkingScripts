@@ -37,4 +37,5 @@ sudo apt install openjdk-8-jre
 
 sudo update-alternatives --config x-session-manager
 
-sudo pt-get install python3-pip
+sudo apt-get install python3-pip
+pip3 install pysnmp
