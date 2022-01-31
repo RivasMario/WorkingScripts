@@ -34,12 +34,12 @@ GRUB2 identifies the hard drives starting at 0, but partitions start at 1, so th
 C. fsck
 fsck program can perform a filesystem check and repair multiplte types of filesystems on partitions. 
 
-7. The init program is started on a Linux system and has a process ID number. What typically is that process’s ID number?
+7. The init program is started on a Linux system and has a process ID number. What typically is that process’s ID number?
 
 B. 1
 Init program is typically started immediatley after the linux system has traversed the boot procees ID (PID) number of 1. The linux kernel has the PID number of 0. 
 
-8. You need to determine the default target of a systemd system. Which of the following commands should you use?
+8. You need to determine the default target of a systemd system. Which of the following commands should you use?
 
 E. systemctl get-default
 systemctl get-default command will display a systemd's systems default target
