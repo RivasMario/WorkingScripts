@@ -99,53 +99,51 @@ quotaon -a will automatically turn on quotas for all mopunted non-NFS filesystem
 The quotacheck utility creates either the aquota.group file, if the -cg options are used, or the aquota.user file, if the -cu switches are used, or both files if -cug is employed.
 
 15. What drive and partition does the raw device file /dev/sdb1 reference?
+
 A. The first partition on the second SCSI storage device
-B. The second partition on the first SCSI storage device
-C. The first partition on the second PATA storage device
-D. The second partition on the first PATA storage device
-E. The second partition on the second SATA storage deviceAssessment Test xlv
+Linux uses the /dev/sdxx format for SCSI and SATA raw devices.The drive is represented by a letter starting with A and the partition is started with a number 1. /dev/sdb1 is second drive first partition.
 
 16. What tool creates a logical volume from multiple physical partitions?
-A. mkfs
-B. pvcreate
+
 C. lvcreate
-D. fdisk
-E. vgcreate
+lvcreate program creates a logical volume from multiple partitions that you can use as a single logical device to build a filesystem and mount it to the virtual directory.
+
+pvcreate identifies a physical volume from a partition, doesnt create logical volumes
+vgcreate creates a volume group for grouping physical partitions
 
 17. Which of the following can be used as backup utilities? (Choose all that apply.)
-A. The gzip utility
+
 B. The zip utility
 C. The tar utility
 D. The rsync utility
 E. The dd utility
+ALL are acceptable to be used as backups.
+
+gzip can be used after a backup is created or employed through tar  to compress a backup
 
 18. A system administrator has created a backup archive and transferred the file to another system across the network. Which utilities can be used to check the archive files integrity? (Choose all that apply.)
-A. The rsync utility
+
 B. The md5sum utility
-C. The sftp utility
-D. The scp utility
 E. The sha512sum utility
+Both md5sum and sha512sum produce hashes on files which can be compared to determin if file corruption occured.
 
 19. What tool should you use to install a .deb package file?
+
 A. dpkg
-B. tar
-C. gcc
-D. rpm
-E. gzip
+The dpkg program is used for installing and removing debian based packages that us ethe .deb file format.
+
+rpm is used for red hat based distros
 
 20. What tool do you use to install a .rpm package file?
-A. dpkg
-B. tar
-C. gcc
+
 D. rpm
-E. gzipxlvi Assessment Test
+
+The rpm program is used for installing and removing Red Hat–based packages that use the .rpm file format
 
 21. The lsmod utility provides the same information as what other utility or file(s)?
-A. The modinfo utility
+
 B. The /proc/modules file
-C. The /etc/modules.conf file
-D. The insmod utility
-E. The /run/modprobe.d/*.conf files
+the /proc/modules files has the same information that is displayed by the lsmod utility.
 
 22. Which utility should be used to remove a module along with any dependent modules?
 A. The rmmod utility
@@ -154,7 +152,7 @@ C. The cut utility
 D. The depmod utility
 E. The modprobe utility
 
-23. What special bit should you set to prevent users from deleting shared files created by someone else?
+23. What special bit should you set to prevent users from deleting shared files created by someone else?
 A. SUID
 B. GUID
 C. Sticky bit
