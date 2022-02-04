@@ -146,18 +146,19 @@ B. The /proc/modules file
 the /proc/modules files has the same information that is displayed by the lsmod utility.
 
 22. Which utility should be used to remove a module along with any dependent modules?
-A. The rmmod utility
-B. The modinfo utility
-C. The cut utility
-D. The depmod utility
+
 E. The modprobe utility
+The modprobe utility along with -r switch is used for removing kernel module and dependencies.
+
+rmod will remove kernel utility but not its dependencies
+modinfo does not remove but offers detailed info on selected module
+cut utility used to filter text files displays to STDOUT
+depmod utility creates a list of modules nd their dependencies 
 
 23. What special bit should you set to prevent users from deleting shared files created by someone else?
-A. SUID
-B. GUID
+
 C. Sticky bit
-D. Read
-E. Write
+
 
 24. What command can you use to change the owner assigned to a file?
 A. chmod
