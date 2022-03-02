@@ -137,3 +137,212 @@ Notes
 2. What are the http codes?
 
 3. How does AWS work? (I answered how does Azure work because no AWS experience)
+
+======================================
+Github Screening 
+
+Notes: Had to request it from an azure site using HTTP Invoke-RestMethod
+
+Excellent work human!
+
+We have just a few more questions for you. Please complete these questions and
+submit your answers as a plain text file to the unique link in the email from your
+Talent Partner. Just to be clear, the email that sent you instructions for POSTing
+JSON to this robot is the right one and you will see the link on where to submit
+your responses.
+
+The following is a series of customer questions, most of them coming from real
+customer interactions. For each question, write a customer-facing response. For
+questions that you don't know the answers to, feel free to search for answers
+online and provide the sources you used. Do not invent facts and do not be
+afraid to ask the customer for information, if needed.
+
+We will be looking at overall content, ability to research technical questions,
+ability to present a professional yet friendly response to customers, and your
+ability to intuit details based on very limited information. This questionnaire
+should take no more than two hours to complete. If you get stuck, don't be
+afraid to ask us to clarify anything.
+
+
+A few things to keep in mind:
+
+* It should always be clear to the person on the other side of the computer that
+  you are a smart, friendly, and awesome person.
+* Responses should not contain unneeded filler, yet should not be overly brief.
+  They should be complete.
+* Responses should have a greeting and closing.
+* GitHub is spelled with a capital G and a capital H.
+* GitHub is classy. When in doubt: be classy.
+
+We've also provided an question and response below as an example:
+
+------------------------------------------------------------------------
+
+# Example Question
+
+You receive the following email:
+
+> One developer in our trial is trying to upload around 4 GB of game data
+> into a repository (over http) and it fails:
+>
+>     ~/assets % git push -u origin master
+>     Username for 'http://ghe-enterprise': john.doe
+>     Password for 'http://john.doe@ghe-enterprise':
+>     Counting objects: 19130, done.
+>     Delta compression using up to 8 threads.
+>     Compressing objects: 100% (18763/18763), done.
+>     error: RPC failed; result=22, HTTP code = 413
+>     fatal: The remote end hung up unexpectedly
+>     Writing objects: 100% (19130/19130), 1.20 GiB | 6.05 MiB/s, done.
+>     Total 19130 (delta 4322), reused 0 (delta 0)
+>     fatal: The remote end hung up unexpectedly
+>     Everything up-to-date
+
+# Example Response
+
+> Hi <Customer>,
+>
+> There are a few scenarios here that may be contributing to the problem:
+>
+> - HTTP is generally not the preferred transfer method for larger files. In this case 
+> we can see that only 1.2GB of the push is written prior to the connection being dropped. 
+> For scenarios like this, we generally recommend using SSH connectivity - could you please 
+> try repeating the push over SSH rather than HTTP?
+> - The HTTP response noted above ([413](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413)) 
+> also suggests a server side rejection due to file size. In this case, it may be individual 
+> large files that are contributing to the overall problem.
+> - As you'd mentioned pushing game data, you may wish to consider using [LFS](https://git-lfs.github.com/) to 
+> store any of the large, non-source code, files associated with this repository. This may 
+> considerably reduce the amount of data that needs to be transferred and stored directly 
+> in the repository.
+>
+> With these considered, along with the partial transfer, you may also be able to see some 
+> success with multiple smaller commits, each pushing up a subset of the overall data that 
+> needs to be committed.
+>
+> Please give these approaches a try and let me know your results. If you have any questions 
+> in the interim, I'm more than happy to help!
+>
+> Regards,
+> Mona Lisa Octocat
+
+------------------------------------------------------------------------
+
+# Question 1
+
+You receive the following ticket from a customer:
+
+> Hi GitHub!
+> So according to the docs at https://docs.github.com/enterprise-server/rest/reference/teams#add-or-update-team-repository-permissions,
+> I should be able to add teams to a repo programmatically.
+>
+> However, this does not work when using the following code:
+>
+> curl -H "Authorization: token BLAHBLAHBLAH" -H "Content-Length: 0" -X put \
+>      -d "" https://hostname/api/v3/organizations/10/team/23/repos/jimmy/some-repo-name
+>
+> Could someone give me a curl one liner that lets me add teams to repos ? Or at
+> least tell me what facet of the documentation has escaped me for the last 45 minutes?
+
+# Response 1
+
+
+
+# Question 2
+
+You receive the following ticket from a customer with 1000 GitHub Enterprise Server seats:
+
+> Hi GitHub,
+>
+> We are experiencing serious performance issues and receiving multiple complaints from our developers.
+>
+> Browsing the web interface often results in timeouts and Git operations are taking magnitudes longer than usual to complete.
+>
+> $ free -m
+>              total       used       free     shared    buffers     cached
+> Mem:         45993      43944       1989          0        149      18510
+> -/+ buffers/cache:      25285      20648
+> Swap:            0          0          0
+> $ uptime
+> 10:50:08 up 123 days, 25 min,  1 user,  load average: 18.25, 15.51, 9.75
+
+What could be causing these performance issues? What would you recommend doing to mitigate these issues?
+
+Notes
+
+You do not have shell or web interface access to their GitHub Enterprise instance.
+
+# Response 2
+
+
+
+# Question 3
+
+You receive a ticket from ACME, Inc. asking if it's possible to adjust GitHub
+Enterprise's web-interface to match their corporate identity better.
+
+> Hi,
+> At ACME, Inc. we have many services running in-house, all matching our orange
+> colored corporate design and showing the ACME, Inc. logo. GitHub Enterprise is
+> the only service that does not seem to support this. How can we alter GitHub
+> Enterprise's design?
+
+GitHub currently does not support modifications to GitHub Enterprise's
+web-interface for two reasons:
+
+* GitHub Enterprise was designed to match GitHub.com to preserve the familiarity
+  many software developers around the world have already acquired on GitHub.com.
+  Changing the GitHub user experience by altering its design could be too
+  confusing for the people actually using our product.
+* Changing GitHub Enterprise's design would only be a cosmetic change. It
+  wouldn't have a huge impact on improving how people collaborate and work
+  together as other features we could be working on. There are other items on
+  our product's roadmap with a higher prioritization.
+
+Taking these reasons into account, how would you respond to the customer using
+your own words?
+
+# Response 3
+
+
+
+# Question 4
+
+You receive the following ticket from a customer:
+
+> Hi!
+>
+> After installing the latest update this morning I noticed that my browsers are
+> now throwing Invalid SSL Cert errors when attempting to access our instance.
+>
+> $ curl -I https://github.acme.edu
+> curl: (60) SSL certificate problem, verify that the CA cert is OK. Details:
+> error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed
+> More details here: http://curl.haxx.se/docs/sslcerts.html
+>
+> Not sure if anyone else has reported this or what I might be able to do to fix
+> it. I've re-uploaded our key & cert file to no avail.
+
+Notes
+
+You do not have shell or web interface access to their GitHub Enterprise instance.
+We'd love to see you provide specific command line troubleshooting steps using common
+Linux tools for the customer and have them return the results.
+
+# Response 4
+
+
+
+# Finally
+
+We'd also love if you could share more about yourself so the team can get to know you better!
+If you could fill this out and send it back along with your responses that would be great:
+
+      * Legal Name?
+      * Location?
+      * What's an impressionable experience you've had with customer service/support, and why?
+      * Tell us about a time where you helped someone.
+      * What appeals to you about GitHub, as a company you'd potentially be working for?
+      * How would you describe what GitHub does to a non-technical person?
+      * What motivates you to work in support?
+      
