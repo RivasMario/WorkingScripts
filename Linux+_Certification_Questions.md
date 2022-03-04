@@ -179,7 +179,8 @@ A. The settings in the /etc/ssh/ssh_config file.
 B. The ssh utility’s command-line options.
 C. You cannot override the settings in this file.
 D. The settings in the /etc/ssh/sshd_config file.
-E. The settings in the sshd daemon’s configuration file.Assessment Test xlvii
+E. The settings in the sshd daemon’s configuration file.
+
 
 27. What command can you use to display new entries in a log file in real time as they occur?
 A. head
@@ -365,7 +366,7 @@ C. Type II
 D. Type I
 E. Privatelii Assessment Test
 
-53. What file should you place console and terminal file names into to prevent users from logging into the Linux system as the root user account from those locations?
+53. What file should you place console and terminal file names into to prevent users from logging into the Linux system as the root user account from those locations?
 A. /etc/cron.deny
 B. /etc/hosts.deny
 C. /etc/securetty
@@ -379,7 +380,7 @@ C. auditd
 D. klist
 E. kinit
 
-55. You’ve moved your present working directory to a new location in the Linux virtual directory structure and need to go back to the previous directory, where you were just located. Which command should you employ?
+55. You’ve moved your present working directory to a new location in the Linux virtual directory structure and need to go back to the previous directory, where you were just located. Which command should you employ?
 A. cd
 B. exit
 C. cd ~
