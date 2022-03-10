@@ -37,31 +37,30 @@ $GetAzPubAddress = Get-AzPublicIpAddress -Name windeskvm01-ip
 $VMIPAddress = $GetAzPubAddress.IpAddress
 
 
-cmdkey /generic:TERMSRV/"$VMIPAddress" /user:"$admin" /pass:"$key"
-
 #mstsc /v:"$VMIPAddress"
 #10MAY2022 Removed Out-String and ConvertFrom-String as both were unnecessary
 $CurrentConnectionStatus = netstat -ano | Where-Object { $_ -match "$VMIPAddress"}
 
-Write-Host "Getting NetStat information `n"
+Write-Host "Getting NetStat information `n" -foregroundcolor blue
 
 #expression check if connection is established
 #10MAY2022 Swapped If Statement Values, works fine now
-$CurrentConnectionStatusBoolean = if ($CurrentConnectionStatus.P5 -eq "ESTABLISHED") {"False"} else {"True"}
+$CurrentConnectionStatusBoolean = if ($CurrentConnectionStatus.P5 -eq "ESTABLISHED") {"True"} else {"False"}
  
-Write-Host "Determing if connection is active `n"
+Write-Host "Determing if connection is active `n" -foregroundcolor blue
 
 if ($CurrentConnectionStatusBoolean -eq "True")
 {   
-    Write-Host "Connection currently established, deleting connection stored on device `n"
+    Write-Host "Connection currently established, deleting connection stored on device `n" -foregroundcolor red
     cmdkey /delete:"$VMIPAddress"
 }
 elseif ($CurrentConnectionStatusBoolean -eq "False")
 {
-    Write-Host "Connection starting `n"
+    cmdkey /generic:TERMSRV/"$VMIPAddress" /user:"$admin" /pass:"$key"
+    Write-Host "Connection starting `nStanding by for stable connection `n" -foregroundcolor green
     Start-Sleep -seconds 15 <# sleep #>
     mstsc /v:"$VMIPAddress"
-    Write-Host "Self deleting key after use `n"
+    Write-Host "Self deleting key after use `n" -foregroundcolor blue
     cmdkey /delete:"$VMIPAddress"
 }
 
