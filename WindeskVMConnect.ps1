@@ -40,12 +40,12 @@ cmdkey /generic:TERMSRV/"$VMIPAddress" /user:"$admin" /pass:"$key"
 
 #mstsc /v:"$VMIPAddress"
 
-$CurrentConnectionStatus = netstat -ano | Where-Object { $_ -match $VMIPAddress} | ConvertFrom-String
+$CurrentConnectionStatus = netstat -ano | Where-Object { $_ -match "$VMIPAddress"}
 
 Write-Host "Getting NetStat information `n"
 
 #expression check if connection is established
-$CurrentConnectionStatusBoolean = if ($CurrentConnectionStatus.P5 -eq "ESTABLISHED") {"True"} else {"False"}
+$CurrentConnectionStatusBoolean = if ($CurrentConnectionStatus.P5 -eq "ESTABLISHED") {"False"} else {"True"}
  
 Write-Host "Determing if connection is active `n"
 
