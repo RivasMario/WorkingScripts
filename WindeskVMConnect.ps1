@@ -58,7 +58,7 @@ elseif ($CurrentConnectionStatusBoolean -eq "False")
 {
     Write-Host "Connection starting `n"
     Start-Sleep -seconds 15 <# sleep #>
-    mstsc /v:"$VMIPAddress" /public
+    mstsc /v:"$VMIPAddress"
     Write-Host "Self deleting key after use `n"
     cmdkey /delete:"$VMIPAddress"
 }
