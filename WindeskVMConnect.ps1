@@ -36,15 +36,17 @@ $GetAzPubAddress = Get-AzPublicIpAddress -Name windeskvm01-ip
 
 $VMIPAddress = $GetAzPubAddress.IpAddress
 
+
 cmdkey /generic:TERMSRV/"$VMIPAddress" /user:"$admin" /pass:"$key"
 
 #mstsc /v:"$VMIPAddress"
-
+#10MAY2022 Removed Out-String and ConvertFrom-String as both were unnecessary
 $CurrentConnectionStatus = netstat -ano | Where-Object { $_ -match "$VMIPAddress"}
 
 Write-Host "Getting NetStat information `n"
 
 #expression check if connection is established
+#10MAY2022 Swapped If Statement Values, works fine now
 $CurrentConnectionStatusBoolean = if ($CurrentConnectionStatus.P5 -eq "ESTABLISHED") {"False"} else {"True"}
  
 Write-Host "Determing if connection is active `n"
