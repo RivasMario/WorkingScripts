@@ -11,10 +11,12 @@ Space for Linux studies.
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
 ```bash
+
 sudo apt-get update
 sudo apt full-upgrade -y
 
 git clone https://github.com/sandervanvugt/bash-scripting
+
 ```
 
 ## GIT 
