@@ -4,6 +4,8 @@
 # create an access policy for them to retrieve secrets from the very same AKV.
 # This is required in order to allow the CSI driver to mount secrets.
 # The ACI team has not yet implemented managed identities for AKS.
+# If using CloudShell, do az login first on old builds or use AZCLI
+#Might get HTTPS errors in JB, use SAW version for connection
 
 VAULT_NAME="${VAULT_NAME:-dlgaas-usme1-vault}"
 
