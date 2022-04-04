@@ -32,7 +32,7 @@ GRUB2 identifies the hard drives starting at 0, but partitions start at 1, so th
 6. If you see read or write errors appear in the system log, what tool should you use to correct any bad sections of the hard drive?
 
 C. fsck
-fsck program can perform a filesystem check and repair multiplte types of filesystems on partitions. 
+fsck program can perform a filesystem check and repair multiple types of filesystems on partitions. 
 
 7. The init program is started on a Linux system and has a process ID number. What typically is that process’s ID number?
 
