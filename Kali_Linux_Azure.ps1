@@ -1,4 +1,4 @@
-cd "C:\Users\V-MARIORIVAS\Work Folders\Desktop\PublicSecurity"
+Set-Location "C:\Users\V-MARIORIVAS\Work Folders\Desktop\PublicSecurity"
 
 Connect-AzAccount 
 
