@@ -19,3 +19,5 @@ for ($MyVariable = 0; $MyVariable -lt $MyVariable++) {
 for ($MyVariable = 10; $MyVariable -gt 5; $MyVariable -1) {
     '$MyVariable is {0}' -f $MyVariable
 }
+
+#specify variable outside of 
