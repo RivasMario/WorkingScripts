@@ -20,4 +20,19 @@ for ($MyVariable = 10; $MyVariable -gt 5; $MyVariable -1) {
     '$MyVariable is {0}' -f $MyVariable
 }
 
-#specify variable outside of 
+#specify variable outside of if
+$outside = 7
+for (; $outside -lt 15; $outside++) {
+    'Outside is {0}' -f $outside
+}
+
+#Looping through array
+$pets - @("Cat", "Dog", "Fish", "Turtle")
+$pets.Count
+
+$pets[2]
+
+"My pets in order:"
+for ($i = 0; $i -lt $pets.Count; $i++) {
+    $pets[$i]
+}
