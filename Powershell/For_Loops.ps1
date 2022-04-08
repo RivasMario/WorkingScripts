@@ -82,3 +82,46 @@ for ( $i = 0; ; $i++) {
         break
     }
 }
+
+# A real use case with Azure Application Insights
+
+$Headers = @("First Name", "Email", "Phone Number")
+
+$Rows = @(
+    @("Kamil", "kamil@kamil.mail", "111-111-111"),
+    @("John", "john@john.mail", "222-222-222"),
+    @("Abigail", "abigail@abigail.mail", "333-333-333")
+)
+
+#List is like an array, however it allows the ability to add new entries to it
+#Arrays cannot be expanded by definition, not designed for it
+#CSharp Object, Generic List object
+$result = New-Object System.Collections.Generic.List[System.Object]
+
+#Work through each one at a time
+#foreach local variable on the fly
+foreach ($row in $rows) {
+
+    #We need a blank powershell object. 
+    #Declarea hash-table and the type is PScustomObject
+    $record = [PSCustomObject]@{}
+
+    #Now iteration through each property in the row
+    #Gets first header and adds it, then add all the others in array
+    #Does it for the first row, then restarts for the next row
+    for ($i = 0; $i -lt $Headers.Count; $i++) {
+
+        #Powershell objects can add members
+        $record | Add-Member -MemberType NoteProperty -Name[$i] -Value $row[$i]
+    }
+
+    #We add completed object to the list
+    $result.Add($record)
+
+}
+
+#Display list with all record
+$record
+
+$result.Email
+$result.'First Name'
