@@ -27,8 +27,10 @@ if ($MyVariable) {
 
 function sentenceMaker($Noun, $Adjective) {
     $JsonOut = ./sentence.bat $Noun $Adjective
-    $Out = $JsonOut |ConvertFrom-Json
+    $Out = $JsonOut | ConvertFrom-Json
     $Out.Sentence
 }
 
 sentenceMaker($MyVariable.Noun, $MyVariable.Adjective)
+
+#4/10/2022 Need to add command line argumenst for the script, auto completion, discoverability, help and error handling
