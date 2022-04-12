@@ -96,3 +96,59 @@ for ($i =0; $i -LT $domains.Count; $i++) {
 
 ######################
 # Updating Values #
+
+$Week = @("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+$Week[2]  #Currently Wednesday
+$Week[2] = "Boo"
+$Week[2]
+$Week
+
+#Updating non existent member of array throws error
+$Week[8] ="Hi"
+
+#Join
+$Week
+$Week -join "|"
+$Week -join "," #essentially making a csv file
+$Week -join $null
+
+#In or in other words search
+"Tuesday" -in $Week
+
+#match
+$Week -match "es"
+
+###################
+# Adding to array #
+
+#Arrays are typically fixed memory, updates are not allowed
+#Powershell allows you to do that. 
+#Powershell in essence created new array, copies content from old array, and removes old one
+#If you plan to add items to array, use ArrayList and List
+
+#Adding elements to an array
+$Week
+$Week.Add("January") #This is an error
+$Week += "January"
+$Week
+
+#Adding arrays together
+$ArrayA = 1..10
+$ArrayB = 11..20
+$ArrayA + $ArrayB
+
+##############
+# Array List #
+
+$alist = [System.Collections.ArrayList]::new() #This is .Net framework
+#pops out 0 or 1 depending on if it runs successfully
+$alist.Add("January")
+#Prevents performance hit like regular add does
+#Void stops prevents writing to console
+[void]$alist.Add("February")
+$alist
+
+# removing from ArrayList
+
+$alist.Remove($alist[1])
+$alist
