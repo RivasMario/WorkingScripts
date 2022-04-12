@@ -122,7 +122,8 @@ $Week -match "es"
 # Adding to array #
 
 #Arrays are typically fixed memory, updates are not allowed
-#Powershell allows you to do that. 
+#Powershell a
+llows you to do that. 
 #Powershell in essence created new array, copies content from old array, and removes old one
 #If you plan to add items to array, use ArrayList and List
 
