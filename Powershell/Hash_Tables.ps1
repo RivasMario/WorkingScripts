@@ -38,3 +38,4 @@ $details.Add("Pet", "Snake")
 #Gets name of Key wanted
 $details["Pet"] #explicity tells this is a hash table
 $details.Pet
+
