@@ -54,3 +54,42 @@ $obj."Favorite Snack"
 # Listing Properties
 $obj.psobject.properties.Name
 $obj | Get-Member -MemberType NoteProperty
+
+
+#############
+# Hashtable #
+#############
+
+# Converting hashtable to psobject:
+$ht = @{
+    Name    = "Mr Fiber"
+    Species = "Domestic cat"
+    Type    = "Tabby cat"
+}
+$ht
+$htobj = [pscustomobject]$ht
+$htobj
+
+# Converting psobject to hashtable
+$newHt = @{}
+foreach ($property in $htobj.psobject.Properties.name) {
+    $newHt[$property] = $htobj.$property
+}
+$newHt
+
+###########
+# Methods #
+###########
+
+# We can actually have some action!
+$method = {
+    "Hi, my name is $($this.name) and I like to sleep."
+}
+
+$params = @{
+    MemberType = "ScriptMethod"
+    Name       = "SayHi"
+    Value      = $method
+}
+$obj | Add-Member @params
+$obj.SayHi()
