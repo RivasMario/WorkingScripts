@@ -14,3 +14,43 @@ About PsCustomObject:
     PSCustomObject have their own will $PSCustomObject | Get-Member
 #>
 
+#Creating custom object
+$obj =[PsCustomObject]@{
+    Name = "Mr Fiber"
+    Species = "Domestic Cat"
+    Type = "Tabby Cat"
+}
+$obj
+$obj.Name
+
+#Saving a file (JSON)
+# We could save CSV, however CSV don't support nested properties, thus why JSOn is preferred
+$Path = "$env:TEMP\pstojson.json"
+$obj | ConvertTo-json -Depth 99 | Set-Content -Path $Path
+$imported = Get-Content -Path $Path
+$imported
+$imported | ConvertFrom-json
+
+##############
+# Properties #
+
+#  Accessing properties
+$obj.Species
+
+# Dynamically accessing properties
+$prop = "Type"
+$obj.$prop
+
+# Adding property
+#If youy want to add more properties, need to do add member
+# Will complain if you try to add the same member again
+$obj | Add-Member -MemberType NoteProperty -Name "Favorite Snack" -Value "Dental Treats"
+$obj."Favorite Snack"
+
+# Removing Properties
+$obj.psobject.Properties.Remove("Favorite Snack")
+$obj."Favorite Snack"
+
+# Listing Properties
+$obj.psobject.properties.Name
+$obj | Get-Member -MemberType NoteProperty
