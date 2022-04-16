@@ -82,6 +82,7 @@ $newHt
 ###########
 
 # We can actually have some action!
+# $this is a automatic variable, like $_
 $method = {
     "Hi, my name is $($this.name) and I like to sleep."
 }
@@ -93,3 +94,4 @@ $params = @{
 }
 $obj | Add-Member @params
 $obj.SayHi()
+
