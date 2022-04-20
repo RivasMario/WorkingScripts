@@ -95,3 +95,92 @@ $params = @{
 $obj | Add-Member @params
 $obj.SayHi()
 
+# How about, converting Object to Hashtable, as the actual method?
+$params = @{
+    MemberType = "ScriptMethod"
+    Name       = "OutHashtable"
+    Value      = {
+        $hash = @{}
+        $this.psobject.properties.name.foreach({
+                $hash[$_] = $this.$_
+            })
+        return $hash
+    }
+}
+$obj | Add-Member @params
+$obj.OutHashtable()
+
+#########
+# Types #
+#########
+
+$obj | Get-Member # now it is PSCustomObject, duh
+
+$obj.psobject.TypeNames # this looks familiar
+$obj.psobject.TypeNames.Insert(0, "Kp.CatsAreAwesome")
+$obj | Get-Member
+
+function Invoke-CAA {
+    param ( 
+        # We only accept parameter of type Kp.CatsAreAwesome
+        [PSTypeName('Kp.CatsAreAwesome')]
+        [Parameter(ValueFromPipeline)]
+        $Cat 
+        )
+        
+        # If $Cat has been passed, we call method SayHi(), otherwise we just say that cats are awesome (generally)
+        if ($PSBoundParameters.ContainsKey('Cat')) {
+            "Here's an awesome cat:"
+            return $Cat.SayHi()
+        } else {
+            "Cats are awesome!"
+        }
+}
+Invoke-CAA
+Invoke-Caa -Cat $obj
+Invoke-Caa -Cat "BLA"
+
+# We can also specify type name at creation
+$obj2 = [pscustomobject]@{
+    PSTypeName = 'Kp.CatsAreAwesome'
+    Name = 'Whiskers'
+    Species = "Domestic cat"
+    Type    = "Persian"
+}
+
+$method = {
+    "Hi, my name is $($this.name) and I like to sleep."
+}
+
+$params = @{
+    MemberType = "ScriptMethod"
+    Name       = "SayHi"
+    Value      = $method
+}
+$obj2 | Add-Member @params
+$obj2 | Invoke-CAA
+
+# Specify default output
+Update-TypeData -TypeName kp.CatsAreAwesome -DefaultDisplayPropertySet Name,Type
+$obj # list is now limited to only Name and Type properties
+$obj2
+$obj | Format-List -Property * #displays all
+
+# Let's see arrays and pscustomobjects working together
+$list = [System.Collections.Generic.List[pscustomobject]]::new()
+$locations = @("London", "Sligo", "Barcelona", "Paphos", "Ubud", "Valdemosa")
+$baseUri = "wttr.in/"
+
+foreach ($location in $locations) {
+    "Currently retrieving weather for: $location"
+    $Uri = "{0}{1}?format=j1" -f $baseUri, $location
+    $Uri
+    $data = Invoke-RestMethod $Uri
+    $result = [pscustomobject]@{
+        City = $Location
+        Temperature = $data.current_condition.temp_C
+        Pressure =  $data.current_condition.pressure
+    }
+    $list.Add($result)
+}
+$list
