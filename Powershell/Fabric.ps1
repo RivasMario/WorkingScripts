@@ -1,3 +1,7 @@
+<#
+4/19/2022 Make sure they have the right JIT FABRIC permissions or even a new build form the share won't work
+#>
+
 Update-ServiceFabricClusterUpgrade  -UpgradeMode  UnmonitoredAuto
  
 $doneUD = $false
