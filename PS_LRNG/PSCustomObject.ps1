@@ -114,6 +114,8 @@ $obj.OutHashtable()
 # Types #
 #########
 
+#PSTYPENAME is a specific class in .net
+
 $obj | Get-Member # now it is PSCustomObject, duh
 
 $obj.psobject.TypeNames # this looks familiar
