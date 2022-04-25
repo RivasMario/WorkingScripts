@@ -51,6 +51,15 @@ git log --graph --oneline --decorate
 git bisect start | bad  | good
 git checkout -
 
+## Able to abort for immediate issues
+git merge --abort
+git rebase --abort
+
+#Notes
+Good content.  However, I think you missed one of the more common patterns involving rebase and merge.  In your case of an LT branchA and work branchB with changes on both you rebased the changes in branchA on the changes in branchB.   In my experience, it is more common to rebase the changes in branchB on the changes in branchA (checkout branchB, rebase branchA, <resolve conflicts, build, test>, commit) then merge the resolved changes back into branchA (checkout branchA, merge branchB).  That final merge MUST be a fast-forward.  If it isn't, start over.  This completely avoids the problem of rewriting history on branchA that you alluded to.  Given branchA may be used as a base by other developers and could be hosted on a server that disallows history changes, that is essential.
+
+#Notes
+Also even if you like to rebase an already pushed branch, you could do it safetely using the "git push --force-with-lease" and the "git pull --rebase" options, that will avoid you overwritten any changes made in the remote branch.
 ```
 
 ## Contributing
