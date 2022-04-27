@@ -37,9 +37,9 @@ Ans: To sync the password if it is changed through the Azure portal
 
 7. Which is the PowerShell command to get the role definition?
 1) Get-azRoledefinition “Contributor”
-2) Get-azRoledefinition “Contributor”|convertto-jason |out-file
-D:\ABPGroup
+2) Get-azRoledefinition “Contributor”|convertto-jason |out-file D:\ABPGroup
 3) Connect-azsubscription
+
 Ans: Get-azRoledefinition “Contributor”
 
 8. How many types of role back Access are available in Azure?
