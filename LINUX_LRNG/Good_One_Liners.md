@@ -6,6 +6,10 @@ sudo nano /etc/hosts
 sudo reboot 
 sudo nano /etc/dhcpcd.conf
 
+Get-ChildItem . -Attributes Directory+Hidden -ErrorAction SilentlyContinue -Filter ".git" -Recurse
+
+find / -name ".git"
+
 
 set -euo pipefail
 shellcheck
