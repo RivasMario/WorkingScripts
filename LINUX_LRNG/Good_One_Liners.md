@@ -6,6 +6,13 @@ sudo nano /etc/hosts
 sudo reboot 
 sudo nano /etc/dhcpcd.conf
 
+[CHANGING_LINUX_NAME]
+hostnamectl
+hostnamectl set-hostname {desired name}
+vim /etc/hosts
+vim /etc/hostname
+sudo reboot
+
 Get-ChildItem . -Attributes Directory+Hidden -ErrorAction SilentlyContinue -Filter ".git" -Recurse
 
 find / -name ".git"
