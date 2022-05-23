@@ -5,6 +5,7 @@ sudo nano /etc/hostname
 sudo nano /etc/hosts
 sudo reboot 
 sudo nano /etc/dhcpcd.conf
+sudo raspi-config
 
 [CHANGING_LINUX_NAME]
 hostnamectl
@@ -35,8 +36,6 @@ $PSScriptRoot
 PacketTracer software
 
 Get-ChildItem -Path "C:\Users\azadmin\Calibre Library\*" -Include *.mobi -Recurse | Copy-Item -Destination "G:\My Drive\EBOOKS\MOBI"
-
-kubectl get pods | grep fdv2-6| awk '{print $1}' | while read -r line ; do kubectl exec -i $line -- powershell  -c "netsh http show sslcert hostnameport=aadcdn.msftauthimages.us:443;" </dev/null; done
 
 echo "cd ~/Desktop/Java\ Files" >> ~/.bashrc
 
