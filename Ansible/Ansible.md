@@ -22,6 +22,10 @@ After done, restart ssh > sudo systemctl restart sshd.service
 to add Private Key for putty > Connection > SSH > Auth > add Private Key
 add hostname info and save  with name
 
+FYSA TIP: Connection was being refused. Had to install new open ssh version
+sudo apt install openssh-server
+sudo systemctl status ssh
+
 ```
 
 ## Usage
