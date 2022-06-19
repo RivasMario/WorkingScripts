@@ -7,7 +7,7 @@ Foobar is a Python library for dealing with word pluralization.
 ```bash
 
 PuttyGen on MSFT host > Generate > Move mouse in box for randomness
-Save Both Pub and Private key to hidden folder in GIT
+Save Both Public and Private key to hidden folder in GIT
 SSH to Linux box desired
 CD to /.ssh folder for user desired, if not create folder
 
