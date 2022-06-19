@@ -10,7 +10,12 @@ PuttyGen on MSFT host > Generate > Move mouse in box for randomness
 Save Both Pub and Private key to hidden folder in GIT
 SSH to Linux box desired
 CD to /.ssh folder for user desired, if not create folder
-Create file > touch authorized_keys 
+
+> mkdir .ssh
+
+Create file 
+
+> touch authorized_keys 
 
 > sudo apt-get update
 > sudo nano authorized_keys
