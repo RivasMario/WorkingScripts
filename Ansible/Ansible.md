@@ -10,10 +10,15 @@ PuttyGen on MSFT host > Generate > Move mouse in box for randomness
 Save Both Pub and Private key to hidden folder in GIT
 SSH to Linux box desired
 CD to /.ssh folder for user desired, if not create folder
-Create file > touch authorized_keys > sudo nano authorized_keys
+Create file > touch authorized_keys 
+
+> sudo apt-get update
+> sudo nano authorized_keys
+
 Select All Public Key in PuttyGen and paste in authorized_keys > Save and exit
 Set Box to block non Key based access
-sudo vim /etc/ssh/sshd_config
+
+>sudo vim /etc/ssh/sshd_config
 
 PermitRootLogin prohibit-password
 PasswordAuthentication no
@@ -22,31 +27,20 @@ After done, restart ssh > sudo systemctl restart sshd.service
 to add Private Key for putty > Connection > SSH > Auth > add Private Key
 add hostname info and save  with name
 
-FYSA TIP: Connection was being refused. Had to install new open ssh version
-sudo apt install openssh-server
-sudo systemctl status ssh
+FYSA TIP: Connection was being refused. Had to install new openssh version
+
+>sudo apt install openssh-server
+>sudo systemctl status ssh
 
 ```
 
-## Usage
+## Ansible Setup from Master
 
-```python
-import foobar
+```ansible
 
-# returns 'words'
-foobar.pluralize('word')
 
-# returns 'geese'
-foobar.pluralize('goose')
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
 ```
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
