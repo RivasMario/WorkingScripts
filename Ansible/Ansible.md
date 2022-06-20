@@ -43,6 +43,37 @@ FYSA TIP: Connection was being refused. Had to install new openssh version
 
 ```ansible
 
+Connect to all servers from master and select yes on prompt
+
+Generate an ssh key that’s going to be specifically used for Ansible
+
+> ssh-keygen -t ed25519 -C "homelabansible"
+FYSA: Run in .ssh folder
+
+Copy the ssh key to the server(s)
+
+> ssh-copy-id -i ~/.ssh/homelabansible.pub ubuntu@192.168.0.19 <IP>
+FYSA: Need to specify user when sending
+
+Use an SSH key to connect to a server 
+
+>ssh -i ~/.ssh/homelabansible ubuntu@192.168.0.19 <IP Address>
+
+To cache the passphrase for our session, we can use the ssh agent 
+
+>eval $(ssh-agent)
+>ssh-add
+
+Here’s an alias you can put in your .bashrc, to simplify it
+
+> alias ssha='eval $(ssh-agent) && ssh-add'
+
+```
+
+## Ansible, Setting up GIT repo
+
+```ansible
+
 
 
 ```
