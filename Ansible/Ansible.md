@@ -41,7 +41,7 @@ FYSA TIP: Connection was being refused. Had to install new openssh version
 
 ## Ansible Setup from Master
 
-```ansible
+```bash
 
 Connect to all servers from master and select yes on prompt
 
