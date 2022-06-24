@@ -72,7 +72,40 @@ Here’s an alias you can put in your .bashrc, to simplify it
 
 ## Ansible, Setting up GIT repo
 
-```ansible
+```git
+
+Need to create a SSH key-pair on localhost. Add private to ssh-agent. Add Public to Github. Pull New Ansible Repo to server.
+
+Check if git is installed
+
+>which git
+
+Install git
+
+>sudo apt update
+>sudo apt install git
+
+Create user config for git
+
+>git config --global user.name "UserName"
+>git config --global user.email "somebody@somewhere.net"
+
+Check the status of your git repository
+
+>git status
+
+Stage the README.md file (after making changes) to be included in the next git commit
+
+>git add README.md
+
+Set up the README.md file to be included in a commit
+
+>git commit -m "Updated readme file, initial commit"
+
+Send the commit to Github
+
+>git push origin main
+FYSA: Main not Master
 
 
 
