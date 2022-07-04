@@ -74,7 +74,7 @@ Here’s an alias you can put in your .bashrc, to simplify it
 
 ## Ansible, Setting up GIT repo
 
-```git
+```bash
 
 Need to create a SSH key-pair on localhost. Add private to ssh-agent. Add Public to Github. Pull New Ansible Repo to server.
 
@@ -120,8 +120,64 @@ git clone git@github.com:RivasMario/AnsibleHomelab.git
 
 ## Ansible Ad-Hoc commands
 
+<<<<<<< HEAD
 ```ansible
 
+=======
+```bash
+Install ansible
+
+>sudo apt update
+>sudo apt install ansible
+
+Create an inventory file (add the IP address for each server on its own line)
+
+192.168.0.102
+192.168.0.103
+192.168.0.104
+192.168.0.105
+192.168.0.106
+192.168.0.107
+
+Add the inventory file to version control
+
+>git add inventory
+
+Commit the changes
+
+>git commit -m "first version of the inventory file, added three hosts."
+
+Push commit to Github
+
+>git push origin master
+
+Test Ansible is working
+
+>ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+
+Create ansible config file
+
+>nano ansible.cfg
+ 
+[defaults]
+inventory = inventory private_key_file = ~/.ssh/ansible
+
+Now the ansible command can be simplified
+
+>ansible all -m ping
+
+List all of the hosts in the inventory
+
+>ansible all --list-hosts
+
+Gather facts about your hosts
+
+>ansible all -m gather_facts
+
+Gather facts about your hosts, but limit it to just one host
+
+>ansible all -m gather_facts --limit 172.16.250.132
+>>>>>>> e9e5d5d0d0ada625e3a277a0a2e6987bb53f506a
 
 
 ```
