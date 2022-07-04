@@ -62,7 +62,9 @@ Use an SSH key to connect to a server
 To cache the passphrase for our session, we can use the ssh agent 
 
 >eval $(ssh-agent)
->ssh-add
+>ssh-add  
+
+~/.ssh/homelabansible
 
 Here’s an alias you can put in your .bashrc, to simplify it
 
@@ -87,8 +89,8 @@ Install git
 
 Create user config for git
 
->git config --global user.name "UserName"
->git config --global user.email "somebody@somewhere.net"
+>git config --global user.name "RivasMario"
+>git config --global user.email "mariojrivas@outlook.com"
 
 Check the status of your git repository
 
@@ -106,6 +108,19 @@ Send the commit to Github
 
 >git push origin main
 FYSA: Main not Master
+
+FYSA: Github keys
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/githubansible
+
+ssh -T git@github.com
+git clone git@github.com:RivasMario/AnsibleHomelab.git
+```
+
+## Ansible Ad-Hoc commands
+
+```ansible
 
 
 
