@@ -120,10 +120,6 @@ git clone git@github.com:RivasMario/AnsibleHomelab.git
 
 ## Ansible Ad-Hoc commands
 
-<<<<<<< HEAD
-```ansible
-
-=======
 ```bash
 Install ansible
 
