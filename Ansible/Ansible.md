@@ -173,8 +173,6 @@ Gather facts about your hosts
 Gather facts about your hosts, but limit it to just one host
 
 >ansible all -m gather_facts --limit 172.16.250.132
->>>>>>> e9e5d5d0d0ada625e3a277a0a2e6987bb53f506a
-
 
 ```
 
