@@ -128,6 +128,8 @@ Install ansible
 
 Create an inventory file (add the IP address for each server on its own line)
 
+nano inventory
+
 192.168.0.102
 192.168.0.103
 192.168.0.104
