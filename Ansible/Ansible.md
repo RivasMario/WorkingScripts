@@ -116,7 +116,8 @@ ssh-add ~/.ssh/githubansible
 
 ssh -T git@github.com
 git clone git@github.com:RivasMario/AnsibleHomelab.git
-```
+git remote add origin git@github.com:RivasMario/AnsibleHomelab.git
+git push origin main
 
 ## Ansible Ad-Hoc commands
 
@@ -129,6 +130,9 @@ Install ansible
 Create an inventory file (add the IP address for each server on its own line)
 
 nano inventory
+git add inventory
+git commit -m "inventory"
+git push origin master
 
 192.168.0.102
 192.168.0.103
