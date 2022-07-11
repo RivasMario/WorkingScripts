@@ -118,7 +118,6 @@ ssh -T git@github.com
 git clone git@github.com:RivasMario/AnsibleHomelab.git
 git remote add origin git@github.com:RivasMario/AnsibleHomelab.git
 git push origin main
-
 ```
 
 ## Ansible Ad-Hoc commands
