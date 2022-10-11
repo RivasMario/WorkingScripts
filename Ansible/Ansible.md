@@ -57,7 +57,7 @@ FYSA: Need to specify user when sending
 
 Use an SSH key to connect to a server 
 
->ssh -i ~/.ssh/homelabansible ubuntu@192.168.0.19 <IP Address>
+>ssh -i ~/.ssh/homelabansible ubuntu@192.168.0.$ (102-7) <IP Address>
 
 To cache the passphrase for our session, we can use the ssh agent 
 
@@ -114,6 +114,8 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/githubansible
 
+FYSA: Need to add the private key to github itse;f in ssh gpg keys section 10/10/2022
+
 ssh -T git@github.com
 git clone git@github.com:RivasMario/AnsibleHomelab.git
 git remote add origin git@github.com:RivasMario/AnsibleHomelab.git
@@ -148,7 +150,7 @@ Add the inventory file to version control
 
 Commit the changes
 
->git commit -m "first version of the inventory file, added three hosts."
+>git commit -m "first version of the inventory file, added six hosts."
 
 Push commit to Github
 
