@@ -158,12 +158,12 @@ Push commit to Github
 
 Test Ansible is working
 
->ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+>ansible all --key-file ~/.ssh/ansible -i inventory -u ubuntu -m ping
 
 Create ansible config file
 
 >nano ansible.cfg
- 
+  
 [defaults]
 inventory = inventory private_key_file = ~/.ssh/ansible
 
