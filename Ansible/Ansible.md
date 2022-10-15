@@ -57,7 +57,7 @@ FYSA: Need to specify user when sending
 
 Use an SSH key to connect to a server 
 
->ssh -i ~/.ssh/homelabansible ubuntu@192.168.0.$ (102-7) <IP Address>
+>ssh -i ~/.ssh/homelabansible ubuntu@192.168.0.$ (102-107) <IP Address>
 
 To cache the passphrase for our session, we can use the ssh agent 
 
@@ -158,30 +158,54 @@ Push commit to Github
 
 Test Ansible is working
 
->ansible all --key-file ~/.ssh/ansible -i inventory -u ubuntu -m ping
+>ansible all --key-file ~/.ssh/homelabansible -i inventory -u ubuntu -m ping
 
 Create ansible config file
 
 >nano ansible.cfg
   
 [defaults]
-inventory = inventory private_key_file = ~/.ssh/ansible
+inventory = inventory 
+private_key_file = ~/.ssh/homelabansible
 
 Now the ansible command can be simplified
 
->ansible all -m ping
+>ansible all -m ping -u ubuntu
 
 List all of the hosts in the inventory
 
->ansible all --list-hosts
+>ansible all --list-hosts -u ubuntu
 
 Gather facts about your hosts
 
->ansible all -m gather_facts
+>ansible all -m gather_facts -u ubuntu
 
 Gather facts about your hosts, but limit it to just one host
 
->ansible all -m gather_facts --limit 172.16.250.132
+>ansible all -m gather_facts --limit 172.16.250.132 -u ubuntu
+
+```
+
+## Running elevated ad-hoc commands
+
+```bash
+
+Tell ansible to use sudo (become)
+
+>ansible all -m apt -a update_cache=true --become --ask-become-pass
+
+Install a package via the apt module
+
+>ansible all -m apt -a name=vim-nox --become --ask-become-pass
+
+Install a package via the apt module, and also make sure it’s the latest version available
+
+>ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass
+
+Upgrade all the package updates that are available
+
+>ansible all -m apt -a upgrade=dist --become --ask-become-passxx
+
 
 ```
 
