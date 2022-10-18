@@ -192,19 +192,19 @@ Gather facts about your hosts, but limit it to just one host
 
 Tell ansible to use sudo (become)
 
->ansible all -m apt -a update_cache=true --become --ask-become-pass
+>ansible all -m apt -a update_cache=true --become --ask-become-pass -u ubuntu
 
 Install a package via the apt module
 
->ansible all -m apt -a name=vim-nox --become --ask-become-pass
+>ansible all -m apt -a name=vim-nox --become --ask-become-pass -u ubuntu
 
 Install a package via the apt module, and also make sure it’s the latest version available
 
->ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass
+>ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass -u ubuntu
 
 Upgrade all the package updates that are available
 
->ansible all -m apt -a upgrade=dist --become --ask-become-passxx
+>ansible all -m apt -a "upgrade=dist" --become --ask-become-pass -u ubuntu
 
 
 ```
