@@ -228,7 +228,7 @@ install_apache.yml
 
 Run the playbook
 
->ansible-playbook --ask-become-pass install_apache.yml
+>ansible-playbook --ask-become-pass -u ubuntu install_apache.yml
 
 install_apache.yml (second version)
  ---
