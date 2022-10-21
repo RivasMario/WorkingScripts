@@ -793,8 +793,8 @@ List the available tags in a playbook
 Examples of running a playbook but targeting specific tags
 
 ansible-playbook --tags db --ask-become-pass site_with_tags.yml
- ansible-playbook --tags centos --ask-become-pass site_with_tags.yml
- ansible-playbook --tags apache --ask-become-pass site_with_tags.yml
+>ansible-playbook --tags centos --ask-become-pass site_with_tags.yml
+>ansible-playbook --tags apache --ask-become-pass site_with_tags.yml
 
 ```
 
