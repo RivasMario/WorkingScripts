@@ -713,6 +713,13 @@ site.yml (fourth version)
 
 ```yml
 
+SSH into the Rapberry Pis to get the info of the model
+>cat /proc/cpuinfo
+also
+>cat /sys/firmware/devicetree/base/model
+>cat /proc/device-tree/model
+Need to make a ansible playbook for it
+
 site.yml (with tags added)
  ---
  
