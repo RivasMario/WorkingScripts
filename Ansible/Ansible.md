@@ -803,6 +803,216 @@ ansible-playbook --tags db --ask-become-pass site_with_tags.yml
 >ansible-playbook --tags centos --ask-become-pass site_with_tags.yml
 >ansible-playbook --tags apache --ask-become-pass site_with_tags.yml
 
+tags a specific way of calling tags, set on actions themselves in a playbook. Not the same as the inventory usage of groups. both can be used concurrently
+
+```
+
+## Managing Files with Ansible
+
+```html
+
+default_site.html
+
+Note: Store this file in a directory named “files” in the root of the repository.
+
+<html>
+     <title>Web-site test</title>
+     <body>
+        Ansible is awesome!
+    </body>
+</html>
+
+```
+
+```yml
+
+site.yml (updated to copy default_site.html)
+ ---
+ 
+ - hosts: all
+   become: true
+   pre_tasks:
+ 
+   - name: install updates (CentOS)
+     tags: always
+     dnf:
+       update_only: yes
+       update_cache: yes
+     when: ansible_distribution == "CentOS"
+ 
+   - name: install updates (Ubuntu)
+     tags: always
+     apt:
+       upgrade: dist
+       update_cache: yes
+     when: ansible_distribution == "Ubuntu"
+ 
+ 
+ - hosts: web_servers
+   become: true
+   tasks:
+ 
+   - name: install httpd package (CentOS)
+     tags: apache,centos,httpd
+     dnf:
+       name:
+         - httpd
+         - php
+       state: latest
+     when: ansible_distribution == "CentOS"
+ 
+   - name: install apache2 package (Ubuntu)
+     tags: apache,apache2,ubuntu
+     apt:
+       name:
+         - apache2
+         - libapache2-mod-php
+       state: latest
+     when: ansible_distribution == "Ubuntu"
+ 
+   - name: copy html file for site
+     tags: apache,apache,apache2,httpd
+     copy:
+       src: default_site.html
+       dest: /var/www/html/index.html
+       owner: root
+       group: root
+       mode: 0644
+ 
+ - hosts: db_servers
+   become: true
+   tasks:
+ 
+   - name: install mariadb server package (CentOS)
+     tags: centos,db,mariadb
+     dnf:
+       name: mariadb
+       state: latest
+     when: ansible_distribution == "CentOS"
+ 
+   - name: install mariadb server
+     tags: db,mariadb,ubuntu
+     apt:
+       name: mariadb-server
+       state: latest
+     when: ansible_distribution == "Ubuntu"
+ 
+ - hosts: file_servers
+   tags: samba
+   become: true
+   tasks:
+ 
+   - name: install samba package
+     tags: samba
+     package:
+       name: samba
+       state: latest
+
+Run the playbook
+
+>ansible-playbook --ask-become-pass file_management.yml
+
+file_management.yml (updated)
+ ---
+ 
+ - hosts: all
+   become: true
+   pre_tasks:
+ 
+   - name: install updates (CentOS)
+     tags: always
+     dnf:
+       update_only: yes
+       update_cache: yes
+     when: ansible_distribution == "CentOS"
+ 
+   - name: install updates (Ubuntu)
+     tags: always
+     apt:
+       upgrade: dist
+       update_cache: yes
+     when: ansible_distribution == "Ubuntu"
+ 
+ - hosts: workstations
+   become: true
+   tasks:
+
+   - name: install unzip
+     package:
+       name: unzip
+ 
+   - name: install terraform
+     unarchive:
+      src: https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
+       dest: /usr/local/bin
+       remote_src: yes
+       mode: 0755
+       owner: root
+       group: root
+ 
+ - hosts: web_servers
+   become: true
+   tasks:
+ 
+   - name: install httpd package (CentOS)
+     tags: apache,centos,httpd
+     dnf:
+       name:
+         - httpd
+         - php
+       state: latest
+     when: ansible_distribution == "CentOS"
+ 
+   - name: install apache2 package (Ubuntu)
+     tags: apache,apache2,ubuntu
+     apt:
+       name:
+         - apache2
+         - libapache2-mod-php
+       state: latest
+     when: ansible_distribution == "Ubuntu"
+ 
+   - name: copy html file for site
+     tags: apache,apache,apache2,httpd
+     copy:
+       src: default_site.html
+       dest: /var/www/html/index.html
+       owner: root
+       group: root
+       mode: 0644
+ 
+ - hosts: db_servers
+   become: true
+   tasks:
+ 
+   - name: install mariadb server package (CentOS)
+     tags: centos,db,mariadb
+     dnf:
+       name: mariadb
+       state: latest
+     when: ansible_distribution == "CentOS"
+ 
+   - name: install mariadb server
+     tags: db,mariadb,ubuntu
+     apt:
+       name: mariadb-server
+       state: latest
+     when: ansible_distribution == "Ubuntu"
+ 
+ - hosts: file_servers
+   tags: samba
+   become: true
+   tasks:
+ 
+   - name: install samba package
+     tags: samba
+     package:
+       name: samba
+       state: latest
+
+Run the updated playbook
+>ansible-playbook --ask-become-pass file_management.yml
+
 ```
 
 
