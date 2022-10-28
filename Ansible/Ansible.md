@@ -1013,6 +1013,39 @@ file_management.yml (updated)
 Run the updated playbook
 >ansible-playbook --ask-become-pass file_management.yml
 
+vim tricks
+
+:tabedit {file} in vim to open other file in a tab
+vim -p {file1} {file2} to open both automatically in tabs
+type [gt] ot [gT] in command mode to switch tabs
+:vsplit :vsto open up multiple files in vertical split mode
+:split :sp split works too
+CTRL + W c to quit the window
+:10sp {file} opens the file 10 lines high split
+CTRL + W and CAPITAL R, swaps the splits
+set splitbelow splitright = in bashrc appear below and right first
+:resize + {num}, pain in focus will grow in 5, -5 will subtract
+:res +/- {num} works too
+:vs|:terminal opens a terminal in vim
+
+:{file_path/file1} to open that file in :vsplit
+
+:mksession filename.vim saves workspace > vim -S {filename.vim}
+.vimrc allow set spell to use spell check
+:set spelllang= {iso language codes} for specific language spell check
+:resize + 5, pain in focus will grow in 5
+
+f CTRL + N to complete to the languages next likeliest word
+f CRTL + P to look for words you've already typed in the file
+
+:Explore for files searching
+:Hex | :Sex | :Lex are all file explorers, :Lex opens file explorer on the right instead
+
+Selecting multiple lines to type on
+visal block mode CTRL + V, 10j is line, Capital I, type in word, hit escape to paste to the word to all line
+a to append text , 10j, type in word, hit escape to append to all ends
+
+normal mode, press q then letter to record macro on
 ```
 
 
