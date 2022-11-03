@@ -1013,7 +1013,7 @@ file_management.yml (updated)
 Run the updated playbook
 >ansible-playbook --ask-become-pass file_management.yml
 
-vim tricks
+vim instructions, useful
 
 :tabedit {file} in vim to open other file in a tab
 vim -p {file1} {file2} to open both automatically in tabs
@@ -1046,6 +1046,11 @@ visal block mode CTRL + V, 10j is line, Capital I, type in word, hit escape to p
 a to append text , 10j, type in word, hit escape to append to all ends
 
 normal mode, press q then letter to record macro on
+
+\\For resizing on ubuntu
+root@util:~# vgdisplay
+root@util:~# lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+root@util:~# resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
 ```
 
 
