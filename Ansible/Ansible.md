@@ -1051,6 +1051,11 @@ normal mode, press q then letter to record macro on
 root@util:~# vgdisplay
 root@util:~# lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
 root@util:~# resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+
+\\check open ports
+ss -tl
+netstat -tulpn
+
 ```
 
 
