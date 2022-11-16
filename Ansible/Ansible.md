@@ -66,6 +66,12 @@ To cache the passphrase for our session, we can use the ssh agent
 
 ~/.ssh/homelabansible
 
+---------
+eval $(ssh-agent)
+ssh-add  ~/.ssh/homelabansible
+ssh-add  ~/.ssh/githubansible
+---------
+
 Here’s an alias you can put in your .bashrc, to simplify it
 
 > alias ssha='eval $(ssh-agent) && ssh-add'
@@ -1013,7 +1019,9 @@ file_management.yml (updated)
 Run the updated playbook
 >ansible-playbook --ask-become-pass file_management.yml
 
+```
 vim instructions, useful
+------------------------
 
 :tabedit {file} in vim to open other file in a tab
 vim -p {file1} {file2} to open both automatically in tabs
@@ -1055,8 +1063,6 @@ root@util:~# resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
 \\check open ports
 ss -tl
 netstat -tulpn
-
-```
 
 
 ## License
