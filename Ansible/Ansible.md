@@ -830,6 +830,19 @@ Note: Store this file in a directory named “files” in the root of the reposi
 
 ```
 
+~/.ssh/config
+touch ~/.ssh/config
+vim ~/.ssh/config
+
+Host *
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/githubansible
+  UseKeychain yes #optional
+
+ssh-add ~/.ssh/githubansible
+
+ssh- -T git@github.com
+
 ```yml
 
 site.yml (updated to copy default_site.html)
