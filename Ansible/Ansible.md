@@ -1422,6 +1422,7 @@ site.yml (added ‘lineinfile’ play)
        state: latest
 
 :set number #add line numbers to vim
+vim {filename} +{line number}
 ```
 
 
