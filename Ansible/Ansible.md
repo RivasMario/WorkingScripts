@@ -1248,7 +1248,7 @@ site.yml (second version, the change is in bold)
      service:
        name: httpd
        state: started
-       enabled: yes
+       enabled: yes #starts service on startup
      when: ansible_distribution == "CentOS"
  
    - name: install apache2 package (Ubuntu)
@@ -1369,19 +1369,19 @@ site.yml (added ‘lineinfile’ play)
  
    - name: change e-mail address for admin
      tags: apache,centos,httpd
-     lineinfile:
+     lineinfile: #changes a line in a file,
        path: /etc/httpd/conf/httpd.conf
-       regexp: '^ServerAdmin'
+       regexp: '^ServerAdmin' #regex to find the line, possible you can duplicate changes every time run
        line: ServerAdmin somebody@somewhere.net
      when: ansible_distribution == "CentOS"
-     register: httpd
+     register: httpd #allows ansible to capture state in a variable
  
    - name: restart httpd (CentOS)
      tags: apache,centos,httpd
      service:
        name: httpd
        state: restarted
-     when: httpd.changed 
+     when: httpd.changed #works on registered variable, confusingly name httpd
  
    - name: copy html file for site
      tags: apache,apache,apache2,httpd
@@ -1421,7 +1421,7 @@ site.yml (added ‘lineinfile’ play)
        name: samba
        state: latest
 
-
+:set number #add line numbers to vim
 ```
 
 
