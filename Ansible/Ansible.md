@@ -2354,9 +2354,174 @@ site.yml (final version for this video)
        name: samba
        state: latest
 
+```
+## Ansible Roles
 
+```yml
+
+site.yml (new version)
+ ---
+ 
+ - hosts: all
+   become: true
+   pre_tasks:
+ 
+   - name: update repository index (CentOS)
+     tags: always
+     dnf:
+       update_cache: yes
+     changed_when: false
+     when: ansible_distribution == "CentOS"
+ 
+   - name: update repository index (Ubuntu)
+     tags: always
+     apt:
+       update_cache: yes
+     changed_when: false
+     when: ansible_distribution == "Ubuntu"
+ 
+ - hosts: all
+   become: true
+   roles:
+     - base
+    
+ - hosts: workstations
+   become: true
+   roles:
+     - workstations
+ 
+ - hosts: web_servers
+   become: true
+   roles:
+     - web_servers
+ 
+ - hosts: db_servers
+   become: true
+   roles:
+     - db_servers
+ 
+ - hosts: file_servers
+   become: true
+   roles:
+     - file_servers
+Create a roles directory
+ mkdir roles
+Create a directory for each role you wish to add:
+ cd roles
+ mkdir base
+ mkdir db_servers
+ mkdir file_servers
+ mkdir web_servers
+ mkdir workstations
+Inside each role directory, create a tasks directory
+ cd <role_name>
+ mkdir tasks
+main.yml (base role)
+Note: Use your actual key below on the last line, in place of the one you see here.
+
+ - name: add ssh key for simone
+   authorized_key:
+     user: simone
+     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAe7/ofWLNBq3+fRn3UmgAizdicLs9vcS4Oj8VSOD1S/ ansible"
+Set up required files/folders for db_servers role
+ cd ..
+ cd ..
+ mkdir db_servers
+ cd db_servers
+ mkdir tasks
+ cd tasks
+ vim main.yml
+main.yml (db_servers role)
+ - name: install mariadb server package (CentOS)
+   tags: centos,db,mariadb
+   dnf:
+     name: mariadb
+     state: latest
+   when: ansible_distribution == "CentOS"
+ 
+ - name: install mariadb server
+   tags: db,mariadb,ubuntu
+   apt:
+     name: mariadb-server
+     state: latest
+   when: ansible_distribution == "Ubuntu"
+main.yml (file_servers role)
+ - name: install samba package
+   tags: samba
+   package:
+     name: samba
+     state: latest
+main.yml (workstations role)
+ - name: install unzip
+   package:
+     name: unzip
+ 
+ - name: install terraform
+   unarchive:
+     src: https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
+     dest: /usr/local/bin
+     remote_src: yes
+     mode: 0755
+     owner: root
+     group: root
+main.yml (web_servers role)
+ - name: install httpd package (CentOS)
+   tags: apache,centos,httpd
+   dnf:
+     name:
+       - httpd
+       - php
+     state: latest
+   when: ansible_distribution == "CentOS"
+ 
+ - name: start and enable httpd (CentOS)
+   tags: apache,centos,httpd
+   service:
+     name: httpd
+     state: started
+     enabled: yes
+   when: ansible_distribution == "CentOS"
+ 
+ - name: install apache2 package (Ubuntu)
+   tags: apache,apache2,ubuntu
+   apt:
+     name:
+       - apache2
+       - libapache2-mod-php
+     state: latest
+   when: ansible_distribution == "Ubuntu"
+ 
+ - name: change e-mail address for admin
+   tags: apache,centos,httpd
+   lineinfile:
+     path: /etc/httpd/conf/httpd.conf
+     regexp: '^ServerAdmin'
+     line: ServerAdmin somebody@somewhere.net
+   when: ansible_distribution == "CentOS"
+   register: httpd
+ 
+ - name: restart httpd (CentOS)
+   tags: apache,centos,httpd
+   service:
+     name: httpd
+     state: restarted
+   when: httpd.changed    
+ 
+ - name: copy html file for site
+   tags: apache,apache,apache2,httpd
+   copy:
+     src: default_site.html
+     dest: /var/www/html/index.html
+     owner: root
+     group: root
+     mode: 0644
+
+Run the new playbook
+>ansible-playbook site.yml
 
 ```
+
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
