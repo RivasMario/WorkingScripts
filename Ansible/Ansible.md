@@ -2404,8 +2404,11 @@ site.yml (new version)
    become: true
    roles:
      - file_servers
+
 Create a roles directory
- mkdir roles
+ 
+>mkdir roles
+
 Create a directory for each role you wish to add:
  cd roles
  mkdir base
@@ -2413,16 +2416,20 @@ Create a directory for each role you wish to add:
  mkdir file_servers
  mkdir web_servers
  mkdir workstations
+
 Inside each role directory, create a tasks directory
  cd <role_name>
  mkdir tasks
+
 main.yml (base role)
+
 Note: Use your actual key below on the last line, in place of the one you see here.
 
  - name: add ssh key for simone
    authorized_key:
      user: simone
      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAe7/ofWLNBq3+fRn3UmgAizdicLs9vcS4Oj8VSOD1S/ ansible"
+
 Set up required files/folders for db_servers role
  cd ..
  cd ..
@@ -2431,6 +2438,7 @@ Set up required files/folders for db_servers role
  mkdir tasks
  cd tasks
  vim main.yml
+
 main.yml (db_servers role)
  - name: install mariadb server package (CentOS)
    tags: centos,db,mariadb
@@ -2445,12 +2453,14 @@ main.yml (db_servers role)
      name: mariadb-server
      state: latest
    when: ansible_distribution == "Ubuntu"
+
 main.yml (file_servers role)
  - name: install samba package
    tags: samba
    package:
      name: samba
      state: latest
+
 main.yml (workstations role)
  - name: install unzip
    package:
@@ -2464,6 +2474,7 @@ main.yml (workstations role)
      mode: 0755
      owner: root
      group: root
+
 main.yml (web_servers role)
  - name: install httpd package (CentOS)
    tags: apache,centos,httpd
