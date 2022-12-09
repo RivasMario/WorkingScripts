@@ -2172,6 +2172,8 @@ site.yml (now copies sudoer file)
        name: samba
        state: latest
 
+bootstrap used to setup the server first before other yml
+
 bootstrap.yml
  
 ---
@@ -2180,18 +2182,18 @@ bootstrap.yml
    become: true
    pre_tasks:
  
-   - name: install updates (CentOS)
+   - name: update repo cache (CentOS)
      tags: always
      dnf:
-       update_only: yes
        update_cache: yes
+      changed_when: false #stops update when no change has been made, cleaner output, cache always gets updated so it makes a comment
      when: ansible_distribution == "CentOS"
  
-   - name: install updates (Ubuntu)
+   - name: update repo cache (Ubuntu)
      tags: always
      apt:
-       upgrade: dist
        update_cache: yes
+       changed_when: false
      when: ansible_distribution == "Ubuntu"
  
  - hosts: all
@@ -2210,12 +2212,16 @@ bootstrap.yml
       
    - name: add sudoers file for simone
      copy:
-       src: sudoer_simone
+       src: sudoer_simone #creates simone file in the files directory where i run ansible from. Dropped file in sudoers folder
        dest: /etc/sudoers.d/simone
        owner: root
        group: root
        mode: 0440
 
+edit ansible.cfg file
+
+no need to do --ask-become-pass
+remote_user = simone #or whatever user set up for server
 
 site.yml (final version for this video)
  ---
