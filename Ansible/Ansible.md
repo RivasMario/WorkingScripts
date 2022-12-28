@@ -2357,8 +2357,9 @@ site.yml (final version for this video)
 ```
 ## Ansible Roles
 
-```yml
+Roles simplifies the primary yml. Roles calls other files.
 
+```yml
 site.yml (new version)
  ---
  
@@ -2409,6 +2410,8 @@ Create a roles directory
  
 >mkdir roles
 
+#roles is a specific directory that needs to be made
+
 Create a directory for each role you wish to add:
  cd roles
  mkdir base
@@ -2439,6 +2442,7 @@ Set up required files/folders for db_servers role
  cd tasks
  vim main.yml
 
+#main.yml is the neccessary name for each role
 main.yml (db_servers role)
  - name: install mariadb server package (CentOS)
    tags: centos,db,mariadb
@@ -2474,6 +2478,8 @@ main.yml (workstations role)
      mode: 0755
      owner: root
      group: root
+
+# if files are requested in a role, it needs to be found in the files folder in the specific roles directory
 
 main.yml (web_servers role)
  - name: install httpd package (CentOS)
@@ -2531,6 +2537,173 @@ Run the new playbook
 >ansible-playbook site.yml
 
 ```
+
+## Host Variables
+
+also known as host groups
+new directory
+
+mkdir host_vars
+
+nano 172.16.250.132.yml
+nano fqDN.yml
+
+naming the host var file for each endpoint
+
+usefule to refer to the variables in the playbook
+
+
+```yml
+
+host_vars (ubuntu web server)
+ apache_package_name: apache2
+ apache_service: apache2
+ php_package_name: libapache2-mod-php
+
+host_vars (ubuntu web server)
+ apache_package_name: httpd
+ apache_service: httpd
+ php_package_name: php
+
+
+main.yml (web_servers role)
+ - name: install web server packages
+   tags: apache,apache2,centos,httpd,ubuntu
+   package:
+     name:
+       - "Template:Apache package name"
+       - "Template:Php package name"
+     state: latest
+   when: ansible_distribution == "CentOS"
+ 
+ - name: start and enable apache
+   tags: apache,centos,httpd
+   service:
+     name: "Template:Apache service"
+     state: started
+     enabled: yes
+ 
+ - name: change e-mail address for admin
+   tags: apache,centos,httpd
+   lineinfile:
+     path: /etc/httpd/conf/httpd.conf
+     regexp: '^ServerAdmin'
+     line: ServerAdmin somebody@somewhere.net
+   when: ansible_distribution == "CentOS"
+   notify: restart_apache 
+ 
+ - name: copy html file for site
+   tags: apache,apache,apache2,httpd
+   copy:
+     src: default_site.html
+     dest: /var/www/html/index.html
+     owner: root
+     group: root
+     mode: 0644
+
+
+Handlers for the web_servers role
+If any of multiple tasks makes a change to a file, handlers act 
+
+Create the handlers directory (within the role directory):
+
+ mkdir handlers
+
+ - name: restart_apache
+   tags: apache,centos,httpd
+   service:
+     name: "Template:Apache service"
+     state: restarted
+
+```
+
+## Ansible Templates
+
+```yml
+
+Location of OpenSSH daemon config file (used as an example for the template)
+
+ /etc/ssh/sshd_config
+
+In the role directory
+
+Create the directory for templates:
+
+ mkdir templates
+
+Copy the sshd config file from a server to this directory with the *.j2 extension:
+
+ sshd_config_ubuntu.j2
+
+ jinja2 format is base template format for ansible
+
+Note: “ubuntu” is included in the name, because if you use more than one distro, it’s a good idea to start creating the template based on an existing file. Each distro has different paths, so DON’T use the same template for all distributions!
+
+Adding a variable inside the OpenSSH config file template
+
+Inside the template(s), add:
+
+ AllowUsers Template:Ssh users
+
+Note: Make sure the “AllowUsers” option isn’t already in the file, if so, replace it with the above)
+
+Adding the variable to a host
+
+Inside the host_vars directory, we should already have a hosts variable file for each server. Add the new variable inside the file(s):
+
+ ssh_users: "jay simone"
+ ssh_template_file: sshd_config_ubuntu.j2
+
+Note: Make sure you change the usernames in the ssh_users variable to be the actual usernames you’re using for yourself as well as the ansible user.
+
+Having Ansible render the template
+
+Inside the base role, in the main.yml file, add this play:
+
+ - name: openssh | generate sshd_config file from template
+   tags: ssh
+   template:
+     src: "Template:Ssh template file"
+     dest: /etc/ssh/sshd_config
+     owner: root
+     group: root
+     mode: 0644
+   notify: restart_sshd
+
+Create a handler to restart the OpenSSH daemon
+
+Inside the base role, create a directory for handlers:
+
+ mkdir handlers
+
+Go inside that directory, and create a ‘main.yml’ file:
+
+ cd handlers
+ vim main.yml
+ - name: restart_sshd
+   service:
+     name: sshd
+     state: restarted
+
+Run the playbook
+
+ ansible-playbook site.yml
+
+Adding a default value to the variable
+
+In the template, change the “AllowUsers” line to:
+
+ AllowUsers Template:Ssh users
+
+Taking it a bit further, add another variable to the template to determine whether or not password authentication is allowed for a host:
+
+ PasswordAuthentication Template:Passwd auth
+
+Note: Be sure to add the new PasswordAuthentication variable to your host_vars files.
+
+
+```
+
 
 
 
