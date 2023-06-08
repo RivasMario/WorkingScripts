@@ -74,5 +74,42 @@ getattr() round()
 globals() set()
 hasattr() setattr()
 
+\\GIT
 
+File extensions .pyc are auto-gened from .py files. typically stored in directory called __pycache__/ make gitignore file with file ext in it
+
+
+.gitignore
+
+__pycache__/
+
+#! /bin/python3.11
+
+git init: a new directory for py training
+git status: check 
+git add .
+git commit -m "Started project"
+git log
+git log --pretty=oneline: provides ref id and commit message
+
+git restore .: get last working version
+git restore filename: abandon all changes since last commit to specific file
+git checkout cea13d
+git swtich -c <new branch line>
+git reset --hard cea13d
+
+\\Linux deployment
+
+curl -fsS https://platform.sh/cli/installer | php
+
+sudo apt install curl php-cli
 ```  
+
+## Chapter 1 Getting Started
+
+```bash
+
+python3 hello_world.py
+
+
+```
