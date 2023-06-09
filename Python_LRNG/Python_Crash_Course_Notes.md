@@ -111,5 +111,19 @@ sudo apt install curl php-cli
 
 python3 hello_world.py
 
+python3
+>>>
+
+CTRL-D or exit() to close interpreter
+
+
+```
+
+## Chapter 2 Variables and Simple Data Types
+
+```bash
+
+
+
 
 ```
