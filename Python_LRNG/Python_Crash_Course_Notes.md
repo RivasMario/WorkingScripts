@@ -123,6 +123,43 @@ CTRL-D or exit() to close interpreter
 
 ```bash
 
+print("Hello Python world!")
+
+message = "Hello Python world!"
+print(message)
+
+Variable names can contain only letters, numbers, and underscores.
+They can start with a letter or an underscore, but not with a number.
+Spaces are not allowed in variable names, but underscores can be used to separate words in variable names
+
+message_1 but not 1_message
+
+name = "ada lovelace"
+print(name.title())
+
+Ada Lovelace
+
+name = "Ada Lovelace"
+print(name.upper())
+print(name.lower())
+
+ADA LOVELACE
+ada lovelace
+
+first_name = "ada"
+last_name = "lovelace"
+full_name = f"{first_name} {last_name}" 
+print(full_name)
+
+print(f"Hello, {full_name.title()}!")
+
+message = f"Hello, {full_name.title()}!"
+print(message)
+
+To add a tab to your text, use the character combination \t:
+To add a newline in a string, use the character combination \n:
+
+
 
 
 
