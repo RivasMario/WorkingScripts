@@ -27,7 +27,7 @@
 ################################################################################
 ############# Initialize ##################
 ## DMS Login from a ADM machine inside the environment
-& (Join-Path (Get-ChildItem 'C:\Program Files\DmsClientCmdLets' | Sort | Select-Object -Last 1).FullName 'grn005\DmsClientCommands.ps1')
+& (Join-Path (Get-ChildItem 'C:\Program Files\DmsClientCmdLets' | Sort-Object | Select-Object -Last 1).FullName 'grn005\DmsClientCommands.ps1')
 
 
 ## Chassis Manager Module import commands
