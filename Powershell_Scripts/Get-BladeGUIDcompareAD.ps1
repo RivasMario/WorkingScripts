@@ -85,18 +85,19 @@ function Resolve-UUIDByteArrayADName {
 
 #Convert-BladeGUID("3752484f-c0b2-3380-4810-00484c4c4544")
 
-$ChassisManager = "BN1GR5CMAF249M"
+$ChassisManager = "BN1GR5CMAF247B"
 
 $BladeInformationArray = @()
 
 24..13 | ForEach-Object{
     $BladeInformation = Get-BladeInfo -ChassisManager $ChassisManager -BladeID $_ -IncludeAdditionalInfo -ForceRefresh   
     $BladeGuid = $BladeInformation.BladeGuid
-    $BladePowerState = $BladeInformation.powerstate
+    $Power = $BladeInformation.powerstate
     $BladeID = $BladeInformation.BladeID
     $CMNAME = $BladeInformation.chassisManager
     $AssetTag = $BladeInformation.assetTag
     $SerialNumber = $BladeInformation.serialNumber
+    $MacAddress = $BladeInformation.bladeMacAddressList
 
     $UUID = Convert-BladeGUID("$BladeGuid")
     $BladeName = Resolve-UUIDByteArrayADName("$UUID")
@@ -107,7 +108,8 @@ $BladeInformationArray = @()
     $BladeInformationObject = New-Object -TypeName PSObject
     $BladeInformationObject | Add-Member -Name 'BladeID' -MemberType Noteproperty -Value $BladeID
     $BladeInformationObject | Add-Member -Name 'BladeGUID' -MemberType Noteproperty -Value $BladeGuid
-    $BladeInformationObject | Add-Member -Name 'BladePowerState' -MemberType Noteproperty -Value $BladePowerState
+    $BladeInformationObject | Add-Member -Name 'BladePowerState' -MemberType Noteproperty -Value $Power
+    $BladeInformationObject | Add-Member -Name 'MacAddress' -MemberType Noteproperty -Value $MacAddress
     $BladeInformationObject | Add-Member -Name 'CMNAME' -MemberType Noteproperty -Value $CMNAME
     $BladeInformationObject | Add-Member -Name 'AssetTag' -MemberType Noteproperty -Value $AssetTag
     $BladeInformationObject | Add-Member -Name 'SerialNumber' -MemberType Noteproperty -Value $SerialNumber
@@ -207,3 +209,4 @@ function Ping-Machine {
     if($pingresult.statuscode -eq 0) {$true} else {$false}
 }
 #>
+
