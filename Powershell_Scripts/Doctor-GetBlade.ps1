@@ -193,7 +193,7 @@ function BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat
 	$ht.Add(13, 2);
 	$ht.Add(14, 1);
 	$ht.Add(15, 0);
-	@(0 .. 15) | % {
+	@(0 .. 15) | ForEach-Object {
 		$OutputGuidByteArray[$_] = $InputGuidByteArray[$ht[$_]]
 	}
 	$OutputGuid = [guid]$OutputGuidByteArray
@@ -267,7 +267,7 @@ function BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat
 	$ht.Add(14, 2);
 	$ht.Add(15, 3);
 
-	@(0 .. 15) | % {
+	@(0 .. 15) | ForEach-Object {
 		$OutputGuidByteArray[$_] = $InputGuidByteArray[$ht[$_]]
 	}
 	$OutputGuid = [guid]$OutputGuidByteArray
@@ -327,7 +327,7 @@ function BladeHelper-find-Guid-on-ChassisManager
 	}
 	else
 	{
-		($chassisInfo).bladeCollections | ? { $_.bladeGuid -match "$PartOfGuid"; }
+		($chassisInfo).bladeCollections | Where-Object { $_.bladeGuid -match "$PartOfGuid"; }
 	}
 }
  
@@ -380,13 +380,13 @@ function Get-MsodsAdComputerNameSimple
 	}
 	if ($UseFQDN)
 	{
-		$ad_hosts = $ad_hosts | % { $_.DNSHostName }
+		$ad_hosts = $ad_hosts | ForEach-Object { $_.DNSHostName }
 	}
 	else
 	{
-		$ad_hosts = $ad_hosts | % { $_.Name }
+		$ad_hosts = $ad_hosts | ForEach-Object { $_.Name }
 	}
-	$ad_hosts = $ad_hosts | ? { $_ -ne $null }
+	$ad_hosts = $ad_hosts | Where-Object { $_ -ne $null }
 	$ad_hosts
 }
  
@@ -457,7 +457,7 @@ function BladeHelper-Search-All-CM-For-Blade-Matching
 		$ad_CM = Get-MsodsAdComputerNameSimple CM
 		if ("$FilterDomainTo_OPTIONAL" -ne "")
 		{
-			$ad_CM = $ad_CM | ? { $_ -match "$FilterDomainTo_OPTIONAL"; }
+			$ad_CM = $ad_CM | Where-Object { $_ -match "$FilterDomainTo_OPTIONAL"; }
 		}
 	}
  
@@ -467,13 +467,13 @@ function BladeHelper-Search-All-CM-For-Blade-Matching
 		if ($JustGrepForString)
 		{
 			$out = BladeHelper-find-Guid-on-ChassisManager -Chassismanager "$ChassisManager" -PartOfGuid "$PartOfGuid" -JustGrepForString
-			if ("$($out)" -ne "") { echo "** $($ChassisManager):"; }
+			if ("$($out)" -ne "") { Write-Output "** $($ChassisManager):"; }
 			$out
 		}
 		else
 		{
 			$out = BladeHelper-find-Guid-on-ChassisManager -Chassismanager "$ChassisManager" -PartOfGuid "$PartOfGuid"
-			if ("$($out)" -ne "") { echo "** $($ChassisManager):"; }
+			if ("$($out)" -ne "") { Write-Output "** $($ChassisManager):"; }
 			$out
 		}
 	}
@@ -489,9 +489,9 @@ function _Test-ConvertGuid-
 	$out2
 	if ($out2 -eq $sample_GUID)
 	{
-		echo "Test Passed on BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat to BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat and back again"
+		Write-Output "Test Passed on BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat to BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat and back again"
 	} else {
-		echo "Test **FAILED** on BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat to BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat and back again"
+		Write-Output "Test **FAILED** on BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat to BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat and back again"
     }
 }
  
@@ -579,13 +579,13 @@ function doctor-GetPrestage-Networking-Info
 	Write-Host "Using WDS ($WdsComputerName) to look up data."
 	foreach ($ScopeId in $ScopeIdList)
 	{
-		echo ":: data for DNS: __ $ScopeId __"
+		Write-Output ":: data for DNS: __ $ScopeId __"
 		$raw_val_array = ((Get-DhcpServerv4OptionValue -ComputerName $WdsComputerName -ScopeId $ScopeId -OptionId 6).value)
 		# make sure we trim any spaces for safety and  comma separate
-		(@($raw_val_array) | % { "$($_)".trim(); }) -join ","
-		echo ":: data default gateway:  __ $ScopeId __ "
+		(@($raw_val_array) | ForEach-Object { "$($_)".trim(); }) -join ","
+		Write-Output ":: data default gateway:  __ $ScopeId __ "
 		(Get-DhcpServerv4OptionValue -ComputerName $WdsComputerName -ScopeId $ScopeId -OptionId 3).value
-		if ($ScopeIdList.Length -gt 1) { echo "=========================================="; }
+		if ($ScopeIdList.Length -gt 1) { Write-Output "=========================================="; }
 	}
 }
  
@@ -627,7 +627,8 @@ function get-WDSComputernameForEnvironment
 		"SY2*" { "SY21GR1WDS404" }
 		default
 		{
-			echo "" # not a WDS
+			
+			Write-Output "" # not a WDS
 		}
 	}
 }
@@ -854,10 +855,10 @@ $lambda_get_prestage_data_from_server = {
 		return "$($ipv4)||??||Remember<-lastdigit_should_prob_be_.1||"
 	}
 
-	$guid = [guid](gwmi Win32_ComputerSystemProduct).UUID
+	$guid = [guid](Get-WmiObject Win32_ComputerSystemProduct).UUID
 
-	$Networks = gwmi win32_networkadapterconfiguration
-	$Networks = $Networks | ? { $_.DefaultIPGateway -ne $null }
+	$Networks = Get-WmiObject win32_networkadapterconfiguration
+	$Networks = $Networks | Where-Object { $_.DefaultIPGateway -ne $null }
 	$ResultArray = @()
 	foreach ($Network in $Networks)
 	{
@@ -902,8 +903,8 @@ PrestageNetworkAddress :
 PrestageNetworkAddress : PrestageNetworkAddress
 #>
 
-	$guid = [guid](gwmi Win32_ComputerSystemProduct).UUID
-	echo "netbootGUID is $($guid)"
+	$guid = [guid](Get-WmiObject Win32_ComputerSystemProduct).UUID
+	Write-Output "netbootGUID is $($guid)"
 }
  
  
