@@ -27,20 +27,6 @@
 ################################################################################
 ############# Initialize ##################
 ## DMS Login from a ADM machine inside the environment
-& (Join-Path (Get-ChildItem 'C:\Program Files\DmsClientCmdLets' | Sort-Object | Select-Object -Last 1).FullName 'grn005\DmsClientCommands.ps1')
-
-
-## Chassis Manager Module import commands
-Import-Module chassismanager
-Set-ChassisManagerModuleConfig -UseRemotePowerShell:$False
-Clear-ChassisManagerModuleCache
-Set-ChassisManagerModuleConfig -IgnoreAllSSLErrors:$True -UseRemotePowerShell:$False
-Clear-ChassisManagerModuleCache
-Set-ChassisManagerModuleConfig -UseRemotePowerShell:$True
-Clear-ChassisManagerModuleCache
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls11, [System.Net.SecurityProtocolType]::Tls
-Set-ChassisManagerModuleConfig -UseRemotePowerShell:$True
-Clear-ChassisManagerModuleCache
 
 function Test-MachineConnection {
     param (
@@ -85,8 +71,7 @@ function Resolve-UUIDByteArrayADName {
 
 #Convert-BladeGUID("3752484f-c0b2-3380-4810-00484c4c4544")
 
-
-$ChassisManager = "BN1GR5CMAF246M"
+$ChassisManager = "BN1GR5CMAJ219M"
 
 $BladeInformationArray = @()
 
