@@ -75,7 +75,7 @@ $ChassisManager = "BN1GR5CMAJ219M"
 
 $BladeInformationArray = @()
 
-24..13 | ForEach-Object{
+25..13 | ForEach-Object{
     $BladeInformation = Get-BladeInfo -ChassisManager $ChassisManager -BladeID $_ -IncludeAdditionalInfo -ForceRefresh   
     $BladeGuid = $BladeInformation.BladeGuid
     $Power = $BladeInformation.powerstate
