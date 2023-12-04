@@ -69,13 +69,31 @@ function Resolve-UUIDByteArrayADName {
     return $MachineName
 }
 
-#Convert-BladeGUID("3752484f-c0b2-3380-4810-00484c4c4544")
-
-$ChassisManager = "BN1GR5CMAJ219M"
-
+#Prestaging the hashtable
 $BladeInformationArray = @()
 
-25..13 | ForEach-Object{
+$ChassisManagers = @(
+"P20AGR5CMCA104B",
+"P20AGR5CMCA104M",
+"P20AGR5CMCA104T",
+"P20AGR5CMCA105B",
+"P20AGR5CMCA105M",
+"P20AGR5CMCA105T",
+"P20AGR5CMCA106B",
+"P20AGR5CMCA106M",
+"P20AGR5CMCA106T",
+"P20AGR5CMCA108B",
+"P20AGR5CMCA108M",
+"P20AGR5CMCA108T",
+"P20AGR5CMCA109B",
+"P20AGR5CMCA109M",
+"P20AGR5CMCA109T"
+
+)
+
+foreach ($ChassisManager in $ChassisManagers) {
+
+24..13 | ForEach-Object{
     $BladeInformation = Get-BladeInfo -ChassisManager $ChassisManager -BladeID $_ -IncludeAdditionalInfo -ForceRefresh   
     $BladeGuid = $BladeInformation.BladeGuid
     $Power = $BladeInformation.powerstate
@@ -88,8 +106,7 @@ $BladeInformationArray = @()
     $UUID = Convert-BladeGUID("$BladeGuid")
     $BladeName = Resolve-UUIDByteArrayADName("$UUID")
     $PingBoolean = Test-MachineConnection("$BladeName")
-    Write-Host "Ping results for $BladeName is, $PingBoolean"
-    Write-Host "Adding $UUID,:$BladeGuid"
+    
 
     $BladeInformationObject = New-Object -TypeName PSObject
     $BladeInformationObject | Add-Member -Name 'BladeID' -MemberType Noteproperty -Value $BladeID
@@ -103,6 +120,11 @@ $BladeInformationArray = @()
     $BladeInformationObject | Add-Member -Name 'Ping' -MemberType Noteproperty -Value $PingBoolean
     $BladeInformationObject | Add-Member -Name 'BladeGUID' -MemberType Noteproperty -Value $BladeGuid
     $BladeInformationArray += $BladeInformationObject
+    Write-Host "Ping results for $BladeName with $UUID Ping is $PingBoolean"
+}
+
+Write-Host "CM $ChassisManager complete"
+
 }
 
 $BladeInformationArray | Format-Table -AutoSize
