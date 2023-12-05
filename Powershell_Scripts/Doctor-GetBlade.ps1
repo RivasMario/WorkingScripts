@@ -689,13 +689,13 @@ function doctor-GetPrestageFromAD
 	return @"
   `$params = @{ 
     "ComputerName" = "$ComputerName" 
-    "NetbootGuid" = [guid]"$guid" 
+    “NetbootGuid” = [System.Guid]::new(“$guid”) 
     "NetworkAddress" = "$NetworkAddress"
     "RoleName" = "$RoleName"
     "WdsServer" = "$WdsServer" 
   }
   # To prestage, (1) first verify the above, then (2) run this workflow if correct:
-  # New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters `$params
+  # New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters `$params -Wait
  
 "@
 }
