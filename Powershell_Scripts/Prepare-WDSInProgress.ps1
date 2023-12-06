@@ -634,7 +634,7 @@ function get-WDSComputernameForEnvironment
 }
 
 ######################################################################################################
-## Fucntion to confirm the rolename is set to 2022
+## Function to confirm the rolename is set to 2022
 ######################################################################################################
 
 # next map to the proper new sku, this can be flushed out and is used for function 
