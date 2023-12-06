@@ -41,7 +41,7 @@ first lets look at some related AD guid entry by reusing a tool that builds a pr
 here we focus on the guid
  
 
-PS C:\Users\multijit_5wn1\tmp>  doctor-GetPrestageFromAD  DB3RGR1IDLDR85
+PS C:\Users\multijit_5wn1\tmp>  Format-PrestageFromAD  DB3RGR1IDLDR85
   $params = @{
     "ComputerName" = "DB3RGR1IDLDR85"
     "NetbootGuid" = [guid]"4c4c4544-0039-4710-8059-b2c04f425446"
@@ -632,6 +632,35 @@ function get-WDSComputernameForEnvironment
 		}
 	}
 }
+
+######################################################################################################
+## Fucntion to confirm the rolename is set to 2022
+######################################################################################################
+
+# next map to the proper new sku, this can be flushed out and is used for function 
+# if "2019-##########" => "2022-Gen5-###-A.1"
+# 
+#   Sync-OldRolenameToNewOsRolename -RoleName "CCS-MI-DomCont-F.1" -OS_2012_2016 2012  => 2012-Gen4-ADS-A.1
+#
+function Sync-OldRolenameToNewOsRolename {   
+    param(
+    [string]$RoleName
+    )
+
+    $Server2022Prefix = "2022"
+
+	if ($RoleName.Substring(0, 4) -eq "2019")
+	{
+        $2022RoleName = $Server2022Prefix + $RoleName.Substring(4)
+        return $2022RoleName        
+	}
+	else
+	{
+	    # just return the original as we have no idea on the mapping
+        return $RoleName
+	}
+}
+
  
 ######################################################################################################
 ##  Tools to get prestage data out of AD
@@ -667,24 +696,23 @@ function get-WDSComputernameForEnvironment
 		A description of the OSVersion_2012_2016 parameter.  OSVersion_2012_2016 is named to help remember that you
         need to specify either "2012" or "2016".
 	.EXAMPLE
-				PS C:\> doctor-GetPrestageFromAD -ComputerName 'Value1'
+				PS C:\> Format-PrestageFromAD -ComputerName 'Value1'
 	.NOTES
 		Additional information about the function.
 #>
-function doctor-GetPrestageFromAD
+function Format-PrestageFromAD
 {
 	param
 	(
 		[Parameter(Mandatory = $true,
 				   Position = 1)]
-		[string]$ComputerName,
-		[string]$OSVersion_2012_2016
+		[string]$ComputerName
 	)
 	[string]$ComputerName = $ComputerName.Trim()
 	$ad = get-adcomputer $ComputerName -prop *
 	$guid = (dechex $ad.netbootGUID)
 	$NetworkAddress = $ad.Networkaddress
-	$RoleName = (Map-OldRolenameToNewOsRolename -RoleName "$($ad.description)" -OS_2012_2016 $OSVersion_2012_2016)
+	$RoleName = (Sync-OldRolenameToNewOsRolename -RoleName "$($ad.description)")
 	$WdsServer = $ad.netbootMachineFilePath
 	return @"
   `$params = @{ 
@@ -754,34 +782,7 @@ Function dechex($b)
 	#+ "}"
 	Return [string]$GUID
 }
- 
-# next map to the proper new sku, this can be flushed out and is used for function 
-# if "CCS-MI-DomCont-F.1" => "2012-Gen4-ADS-A.1" or "2016-Gen4-ADS-A.1"
-# =====================================
-$map_role_newStub = @{
-    # e.g. "CCS-MI-DomCont-F.1" = "2012-Gen4-ADS-A.1" or "2016-Gen4-ADS-A.1"
-    "CCS-MI-DomCont-F.1"  = "-Gen4-ADS-A.1"
-}
-# =====================================
-# 
-#   Map-OldRolenameToNewOsRolename -RoleName "CCS-MI-DomCont-F.1" -OS_2012_2016 2012  => 2012-Gen4-ADS-A.1
-#
-function Map-OldRolenameToNewOsRolename ([string]$RoleName, [string]$OS_2012_2016)
-{
-    [string]$RoleName = $RoleName.Trim()
-    [string]$OS_2012_2016 = $OS_2012_2016.Trim()
-
-    $RoleNameMapped = $map_role_newStub[$RoleName]
-    if (-not $RoleNameMapped)
-    {
-        return $RoleName # just return the original as we have no idea on the mapping
-    }
-    else
-    {
-        return ("{0}{1}" -f @($OS_2012_2016, $RoleNameMapped))
-    }
-}
- 
+  
 ######################################################################################################
 ##  Tools to get prestage data off the live actual running server
 ######################################################################################################
