@@ -10,7 +10,7 @@
  
 # here is a sample ChassisManager Blade Information display:
  
-PS C:\Users\multijit_5wn1\tmp> doctor-GetBladeInfo
+PS C:\Users\USER\tmp> doctor-GetBladeInfo
 
  
 BladeID             : 19
@@ -41,7 +41,7 @@ first lets look at some related AD guid entry by reusing a tool that builds a pr
 here we focus on the guid
  
 
-PS C:\Users\multijit_5wn1\tmp>  Format-PrestageFromAD  DB3RGR1IDLDR85
+PS C:\Users\multijit_5wn1\tmp>  Format-PrestageFromAD  MSOGRXIDLXXX
   $params = @{
     "ComputerName" = "DB3RGR1IDLDR85"
     "NetbootGuid" = [guid]"4c4c4544-0039-4710-8059-b2c04f425446"
@@ -58,7 +58,7 @@ PS C:\Users\multijit_5wn1\tmp>
 That guid above, lets convert to rotated blade format:
  
 ==================================  Example 1
-PS C:\Users\multijit_5wn1\tmp> BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat "4c4c4544-0039-4710-8059-b2c04f425446"
+PS C:\Users\multijit_5wn1\tmp> Convert-GuidADFormatToBladeFormat "4c4c4544-0039-4710-8059-b2c04f425446"
  
 Guid
 ----
@@ -68,7 +68,7 @@ Guid
 ==================================  Example 2
 Next lets take what the Chassis manager gave us and convert to cononical AD format:
  
-PS C:\Users\multijit_5wn1\tmp> BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat "3256424f-c0b2-5980-4710-00394c4c4544"
+PS C:\Users\multijit_5wn1\tmp> Convert-GuidBladeFormatADFormat "3256424f-c0b2-5980-4710-00394c4c4544"
  
 Guid
 ----
@@ -76,7 +76,7 @@ Guid
  
  
  
-PS C:\Users\multijit_5wn1\tmp>  BladeHelper-Search-All-CM-For-Blade-Matching -ChassisManagersToSearch "DB3RGR1CMJ007B"  -p "4654424f-c0b2-5980-4710-00394c4c4" -ju
+PS C:\Users\multijit_5wn1\tmp>  Find-GuidonAllChassisManager -ChassisManagersToSearch "DB3RGR1CMJ007B"  -p "4654424f-c0b2-5980-4710-00394c4c4" -ju
  
 Scanning 1 ChassisManagers for blade
 ** DB3RGR1CMJ007B:
@@ -85,7 +85,7 @@ bladeGuid           : 4654424f-c0b2-5980-4710-00394c4c4544
  
 cachedResponse      : True
  
-PS C:\Users\multijit_5wn1\tmp> BladeHelper-Search-All-CM-For-Blade-Matching -ChassisManagersToSearch @("DB3RGR1CMJ007B","DB3RGR1CMJ007T")  -p "4654424f-c0b2-5980-4710-00394c4c4544"
+PS C:\Users\multijit_5wn1\tmp> Find-GuidonAllChassisManager -ChassisManagersToSearch @("DB3RGR1CMJ007B","DB3RGR1CMJ007T")  -p "4654424f-c0b2-5980-4710-00394c4c4544"
  
 Scanning 2 ChassisManagers for blade
 ** DB3RGR1CMJ007B:
@@ -112,19 +112,19 @@ cachedResponse      : True
 	.PARAMETER GuidString
 		GUID suppled as type String.
 	.EXAMPLE
-		PS C:\> BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat "4c4c4544-0039-4710-8059-b2c04f425446"
+		PS C:\> Convert-GuidADFormatToBladeFormat "4c4c4544-0039-4710-8059-b2c04f425446"
  
 		Guid
 		----
 		4654424f-c0b2-5980-4710-00394c4c4544
  
 	.NOTES
-		See also BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat
+		See also Convert-GuidBladeFormatADFormat
  
 #>
  
  
-function BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat
+function Convert-GuidADFormatToBladeFormat
 {
 	param
 	(
@@ -210,11 +210,11 @@ function BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat
 	.PARAMETER GuidString
 		GUID suppled as type String.
 	.EXAMPLE
-				PS C:\> BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat -GuidString '3151424f-c0b2-5980-4710-00394c4c4544'
+				PS C:\> Convert-GuidBladeFormatADFormat -GuidString '3151424f-c0b2-5980-4710-00394c4c4544'
 	.NOTES
-		See also BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat
+		See also Convert-GuidADFormatToBladeFormat
 #>
-function BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat
+function Convert-GuidBladeFormatADFormat
 {
 	param
 	(
@@ -289,7 +289,7 @@ function BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat
 	.PARAMETER JustGrepForString
 		Switch to allow  just grep for the string parameter given as parameter PartOfGuid, but, on any field!
 	.EXAMPLE
-				PS C:\> BladeHelper-find-Guid-on-ChassisManager -Chassismanager "DB3RGR1CMJ007B"  -PartOfGuid "4544" -JustGrepForString
+				PS C:\> Find-GuidonChassisManager -Chassismanager "DB3RGR1CMJ007B"  -PartOfGuid "4544" -JustGrepForString
 bladeGuid           : 3151424f-c0b2-5980-4710-00394c4c4544
 bladeGuid           : 3451424f-c0b2-5980-4710-00394c4c4544
 bladeGuid           : 3656424f-c0b2-5980-4710-00394c4c4544
@@ -308,7 +308,7 @@ Above shows a grep output.  If we removed the -JustGrepForString it would find t
 	.NOTES
 		If you add switch -JustGrepForString we can search on any field, if you do not specify we hunt only the guid field.
 #>
-function BladeHelper-find-Guid-on-ChassisManager
+function Find-GuidonChassisManager
 {
 	param
 	(
@@ -407,10 +407,10 @@ function Get-MsodsAdComputerNameSimple
 	.PARAMETER ChassisManagersToSearch
 		(OPTIONAL) list of  Chassis Managers to search.
 	.EXAMPLE
-		PS C:\> BladeHelper-Search-All-CM-For-Blade-Matching -PartOfGuid "4654424f-c0b2-5980-4710-00394c4c4544"
+		PS C:\> Find-GuidonAllChassisManager -PartOfGuid "4654424f-c0b2-5980-4710-00394c4c4544"
         ## should search all CM for the pattern
 	.EXAMPLE
-        PS C:\> BladeHelper-Search-All-CM-For-Blade-Matching -ChassisManagersToSearch "DB3RGR1CMJ007B"  -p "4654424f-c0b2-5980-4710-00394c4c4" -JustGrepForString
+        PS C:\> Find-GuidonAllChassisManager -ChassisManagersToSearch "DB3RGR1CMJ007B"  -p "4654424f-c0b2-5980-4710-00394c4c4" -JustGrepForString
  
 Scanning 1 ChassisManagers for blade
 ** DB3RGR1CMJ007B:
@@ -419,7 +419,7 @@ bladeGuid           : 4654424f-c0b2-5980-4710-00394c4c4544
  
 cachedResponse      : True
  
-PS C:\Users\multijit_5wn1\tmp> BladeHelper-Search-All-CM-For-Blade-Matching -ChassisManagersToSearch @("DB3RGR1CMJ007B","DB3RGR1CMJ007T")  -p "4654424f-c0b2-5980-4710-00394c4c4544"
+PS C:\Users\multijit_5wn1\tmp> Find-GuidonAllChassisManager -ChassisManagersToSearch @("DB3RGR1CMJ007B","DB3RGR1CMJ007T")  -p "4654424f-c0b2-5980-4710-00394c4c4544"
  
 Scanning 2 ChassisManagers for blade
 ** DB3RGR1CMJ007B:
@@ -437,7 +437,7 @@ cachedResponse      : True
  
 	.NOTES
 #>
-function BladeHelper-Search-All-CM-For-Blade-Matching
+function Find-GuidonAllChassisManager
 {
 	param
 	(
@@ -466,32 +466,32 @@ function BladeHelper-Search-All-CM-For-Blade-Matching
 	{
 		if ($JustGrepForString)
 		{
-			$out = BladeHelper-find-Guid-on-ChassisManager -Chassismanager "$ChassisManager" -PartOfGuid "$PartOfGuid" -JustGrepForString
+			$out = Find-GuidonChassisManager -Chassismanager "$ChassisManager" -PartOfGuid "$PartOfGuid" -JustGrepForString
 			if ("$($out)" -ne "") { Write-Output "** $($ChassisManager):"; }
 			$out
 		}
 		else
 		{
-			$out = BladeHelper-find-Guid-on-ChassisManager -Chassismanager "$ChassisManager" -PartOfGuid "$PartOfGuid"
+			$out = Find-GuidonChassisManager -Chassismanager "$ChassisManager" -PartOfGuid "$PartOfGuid"
 			if ("$($out)" -ne "") { Write-Output "** $($ChassisManager):"; }
 			$out
 		}
 	}
 }
  
-function _Test-ConvertGuid-
+function Test-ConvertGuid
 {
-	## BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat  must be an inverse of BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat
+	## Convert-GuidADFormatToBladeFormat  must be an inverse of Convert-GuidBladeFormatADFormat
 	$sample_GUID = "4c4c4544-0039-4710-8059-b2c04f425446"
-	$out = BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat $sample_GUID
+	$out = Convert-GuidADFormatToBladeFormat $sample_GUID
 	$out
-	$out2 = BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat $out
+	$out2 = Convert-GuidBladeFormatADFormat $out
 	$out2
 	if ($out2 -eq $sample_GUID)
 	{
-		Write-Output "Test Passed on BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat to BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat and back again"
+		Write-Output "Test Passed on Convert-GuidADFormatToBladeFormat to Convert-GuidBladeFormatADFormat and back again"
 	} else {
-		Write-Output "Test **FAILED** on BladeHelper-ConvertGuid-from-ADFormat-to-RotatedBladeFormat to BladeHelper-ConvertGuid-from-RotatedBladeFormat-to-ADFormat and back again"
+		Write-Output "Test **FAILED** on Convert-GuidADFormatToBladeFormat to Convert-GuidBladeFormatADFormat and back again"
     }
 }
  
@@ -526,15 +526,15 @@ function _Test-ConvertGuid-
 	.SYNOPSIS
 		Get key Prestage Networking Info for a scopeID
 	.DESCRIPTION
-		A detailed description of the doctor-GetPrestage-Networking-Info function.
+		A detailed description of the Get-PrestageNetworkingInfo function.
 	.PARAMETER WdsComputerName
 		The WdsComputerName parameter can be the WDS computer name or a shortcut like SN2
 		and if not present we assume you are running on the WDS itself.
 	.PARAMETER ScopeIdList
 		ScopeIdList parameter can be a scopeId like "10.2.45.0" or an ipaddr "10.2.45.33"
 	.EXAMPLE
-		PS C:\> doctor-GetPrestage-Networking-Info -WdsComputerName SN2 -ScopeIdList "10.2.45.0,10.2.55.0" # lookup mulitple
-		PS C:\> doctor-GetPrestage-Networking-Info   bl2   10.15.43.19   # detailed example 
+		PS C:\> Get-PrestageNetworkingInfo -WdsComputerName SN2 -ScopeIdList "10.2.45.0,10.2.55.0" # lookup mulitple
+		PS C:\> Get-PrestageNetworkingInfo   bl2   10.15.43.19   # detailed example 
 Using WDS (BL2GR1WDS401) to look up data. 
 :: data for DNS: __ 10.15.43.19 __
 10.15.56.255,10.15.57.0,10.47.144.80,10.47.144.81
@@ -544,7 +544,7 @@ PS C:\Users\multijit_r8a1\tmp>
  
 	.NOTES
 #>
-function doctor-GetPrestage-Networking-Info
+function Get-PrestageNetworkingInfo
 {
 	param
 	(
@@ -611,20 +611,9 @@ function get-WDSComputernameForEnvironment
 	)
 	switch -wildcard ($EnvName)
 	{
-		"AM3*" { "AM3GR1WDS401" }
-		"BL2*" { "BL2GR1WDS401" }
-		"BY1*" { "BY1GR1WDS401" }
-		"CH1*" { "CH1GR1WDS401" }
-		"CO2*" { "CO2GR1WDS401" }
-		"DB3*" { "DB3RGR1WDS401" }
-		"HK1*" { "HK1RGR1WDS401" }
-		"LN2*" { "LN22GR1WDS401" }
-		"ML2*" { "ML20GR1WDS404" }
-		"PS2*" { "PS20GR1WDS401" }
-		"SG2*" { "SG2RGR1WDS401" }
-		"SN2*" { "SN2gr1wds401" }
-		"SN2*LAB*" { "SN2GR1WDSL01" }
-		"SY2*" { "SY21GR1WDS404" }
+		"BN1*" { "BN1RGR5WDS401" }
+		"SN5*" { "SN5AGR5WDS401" }
+		"P20*" { "P20AGR5WDS401" }
 		default
 		{
 			
@@ -649,7 +638,7 @@ function Sync-OldRolenameToNewOsRolename {
 
     $Server2022Prefix = "2022"
 
-	if ($RoleName.Substring(0, 4) -eq "2019")
+	if ($RoleName.Substring(0, 4) -ne "2022")
 	{
         $2022RoleName = $Server2022Prefix + $RoleName.Substring(4)
         return $2022RoleName        
@@ -813,7 +802,7 @@ lambda/script block and do this on the machine itself:
  
 #>
  
-function doctor-GetPrestageDataOffActualServer ([string]$ComputerName)
+function Read-PrestageDataOffBaremetal ([string]$ComputerName)
 {
 	switch ($ComputerName)
 	{
@@ -832,7 +821,7 @@ $lambda_get_prestage_data_from_server = {
    "NetworkAddress" = "25.145.124.30;255.255.254.0;25.145.124.1;25.145.53.155,25.145.53.156"
       "NetworkAddress" = "25.145.124.30;255.255.254.0;25.145.124.1;25.145.53.155,25.145.53.156"
 #>
-	function Compute-PrestageNetworkAddress ($NetworkData)
+	function Get-PrestageNetworkAddress ($NetworkData)
 	{
 		if ($NetworkData.IsDHCPEnabled -or ($NetworkData.IsDHCPEnabled -eq "true"))
 		{
@@ -843,13 +832,13 @@ $lambda_get_prestage_data_from_server = {
 			("{0};{1};{2};{3}" -f @(
 					$NetworkData.IPAddress,
 					$NetworkData.SubnetMask,
-					(Compute-DefaultGateway  $NetworkData.DefaultGateway),
+					(Get-DefaultGateway  $NetworkData.DefaultGateway),
 					($NetworkData.DNSServers -join ",")
 				))
 		}
 	}
 <# $DefaultGateway_array might be 25.144.83.4 2a01:111:5:7::4 #>
-	function Compute-DefaultGateway  ($DefaultGateway_array)
+	function Get-DefaultGateway  ($DefaultGateway_array)
 	{
 		$ipv4 = $DefaultGateway_array[0]
 		# BUGBUG : need to make sure last digit is a 1
@@ -886,7 +875,7 @@ $lambda_get_prestage_data_from_server = {
 			'IsDHCPEnabled' = $($IsDHCPEnabled)
 		}
 		#    'PrestageNetworkAddress' = "$($IsDHCPEnabled)"
-		Add-member -InputObject $ResultObject -Name "PrestageNetworkAddress" -Value "$(Compute-PrestageNetworkAddress -NetworkData $ResultObject)" -MemberType NoteProperty
+		Add-member -InputObject $ResultObject -Name "PrestageNetworkAddress" -Value "$(Get-PrestageNetworkAddress -NetworkData $ResultObject)" -MemberType NoteProperty
 		# save for later, also below add it to the output
 		$ResultArray += $ResultObject
 		$ResultObject
@@ -909,6 +898,6 @@ PrestageNetworkAddress : PrestageNetworkAddress
 }
  
  
-set-alias dns-get-prestage-networking-info-doctor doctor-GetPrestage-Networking-Info
-set-alias tjp-dns-get-prestage-networking-info-doctor doctor-GetPrestage-Networking-Info
+set-alias dns-get-prestage-networking-info-doctor Get-PrestageNetworkingInfo
+set-alias tjp-dns-get-prestage-networking-info-doctor Get-PrestageNetworkingInfo
 set-alias dms-Repair-TopologyDrives  Repair-TopologyDrives
