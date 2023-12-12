@@ -41,7 +41,7 @@ first lets look at some related AD guid entry by reusing a tool that builds a pr
 here we focus on the guid
  
 
-PS C:\Users\multijit_5wn1\tmp>  Format-PrestageFromAD  MSOGRXIDLXXX
+PS C:\Users\multijit_5wn1\tmp>  Export-PrestageFromAD  MSOGRXIDLXXX
   $params = @{
     "ComputerName" = "DB3RGR1IDLDR85"
     "NetbootGuid" = [guid]"4c4c4544-0039-4710-8059-b2c04f425446"
@@ -479,7 +479,7 @@ function Find-GuidonAllChassisManager
 	}
 }
  
-Function Get-ServerSettingsVerification ($servername){
+Function Get-BladeSettingsVerification ($servername){
     Write-Host "`nImage Completion Status" -ForegroundColor Cyan
     $buildLog = get-content -Path "\\$servername\C$\Build\Logs\Imaging.log" | Select-String -Pattern "imaging pass completed"
     Write-Host $buildLog
@@ -675,41 +675,93 @@ function Sync-OldRolenameToNewOsRolename {
 ##  Tools to get prestage data out of AD
 ######################################################################################################
  
-<# E.g.  Build-PrestageFromAD CH1GR1ADS301 -OSVersion_2012_2016 2012
+<# E.g.  Export-PrestageFromAD CH1GR1ADS301
    will generate this output:
    =======================
   $params = @{ 
     "ComputerName" = "CH1GR1ADS301" 
     "NetbootGuid" = [guid]"38373238-3537-4d32-3235-333630384750" 
-    "NetworkAddress" = "10.47.144.158;255.255.254.0;10.47.144.1;10.47.137.20,10.47.137.21,10.15.43.20,1
-0.15.43.21"
-    "RoleName" = "CCS-MI-DomCont-F.1"  << this will be mapped to new RoleName "2012-Gen4-ADS-A.1"
+    "NetworkAddress" = "10.47.144.158;
     "WdsServer" = "CH1GR1WDS001" 
    }
   # To prestage, (1) first verify the above, then (2) run this workflow if correct:
   # New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters `$params
    =======================
  
-  #>
+#>
  
 <#
 	.SYNOPSIS
 		get Prestage data from AD
 	.DESCRIPTION
 		get Prestage data from AD
+	.PARAMETER ComputerName
+		A description of the ComputerName parameter.
+	.EXAMPLE
+				PS C:\> Export-PrestageFromAD -ComputerName 'Value1'
+	.NOTES
+		Additional information about the function.
+#>
+function Export-PrestageFromAD
+{
+	param
+	(
+		[Parameter(Mandatory = $true,
+				   Position = 1)]
+		[string]$ComputerName
+	)
+	[string]$ComputerName = $ComputerName.Trim()
+	$ad = get-adcomputer $ComputerName -prop *
+	$guid = (dechex $ad.netbootGUID)
+	$NetworkAddress = $ad.Networkaddress
+	$RoleName = ($ad.description)
+	$WdsServer = $ad.netbootMachineFilePath
+	return @"
+  `$params = @{ 
+    "ComputerName" = "$ComputerName" 
+    “NetbootGuid” = [System.Guid]::new(“$guid”) 
+    "NetworkAddress" = "$NetworkAddress"
+    "RoleName" = "$RoleName"
+    "WdsServer" = "$WdsServer" 
+  }
+  # To prestage, (1) first verify the above, then (2) run this workflow if correct:
+  # New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters `$params -Wait
+ 
+"@
+}
+######################################################################################################
+##  Tools to convert prestage for blade to 2022
+######################################################################################################
+ 
+<# E.g.  Convert-2022PrestageFromAD CH1GR1ADS301
+   will generate this output:
+   =======================
+  $params = @{ 
+    "ComputerName" = "CH1GR1ADS301" 
+    "NetbootGuid" = [guid]"38373238-3537-4d32-3235-333630384750" 
+    "NetworkAddress" = "10.47.144.158;255.255.254.0;10.47.144.1;10.47.137.20,10.47.137.21,10.15.43.20,10.15.43.21"
+    "RoleName" = "CCS-MI-DomCont-F.1" 
+    "WdsServer" = "CH1GR1WDS001" 
+   }
+  # To prestage, (1) first verify the above, then (2) run this workflow if correct:
+  # New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters `$params
+   =======================
+  #>
+<#
+	.SYNOPSIS
+		get Prestage data from AD and prepare it with Server 2022 appropriate values for the specific Cluster
+	.DESCRIPTION
+		get Prestage data from AD
 		We also try to map old SKU/Rolename to new ones which is why
 		we also prompt for the OSVersion
 	.PARAMETER ComputerName
 		A description of the ComputerName parameter.
-	.PARAMETER OSVersion_2012_2016
-		A description of the OSVersion_2012_2016 parameter.  OSVersion_2012_2016 is named to help remember that you
-        need to specify either "2012" or "2016".
 	.EXAMPLE
-				PS C:\> Format-PrestageFromAD -ComputerName 'Value1'
+				PS C:\> Export-PrestageFromAD -ComputerName 'Value1'
 	.NOTES
 		Additional information about the function.
 #>
-function Format-PrestageFromAD
+function Convert-2022PrestageFromAD
 {
 	param
 	(
@@ -736,7 +788,6 @@ function Format-PrestageFromAD
  
 "@
 }
- 
  
 # low level function to help fetch AD guid info and put in proper format
 Function dechex($b)
