@@ -669,7 +669,76 @@ function Sync-OldRolenameToNewOsRolename {
         return $RoleName
 	}
 }
+function ReplaceThirdToLastDigit {
+    param(
+        [string]$str
+    )
 
+    $index = $str.Length - 3
+    return $str.Substring(0, $index) + "8" + $str.Substring($index + 1)
+}
+
+######################################################################################################
+##  Tools to convert prestage for blade to 2022
+######################################################################################################
+ 
+<# E.g.  Convert-2022PrestageFromAD MACHINE101
+   will generate this output:
+   =======================
+  $params = @{ 
+    "ComputerName" = "MACHINE801" 
+    "NetbootGuid" = [guid]"38373238-3537-4d32-3235-333630384750" 
+    "NetworkAddress" = "10.47.144.158;255.255.254.0;10.47.144.1;10.47.137.20,10.47.137.21,10.15.43.20,10.15.43.21"
+    "RoleName" = "2022-Gen5-XXX-A.1" 
+    "WdsServer" = "WDSSERVER" 
+   }
+  # To prestage, (1) first verify the above, then (2) run this workflow if correct:
+  # New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters `$params
+   =======================
+  #>
+<#
+	.SYNOPSIS
+		get Prestage data from AD and prepare it with Server 2022 appropriate values for the specific Cluster
+	.DESCRIPTION
+		get Prestage data from AD
+		We also try to map old SKU/Rolename to new ones which is why
+		we also prompt for the OSVersion
+	.PARAMETER ComputerName
+		A description of the ComputerName parameter.
+	.EXAMPLE
+				PS C:\> Export-PrestageFromAD -ComputerName 'Value1'
+	.NOTES
+		Additional information about the function.
+#>
+function Convert-2022PrestageFromAD
+{
+	param
+	(
+		[Parameter(Mandatory = $true,
+				   Position = 1)]
+		[string]$ComputerName
+	)
+	[string]$ComputerName = $ComputerName.Trim()
+	$ad = get-adcomputer $ComputerName -prop *
+	$guid = (dechex $ad.netbootGUID)
+	$NetworkAddress = $ad.Networkaddress
+	$RoleName = (Sync-OldRolenameToNewOsRolename -RoleName "$($ad.description)")
+	$WdsServer = $ad.netbootMachineFilePath
+	$ConvertedComputerName = ReplaceThirdToLastDigit($ComputerName)
+
+	return @"
+	New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters @{ 
+    "ComputerName" = "$ConvertedComputerName" 
+    “NetbootGuid” = [System.Guid]::new(“$guid”) 
+    "NetworkAddress" = "$NetworkAddress"
+    "RoleName" = "$RoleName"
+    "WdsServer" = "$WdsServer" 
+  } -Wait
+
+  Get-AdComputer "$ConvertedComputerName" -Properties * | Select-Object netbootmirrordatafile
+ 
+"@
+}
  
 ######################################################################################################
 ##  Tools to get prestage data out of AD
@@ -729,65 +798,7 @@ function Export-PrestageFromAD
  
 "@
 }
-######################################################################################################
-##  Tools to convert prestage for blade to 2022
-######################################################################################################
- 
-<# E.g.  Convert-2022PrestageFromAD CH1GR1ADS301
-   will generate this output:
-   =======================
-  $params = @{ 
-    "ComputerName" = "CH1GR1ADS301" 
-    "NetbootGuid" = [guid]"38373238-3537-4d32-3235-333630384750" 
-    "NetworkAddress" = "10.47.144.158;255.255.254.0;10.47.144.1;10.47.137.20,10.47.137.21,10.15.43.20,10.15.43.21"
-    "RoleName" = "CCS-MI-DomCont-F.1" 
-    "WdsServer" = "CH1GR1WDS001" 
-   }
-  # To prestage, (1) first verify the above, then (2) run this workflow if correct:
-  # New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters `$params
-   =======================
-  #>
-<#
-	.SYNOPSIS
-		get Prestage data from AD and prepare it with Server 2022 appropriate values for the specific Cluster
-	.DESCRIPTION
-		get Prestage data from AD
-		We also try to map old SKU/Rolename to new ones which is why
-		we also prompt for the OSVersion
-	.PARAMETER ComputerName
-		A description of the ComputerName parameter.
-	.EXAMPLE
-				PS C:\> Export-PrestageFromAD -ComputerName 'Value1'
-	.NOTES
-		Additional information about the function.
-#>
-function Convert-2022PrestageFromAD
-{
-	param
-	(
-		[Parameter(Mandatory = $true,
-				   Position = 1)]
-		[string]$ComputerName
-	)
-	[string]$ComputerName = $ComputerName.Trim()
-	$ad = get-adcomputer $ComputerName -prop *
-	$guid = (dechex $ad.netbootGUID)
-	$NetworkAddress = $ad.Networkaddress
-	$RoleName = (Sync-OldRolenameToNewOsRolename -RoleName "$($ad.description)")
-	$WdsServer = $ad.netbootMachineFilePath
-	return @"
-  `$params = @{ 
-    "ComputerName" = "$ComputerName" 
-    “NetbootGuid” = [System.Guid]::new(“$guid”) 
-    "NetworkAddress" = "$NetworkAddress"
-    "RoleName" = "$RoleName"
-    "WdsServer" = "$WdsServer" 
-  }
-  # To prestage, (1) first verify the above, then (2) run this workflow if correct:
-  # New-GenericWorkflow -WorkflowName "PrestageServerWorkflow" -WorkflowParameters `$params -Wait
- 
-"@
-}
+
  
 # low level function to help fetch AD guid info and put in proper format
 Function dechex($b)
