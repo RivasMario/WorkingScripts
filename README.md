@@ -4,6 +4,7 @@ Scripts used for work and Study
 
 Everything you see is used for work, so it is kept in a sloppy arrangement. More power to you if it helps you.
 
+https://24.17.229.82:8006/
 ## LINUX
 
 Space for Linux studies.
