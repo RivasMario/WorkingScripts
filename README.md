@@ -5,6 +5,12 @@ Scripts used for work and Study
 Everything you see is used for work, so it is kept in a sloppy arrangement. More power to you if it helps you.
 
 https://24.17.229.82:8006/
+
+root@pve:~# lspci -n -s 00:02.0
+00:02.0 0300: 8086:0412 (rev 06)
+
+echo "options vfio-pci ids=8086:0412 disable_vga=1"> /etc/modprobe.d/vfio.conf
+
 ## LINUX
 
 Space for Linux studies.
