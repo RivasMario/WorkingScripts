@@ -1,5 +1,5 @@
 
-function Global:Run-Phantom-ADS-Health-Check {
+function Global:Test-ADSHealthCheck {
 
     $ErrorActionPreference = "SilentlyContinue"
     
@@ -15,16 +15,16 @@ function Global:Run-Phantom-ADS-Health-Check {
     [string]$server
     )
     
-    #$event_is = Get-EventLog -computername $server -Source 'Run-Phantom-ADS-Health-Check' -LogName Application | select -first 1
+    #$event_is = Get-EventLog -computername $server -Source 'Test-ADSHealthCheck' -LogName Application | select -first 1
     #if(!($event_is)){
-    New-EventLog -computername $server -Source 'Run-Phantom-ADS-Health-Check' -LogName Application
+    New-EventLog -computername $server -Source 'Test-ADSHealthCheck' -LogName Application
     #}
     
-    Write-EventLog -computername $server -LogName "Application" -Source "Run-Phantom-ADS-Health-Check" -EventID $event_ID -EntryType $type -Message "$log" -Category 1 -RawData 10,20
+    Write-EventLog -computername $server -LogName "Application" -Source "Test-ADSHealthCheck" -EventID $event_ID -EntryType $type -Message "$log" -Category 1 -RawData 10,20
     
     }
     
-    Write_Log -server $from_Server -log "Run-Phantom-ADS-Health-Check powershell module has been initated by $user" -event_ID 1001 -type Information
+    Write_Log -server $from_Server -log "Test-ADSHealthCheck powershell module has been initated by $user" -event_ID 1001 -type Information
     
     function Global:colorMyconsole {
     
@@ -39,19 +39,19 @@ function Global:Run-Phantom-ADS-Health-Check {
     Set-PSReadlineOption -TokenKind Parameter DarkGreen
     Set-PSReadlineOption -TokenKind Variable DarkCyan
     Set-PSReadlineOption -TokenKind Member DarkGray
-    clear
+    Clear-Host
     } 
     
     colorMyconsole
     
-    cls
+    Clear-Host
     
     $timestamp = get-date
     $n = 0
     $array = @()
     
     #$ads_servers = (Get-ADComputer -filter 'Objectclass -eq "Computer"' | where-object {$_.dnshostname -like "*5ADS*"}).dnshostname | sort
-    $promoted=((get-adcomputer -filter 'Objectclass -eq "computer"' | where-object {$_.DistinguishedName -like "*OU=DOMAIN*"})).dnshostname | sort
+    $promoted=((get-adcomputer -filter 'Objectclass -eq "computer"' | where-object {$_.DistinguishedName -like "*OU=DOMAIN*"})).dnshostname | Sort-Object
     
     $ads_servers= (
     'BN1RGR5ADS601.GRN005.US.MSFT.NET',
@@ -72,7 +72,7 @@ function Global:Run-Phantom-ADS-Health-Check {
     'SN5AGR5ADS604.GRN005.US.MSFT.NET'
     )
     
-    $ads_servers | % {
+    $ads_servers | ForEach-Object {
     
     Write_Log -server $_ -log "Phantom-ADS-Health-Check is initated by $user from $from_Server machine and scaned for the $($_)" -event_ID 1001 -type Information
     
@@ -92,7 +92,7 @@ function Global:Run-Phantom-ADS-Health-Check {
     "DHCP"=$_.DHCP;
     "Promoted"=$_.Promoted;
     "hidden_flag"="$_.flag"
-    } | select "ID","Server","CPU","Power On/Off","0x800705B4","NTDS","ADWS","DNS","DNS Cache","KDC","w32Time","netlogon","DHCP","Promoted","Flag"
+    } | Select-Object "ID","Server","CPU","Power On/Off","0x800705B4","NTDS","ADWS","DNS","DNS Cache","KDC","w32Time","netlogon","DHCP","Promoted","Flag"
     
     $n++ 
     $obj.ID = '{0:d2}' -f $n + "  "
@@ -145,7 +145,7 @@ function Global:Run-Phantom-ADS-Health-Check {
     #$s = New-CimSession -ComputerName $_
     #$cpu_usage = (Get-CimInstance win32_processor -CimSession $s | Measure-Object -Property LoadPercentage -Average).Average
     
-    $cpu_usage=((get-Counter -ComputerName $_ '\Processor(_Total)\% Processor Time' -SampleInterval 3 -MaxSamples 3 | select -last 1).CounterSamples).CookedValue
+    $cpu_usage=((get-Counter -ComputerName $_ '\Processor(_Total)\% Processor Time' -SampleInterval 3 -MaxSamples 3 | Select-Object -last 1).CounterSamples).CookedValue
     
     $usage_percent = "$cpu_usage"
     $usage_percent=[math]::Round($usage_percent)
@@ -200,7 +200,7 @@ function Global:Run-Phantom-ADS-Health-Check {
     ''
     }
     
-    clear
+    Clear-Host
     
     
     #$array | select "ID","Server","Power On/Off","0x800705B4","NTDS","ADWS","DNS","DNS Cache","KDC","w32Time","netlogon","DHCP" | Format-Table
@@ -426,5 +426,5 @@ function Global:Run-Phantom-ADS-Health-Check {
     
     }
     
-    Run-Phantom-ADS-Health-Check
+    Test-ADSHealthCheck
     
