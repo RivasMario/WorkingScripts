@@ -514,10 +514,10 @@ Function Get-BladeSettingsVerification ($servername){
     $e1 = $regpath1.GetValue("Enabled")
 
     Write-Host "`nTLS Reg Settings`n" -ForegroundColor Cyan
-    Write-Host "TLS1.0 Disabled by Defalut: $dbd0"
+    Write-Host "TLS1.0 Disabled by default: $dbd0"
     Write-Host "TLS1.0 Enabled: $e0"
     
-    Write-Host "`nTLS1.1 Disabled by Defalut: $dbd1"
+    Write-Host "`nTLS1.1 Disabled by default: $dbd1"
     Write-Host "TLS1.1 Enabled: $e1`n"
 
 }
