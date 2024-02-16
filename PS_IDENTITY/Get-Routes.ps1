@@ -46,7 +46,7 @@ function Get-VLanFromIP {
 
 }
 
-function Check-Route {
+function Get-Route {
 
     Param (
         
@@ -76,7 +76,7 @@ function Check-Route {
 
 
 }
-function Check-Route6 {
+function Get-Route6 {
 
     Param (
         
@@ -88,7 +88,7 @@ function Check-Route6 {
     )
    
     
-    $routes6 = Get-Netroute|Select DestinationPrefix,NextHop
+    $routes6 = Get-Netroute|Select-Object DestinationPrefix,NextHop
   
     if ($routes6 | Where-Object {$_.DestinationPrefix -eq $Destination6 -and $_.NextHop -eq $Gateway6})
     {
@@ -142,7 +142,7 @@ function Add-Route6 {
     Invoke-Expression $routeCommand
 }
 
-function Delete-Route {
+function Remove-Route {
 
     Param (
         
@@ -159,7 +159,7 @@ function Delete-Route {
     $routeCommand = "route delete $Destination mask $Mask $Gateway "
     Invoke-Expression $routeCommand
 }
-function Delete-Route6 {
+function Remove-Route6 {
 
     Param (
         
@@ -178,7 +178,7 @@ function Delete-Route6 {
 
 
 
-$nic = gwmi -computer . -class "win32_networkadapterconfiguration" | Where-Object {$_.defaultIPGateway -ne $null}
+$nic = Get-WmiObject -computer . -class "win32_networkadapterconfiguration" | Where-Object {$_.defaultIPGateway -ne $null}
 $IP = $nic.ipaddress | select-object -first 1
 $ClientMask = $nic.ipsubnet | select-object -first 1
 
@@ -207,12 +207,12 @@ if ($node)
         {
         
      #       Write-Host "Validating"
-            if (!(Check-Route -Destination $dest -Mask $mask -Gateway $gateway))
+            if (!(Get-Route -Destination $dest -Mask $mask -Gateway $gateway))
             {
                 Write-Host "Route Does NOT exist.  Adding"
                 Add-Route -Destination $dest -Mask $mask -Gateway $gateway
 
-                if (!(Check-Route -Destination $dest -Mask $mask -Gateway $gateway))
+                if (!(Get-Route -Destination $dest -Mask $mask -Gateway $gateway))
                 {
                     # Throw an error
                     Write-Host "ERROR Adding route"
@@ -226,12 +226,12 @@ if ($node)
         elseif ($r.action -eq "delete")
         {
             Write-Host "Route should not be present: $dest $mask $gateway"
-            if (Check-Route -Destination $dest -Mask $mask -Gateway $gateway)
+            if (Get-Route -Destination $dest -Mask $mask -Gateway $gateway)
             {
                 Write-Host "Route DOES exist.  Deleting..."
-                Delete-Route -Destination $dest -Mask $mask -Gateway $gateway
+                Remove-Route -Destination $dest -Mask $mask -Gateway $gateway
 
-                if (Check-Route -Destination $dest -Mask $mask -Gateway $gateway)
+                if (Get-Route -Destination $dest -Mask $mask -Gateway $gateway)
                 {
                     # Throw an error
                     Write-Host "ERROR Deleting route"
@@ -251,16 +251,16 @@ if ($node)
 		$gateway6 = $r6.nextHop6
 		
 #		Write-Host "Checking IPv6 Route dest6 = $dest6 gateway6 = $gateway6"
-#		Check-Route6 -Destination6 $dest6 -Gateway6 $gateway6
+#		Get-Route6 -Destination6 $dest6 -Gateway6 $gateway6
 		if ($r6.action6 -eq "add")
 		{	
 			Write-Host "Verifying IPv6 Routing"
-			if (!(Check-Route6 -Destination6 $dest6 -Gateway6 $gateway6))
+			if (!(Get-Route6 -Destination6 $dest6 -Gateway6 $gateway6))
 			{
 				Write-Host "IPv6 Route Does NOT exist. Adding.."
 				Add-Route6 -Destination6 $dest6 -Gateway6 $gateway6 
 				
-				if (!(Check-Route6 -Destination6 $dest6 -Gateway6 $gateway6))
+				if (!(Get-Route6 -Destination6 $dest6 -Gateway6 $gateway6))
 				{
 					#Throw an error
 					Write-Host "Error adding IPV6 Route"
@@ -274,12 +274,12 @@ if ($node)
         elseif ($r.action -eq "delete")
         {
             Write-Host "Route $dest6 $gateway6 should not be present"
-            if (Check-Route6 -Destination6 $dest6 -Gateway6 $gateway6)
+            if (Get-Route6 -Destination6 $dest6 -Gateway6 $gateway6)
             {
                 Write-Host "Route DOES exist.  Deleting..."
-                Delete-Route6 -Destination6 $dest6 -Gateway6 $gateway6
+                Remove-Route6 -Destination6 $dest6 -Gateway6 $gateway6
 
-                if (Check-Route6 -Destination6 $dest6 -Gateway6 $gateway6)
+                if (Get-Route6 -Destination6 $dest6 -Gateway6 $gateway6)
                 {
                     # Throw an error
                     Write-Host "ERROR Deleting route"
