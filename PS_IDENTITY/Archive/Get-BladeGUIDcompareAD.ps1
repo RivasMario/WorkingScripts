@@ -36,7 +36,7 @@ function Test-MachineConnection {
 
     try {
         # Test the connection to the machine
-        $pingResult = Test-Connection -ComputerName $MachineName -Count 1 -ErrorAction SilentlyContinue
+        $pingResult = Test-Connection -ComputerName $MachineName -Count 1 -ErrorAction Stop
 
         # Check if the ping was successful
         if ($null -ne $pingResult.ResponseTime) {
@@ -140,3 +140,81 @@ $csvFilePath = Join-Path -Path $desktopPath -ChildPath "BladeInformation.csv"
 $BladeInformationArray | Export-Csv -Path $csvFilePath -NoTypeInformation
 
 Write-Host "CSV file created at: $csvFilePath"
+
+# Display the hashtable
+#$BladeGuidsHashTable | f
+
+#$UnscrambledGUIDArray = @()
+
+<#
+ForEach ($guid in $BladeGuidsHashTable) {
+    $UnscrambledGUID = $guid.ToString()
+    $str = $UnscrambledGUID.split("-")
+    $Netbootguid = "$($str[4].substring(4,8))"+"-"+"$($str[4].substring(0,4))"+"-"+"$($str[3])"+"-"+"$($str[2].Substring(2,2))$($str[2].Substring(0,2))"+"-"+"$($str[1].Substring(2,2))$($str[1].Substring(0,2))$($str[0].Substring(6,2))$($str[0].Substring(4,2))$($str[0].Substring(2,2))$($str[0].Substring(0,2))"
+    $UnscrambledGUIDArray += "$Netbootguid"
+    Write-Host "Unscrambled Netbootguid is $Netbootguid"
+}
+#>
+
+<#
+ForEach ($netbootGUID in $UnscrambledGUIDArray) {
+    $netbootGUIDBytes = [System.Guid]::Parse($netbootGUID).ToByteArray()
+    $BladeName = (Get-ADComputer -Filter { netbootGUID -eq $netbootGUIDBytes}).name
+    $PingBoolean = Test-MachineConnection($BladeName)
+    Write-Host "The Blade computer name is $BladeName and the ping back is $PingBoolean" 
+}
+#>
+
+#$BladeID = "23"
+#$Machine = "P20RGR5IDL104"
+
+#$BladeGuidsHashTable = @{}
+
+<#
+24..13 | ForEach{
+    $BladeInformation = Get-BladeInfo -ChassisManager $ChassisManager -BladeID $_ -IncludeAdditionalInfo -ForceRefresh
+    $BladeGuid = $BladeInformation.BladeGuid
+    $BladePowerState = $BladeInformation.powerstate
+    $BladeID = $BladeInformation.BladeID
+    $BladeGuidsHashTable.Add("$BladeGuid",$BladePowerState,$BladeID)
+    Write-Host "Added $BladeGuid to the array"
+    }
+#>
+
+<#
+Get-TopologyMachines BN1RGR5DS004G03 -All
+#Test-MachineConnection($Machine)
+
+# Specify the byte array representing the netbootGUID from Active Directory
+$netbootGUIDBytes = (Get-ADObject -Filter {Name -eq "BN1RGR5DS004G03"} -Properties netbootGUID).netbootGUID
+
+# Create a Guid object from the byte array
+$guid = New-Object Guid (,$netbootGUIDBytes)
+
+# Convert the Guid object to a string representation
+$guidString = $guid.ToString()
+
+# Display the GUID string
+Write-Host "GUID: $guidString"
+
+    $netbootGUIDBytes = [System.Guid]::Parse($guidString).ToByteArray()
+    $BladeName = (Get-ADComputer -Filter { netbootGUID -eq $netbootGUIDBytes}).name
+    $PingBoolean = Test-MachineConnection($BladeName)
+    Write-Host "The Blade computer name is $BladeName and the ping back is $PingBoolean" 
+#>
+
+
+<#
+function Ping-Machine {
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$InputVariable
+    )
+        if ([string]::IsNullOrEmpty($InputVariable)) {
+        throw "Error: Input variable cannot be blank."
+    }
+    $pingresult = Get-CimInstance win32_pingstatus -f "address='$machinename'"
+    if($pingresult.statuscode -eq 0) {$true} else {$false}
+}
+#>
+
