@@ -503,23 +503,14 @@ Function Get-BladeSettingsVerification ($servername){
     $pp = Get-WmiObject -Class win32_powerplan -Namespace root\cimv2\power -ComputerName $servername -Filter "isActive='true'" | Select-Object ElementName 
     $pp.ElementName
 
-    $reg0 = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey([Microsoft.Win32.RegistryHive]"LocalMachine", $servername)
-    $regpath0 = $reg0.OpenSubKey("SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client\")
-    $dbd0 = $regpath0.GetValue("DisabledByDefault")
-    $e0 = $regpath0.GetValue("Enabled")
-
-    $reg1 = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey([Microsoft.Win32.RegistryHive]"LocalMachine", $servername)
-    $regpath1 = $reg1.OpenSubKey("SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client\")
-    $dbd1 = $regpath1.GetValue("DisabledByDefault")
-    $e1 = $regpath1.GetValue("Enabled")
+	$Reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('LocalMachine', $servername)
+	$RegKey= $Reg.OpenSubKey("SOFTWARE\Policies\Microsoft\Cryptography\Configuration\SSL\00010002")
+	$NetbackupVersion1 = $RegKey.GetValue("Functions")
+	$NetbackupVersion1Split = $NetbackupVersion1 -split ","
 
     Write-Host "`nTLS Reg Settings`n" -ForegroundColor Cyan
-    Write-Host "TLS1.0 Disabled by default: $dbd0"
-    Write-Host "TLS1.0 Enabled: $e0"
+    Write-Host "TLS CupherSuites are:`n $NetbackupVersion1Split"
     
-    Write-Host "`nTLS1.1 Disabled by default: $dbd1"
-    Write-Host "TLS1.1 Enabled: $e1`n"
-
 }
 
  
