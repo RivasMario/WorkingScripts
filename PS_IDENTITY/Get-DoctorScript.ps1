@@ -506,10 +506,10 @@ Function Get-BladeSettingsVerification ($servername){
 	$Reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('LocalMachine', $servername)
 	$RegKey= $Reg.OpenSubKey("SOFTWARE\Policies\Microsoft\Cryptography\Configuration\SSL\00010002")
 	$NetbackupVersion1 = $RegKey.GetValue("Functions")
-	$NetbackupVersion1Split = $NetbackupVersion1 -split ","
+
 
     Write-Host "`nTLS Reg Settings`n" -ForegroundColor Cyan
-    Write-Host "TLS CupherSuites are:`n $NetbackupVersion1Split"
+    Write-Host "TLS CupherSuites are:`n" $NetbackupVersion1 
     
 }
 
