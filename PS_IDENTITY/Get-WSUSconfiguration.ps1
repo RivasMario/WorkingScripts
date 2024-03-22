@@ -17,7 +17,7 @@ Set-PSReadlineOption -TokenKind Member DarkGray
 } 
 
 colorMyconsole
-
+<#.\load-wsusconfigmodule.ps1 configure-2016WSUS-server -SqlSysClr:$True -RepViewer:$True -wsusDirPath 'e:\wsus' -tempDir 'C:\$_.temp.jjs.workflow\' -configWSUS:$True -declineUpdates:$false -definitionApprov:$True -minorApprov:$True -rundefRule:$True -wid_WSUS WID#>
 function Global:configure-2016WSUS-server{
 
 [CmdletBinding()]param(  
