@@ -105,8 +105,7 @@ foreach ($ChassisManager in $ChassisManagers) {
 
     $UUID = Convert-BladeGUID("$BladeGuid")
     $BladeName = Resolve-UUIDByteArrayADName("$UUID")
-    $PingBoolean = Test-MachineConnection("$BladeName")
-    
+    $PingBoolean = if ($BladeName) { Test-MachineConnection $BladeName } else { $false }
 
     $BladeInformationObject = New-Object -TypeName PSObject
     $BladeInformationObject | Add-Member -Name 'BladeID' -MemberType Noteproperty -Value $BladeID
