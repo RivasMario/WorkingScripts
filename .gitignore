@@ -1,6 +1,7 @@
 .ssh/
 .vscode/
 .devcontainer/
+.PWSH_IDENTITY/
 
 ###
 # CDDS Specific
