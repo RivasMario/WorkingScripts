@@ -1,4 +1,4 @@
-& (Join-Path (Get-ChildItem 'C:\Program Files\DmsClientCmdLets' | Sort | select -Last 1).FullName 'grn005\DmsClientCommands.ps1')
+& (Join-Path (Get-ChildItem 'C:\Program Files\DmsClientCmdLets' | Sort | Select-Object -Last 1).FullName 'grn005\DmsClientCommands.ps1')
 
 $P20A_DMS_IPS = (Get-Item grn005:\P20-GRN005-ANCHOR\10.19.104.0\10.19.104.*).Name
 
