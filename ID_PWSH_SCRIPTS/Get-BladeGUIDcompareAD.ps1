@@ -72,6 +72,7 @@ function Resolve-UUIDByteArrayADName {
 #Prestaging the hashtable
 $BladeInformationArray = @()
 
+<#
 $ChassisManagers = @(
 "P20AGR5CMCA104B",
 "P20AGR5CMCA104M",
@@ -89,7 +90,7 @@ $ChassisManagers = @(
 "P20AGR5CMCA109M",
 "P20AGR5CMCA109T"
 )
-<#
+
 $ChassisManagers = @(
 "P20RGR5CMCA110B",
 "P20RGR5CMCA110M",
